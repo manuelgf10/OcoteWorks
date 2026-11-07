@@ -97,6 +97,16 @@
   </div>
 </section>
 
+<figure class="foto" aria-label="{{photo_alt}}">
+  <picture>
+    <source media="(max-width:700px)" srcset="/assets/photos/field-test-m-900.webp" type="image/webp">
+    <source srcset="/assets/photos/field-test-1200.webp 1200w, /assets/photos/field-test-2400.webp 2400w" sizes="100vw" type="image/webp">
+    <img src="/assets/photos/field-test-1600.jpg" alt="{{photo_alt}}" width="1600" height="914" loading="lazy" decoding="async">
+  </picture>
+  <img class="foto-logo" src="/assets/logo-carbon.png" alt="" aria-hidden="true" loading="lazy">
+  <figcaption><span lang="en">Prove it in use</span><span>{{photo_cap}}</span></figcaption>
+</figure>
+
 <section class="servicios" id="what">
   <div class="wrap">
     <div class="sec-head">

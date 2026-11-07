@@ -61,6 +61,8 @@ EN = dict(
         value("Prove it in use", "We use what we make before we offer it. No part leaves without time on the bike."),
         value("Go further", "We try new processes and take things where they’re used. One new technique per project."),
     ]),
+    photo_alt="A rider on an adventure motorcycle crossing a desert flat at sunset",
+    photo_cap="Field testing · Northern Mexico",
     what_eyebrow="Services", what_h2="What we do",
     what_p="We take an idea from sketch to finished part. Hire us for a single stage or the whole development.",
     services="".join([
@@ -115,6 +117,8 @@ ES = dict(
         value("Prove it in use", "Lo que hacemos se usa antes de ofrecerse. Ninguna pieza sale sin rodar en la moto."),
         value("Go further", "Probar procesos nuevos y llevar las cosas a donde se usan. Una técnica nueva por proyecto."),
     ]),
+    photo_alt="Motociclista en moto de aventura cruzando una planicie del desierto al atardecer",
+    photo_cap="Pruebas en campo · Norte de México",
     what_eyebrow="Servicios", what_h2="Qué hacemos",
     what_p="Llevamos una idea desde el boceto hasta la pieza terminada. Puedes contratarnos para una etapa o para todo el desarrollo.",
     services="".join([
