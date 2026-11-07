@@ -177,6 +177,5 @@ footer p.meta a{color:var(--marfil);text-decoration:none;border-bottom:1px solid
 /* foto de portada */
 .hero-foto{margin:clamp(40px,6vw,80px) 0 0}
 .hero-foto picture,.hero-foto img{display:block;width:100%}
-.hero-foto img{aspect-ratio:16/9;height:auto;object-fit:cover;border:3px solid var(--carbon);border-radius:var(--r-md)}
+.hero-foto img{height:auto;border:3px solid var(--carbon);border-radius:var(--r-md)}
 .hero-foto .cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font:400 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--grafito);padding:10px 0 14px}
-@media (max-width:700px){.hero-foto img{aspect-ratio:4/3}}
