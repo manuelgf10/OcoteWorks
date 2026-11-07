@@ -173,3 +173,10 @@ footer p.meta a{color:var(--marfil);text-decoration:none;border-bottom:1px solid
 .foto figcaption{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:16px;padding:14px var(--pad);background:linear-gradient(transparent,rgba(23,23,26,.55));color:var(--marfil);font:400 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .foto figcaption span:first-child{color:var(--cempasuchil)}
 @media (max-width:700px){.foto{height:auto;aspect-ratio:4/5}.foto picture img{object-position:center 60%}.foto .foto-logo{left:7%;top:27%;width:60%;opacity:.22}.foto figcaption{flex-direction:column;gap:4px}}
+
+/* foto de portada */
+.hero-foto{margin:clamp(40px,6vw,80px) 0 0}
+.hero-foto picture,.hero-foto img{display:block;width:100%}
+.hero-foto img{aspect-ratio:16/9;height:auto;object-fit:cover;border:3px solid var(--carbon);border-radius:var(--r-md)}
+.hero-foto .cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font:400 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--grafito);padding:10px 0 14px}
+@media (max-width:700px){.hero-foto img{aspect-ratio:4/3}}
