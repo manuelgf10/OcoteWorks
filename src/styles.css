@@ -65,8 +65,9 @@ p{margin:0}
 .hero h1 em{font-style:normal;color:var(--carbon);background:linear-gradient(transparent 62%,var(--cempasuchil) 62%,var(--cempasuchil) 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .hero .lead{margin-top:28px;max-width:36ch;font-size:clamp(18px,1.6vw,21px)}
 .hero .ctas{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
-.hero .mark{justify-self:center;width:min(100%,520px);filter:drop-shadow(6px 10px 24px rgba(23,23,26,.22))}
-@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero .mark{order:-1;width:min(78%,360px);justify-self:start}}
+.hero-grid>picture{display:block;justify-self:center;width:min(100%,520px)}
+.hero .mark{width:100%;filter:drop-shadow(6px 10px 24px rgba(23,23,26,.22))}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-grid>picture{order:-1;width:min(78%,360px);justify-self:start}}
 .cerro{margin:clamp(40px,6vw,80px) 0 0;position:relative}
 .cerro svg{display:block;width:100%;height:auto}
 @media (max-width:600px){.cerro .cap span:nth-child(2){display:none}}

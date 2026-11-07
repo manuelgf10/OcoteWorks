@@ -8,6 +8,7 @@ Lee src/page.html + src/styles.css y escribe:
   /es/index.html   (español)
   /assets/styles.css
   /sitemap.xml
+  /404.html
 Para cambiar textos, edita los diccionarios EN y ES de abajo.
 """
 import hashlib
@@ -147,6 +148,43 @@ ES = dict(
 )
 
 
+def jsonld(lang, url, description):
+    import json
+    data = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://ocoteworks.com/#org",
+                "name": "OcoteWorks",
+                "url": "https://ocoteworks.com/",
+                "logo": "https://ocoteworks.com/assets/logo-carbon.png",
+                "image": "https://ocoteworks.com/og-image.png",
+                "email": "hola@ocoteworks.com",
+                "slogan": "Rooted in Mexico. Made to go further.",
+                "description": description,
+                "address": {"@type": "PostalAddress", "addressLocality": "Monterrey",
+                            "addressRegion": "Nuevo León", "addressCountry": "MX"},
+                "areaServed": "MX",
+                "sameAs": SAME_AS,
+            },
+            {
+                "@type": "WebSite",
+                "@id": url + "#website",
+                "url": url,
+                "name": "OcoteWorks",
+                "inLanguage": lang,
+                "publisher": {"@id": "https://ocoteworks.com/#org"},
+            },
+        ],
+    }
+    return json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+
+
+# Perfiles públicos de la marca (Instagram, LinkedIn, Behance...). Agregar las URL aquí.
+SAME_AS = []
+
+
 def render(tpl, data):
     out = tpl
     for k, v in data.items():
@@ -167,8 +205,13 @@ def main():
     for data, path in [(EN, "index.html"), (ES, os.path.join("es", "index.html"))]:
         full = os.path.join(ROOT, path)
         os.makedirs(os.path.dirname(full), exist_ok=True)
-        page = render(tpl, dict(data, cerro_path=cerro, version=version))
+        page = render(tpl, dict(data, cerro_path=cerro, version=version,
+                                jsonld=jsonld(data["lang"], data["url"], data["description"])))
         open(full, "w", encoding="utf-8").write(page)
+
+    # Página 404 (bilingüe, una sola)
+    p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version)
+    open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(p404)
 
     alt = ('<xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/"/>'
            '<xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/"/>')

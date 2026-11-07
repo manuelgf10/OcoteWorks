@@ -33,6 +33,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap">
 <link rel="stylesheet" href="/assets/styles.css?v={{version}}">
+<script type="application/ld+json">{{jsonld}}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -46,7 +47,7 @@
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="{{home}}#inicio" aria-label="{{home_label}}"><img src="/assets/logo-carbon.png" alt="OcoteWorks" width="88"></a>
+    <a class="brand" href="{{home}}#inicio" aria-label="{{home_label}}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp"><img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>
     <nav class="nav" aria-label="{{nav_label}}">
       <a class="sec" href="#what">{{nav_what}}</a>
       <a class="sec" href="#process">{{nav_process}}</a>
@@ -70,7 +71,7 @@
           <a class="btn ghost" href="#process">{{cta2}}</a>
         </div>
       </div>
-      <img class="mark" src="/assets/logo-sticker.png" alt="" width="720" height="513">
+      <picture><source srcset="/assets/logo-sticker-720.webp" type="image/webp"><img class="mark" src="/assets/logo-sticker.png" alt="" width="720" height="513" fetchpriority="high"></picture>
     </div>
     <figure class="cerro" aria-label="{{cerro_label}}">
       <svg viewBox="-4 -252 1008 284" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
@@ -152,7 +153,7 @@
 
 <footer>
   <div class="wrap">
-    <img src="/assets/logo-marfil.png" alt="OcoteWorks" width="128">
+    <picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>
     <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
     <p class="meta">{{foot_meta}}<br>© 2026 OcoteWorks</p>
   </div>
