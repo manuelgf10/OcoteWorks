@@ -1,0 +1,161 @@
+
+/* OcoteWorks · Brand Guidelines v2.0
+   Tipografía: Dharma Gothic E (titulares) · DIN 2014 (texto) · IBM Plex Mono (técnico) — kit Adobe Fonts atu2ijd */
+:root{
+  /* núcleo */
+  --carbon:#17171a; --marfil:#f4ead7; --cempasuchil:#edb544;
+  /* neutros de soporte */
+  --papel:#fbf7ef; --piedra:#d8cdb8; --grafito:#5c574f; --carbon-2:#232327; --linea-osc:#3a393d; --tinta-osc:#b3ab9c;
+  /* extendida */
+  --ocote:#e48233; --ocote-osc:#6e3602; --talavera:#2750a2;
+  --display:"dharma-gothic-e","Barlow Condensed","Arial Narrow",sans-serif;
+  --sans:"din-2014",Barlow,system-ui,sans-serif;
+  --mono:"ibm-plex-mono",ui-monospace,"SFMono-Regular",monospace;
+  --wrap:1200px; --pad:clamp(20px,5vw,64px);
+  --r-sm:3px; --r-md:8px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--marfil);color:var(--carbon);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--talavera);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.9;margin:0;text-transform:uppercase;letter-spacing:.005em}
+p{margin:0}
+.ico{width:48px;height:48px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* etiqueta de sección (como en la guía: barra cempasúchil + rótulo mono) */
+.eyebrow{display:flex;align-items:center;gap:14px;font:400 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--grafito);margin-bottom:18px}
+.eyebrow::before{content:"";width:40px;height:6px;background:var(--cempasuchil);flex:none}
+.on-dark .eyebrow{color:var(--tinta-osc)}
+
+/* header */
+.top{position:sticky;top:0;z-index:10;background:rgba(244,234,215,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--piedra)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px}
+.top .brand img{width:88px}
+.nav{display:flex;align-items:center;gap:30px;font:700 15px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.nav a{text-decoration:none}
+.nav a:not(.btn):hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;text-decoration-color:var(--cempasuchil)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:700 22px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:12px 22px 11px;border:3px solid var(--carbon);border-radius:var(--r-md);background:var(--cempasuchil);color:var(--carbon);transition:background .15s,color .15s}
+.btn:hover{background:var(--carbon);color:var(--marfil)}
+.btn.ghost{background:transparent}
+.btn.ghost:hover{background:var(--carbon)}
+.nav .btn{font-size:19px;padding:10px 16px 9px}
+.lang{display:flex;align-items:center;gap:6px;font:400 13px/1 var(--mono);letter-spacing:.08em}
+.lang a{text-decoration:none;padding:6px 4px;color:var(--grafito)}
+.lang a[aria-current]{color:var(--carbon);font-weight:600;box-shadow:inset 0 -3px var(--cempasuchil)}
+.lang span{color:var(--piedra)}
+.nav .btn{white-space:nowrap}
+@media (max-width:760px){.nav a.sec{display:none}.nav{gap:14px}.nav .btn{font-size:16px;padding:9px 12px 8px}}
+
+/* hero sobre retícula (papel de plano, fondo por defecto) */
+.hero{padding:clamp(48px,8vw,104px) 0 0;overflow:hidden;
+  background-color:var(--marfil);
+  background-image:
+    linear-gradient(var(--piedra) 1px,transparent 1px),
+    linear-gradient(90deg,var(--piedra) 1px,transparent 1px),
+    linear-gradient(rgba(216,205,184,.45) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(216,205,184,.45) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;
+  background-position:-1px -1px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(60px,8vw,120px);line-height:.86}
+.hero h1 em{font-style:normal;color:var(--carbon);background:linear-gradient(transparent 62%,var(--cempasuchil) 62%,var(--cempasuchil) 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hero .lead{margin-top:28px;max-width:36ch;font-size:clamp(18px,1.6vw,21px)}
+.hero .ctas{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+.hero .mark{justify-self:center;width:min(100%,520px);filter:drop-shadow(6px 10px 24px rgba(23,23,26,.22))}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero .mark{order:-1;width:min(78%,360px);justify-self:start}}
+.cerro{margin:clamp(40px,6vw,80px) 0 0;position:relative}
+.cerro svg{display:block;width:100%;height:auto}
+@media (max-width:600px){.cerro .cap span:nth-child(2){display:none}}
+.cerro .cap{display:flex;justify-content:space-between;gap:16px;font:400 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--grafito);padding:10px 0 14px}
+
+/* secciones */
+section{padding:clamp(72px,10vw,128px) 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end;margin-bottom:56px}
+.sec-head h2{font-size:clamp(52px,6.4vw,88px)}
+.sec-head p{max-width:46ch;color:var(--grafito)}
+@media (max-width:860px){.sec-head{grid-template-columns:1fr;gap:18px}}
+
+/* qué hacemos */
+.servicios{background:var(--papel);border-top:1px solid var(--piedra);border-bottom:1px solid var(--piedra)}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--carbon);border-radius:var(--r-md);background:var(--papel);overflow:hidden}
+.trio article{padding:32px 30px 36px;border-right:1px solid var(--piedra);position:relative}
+.trio article:last-child{border-right:0}
+.trio .code{position:absolute;top:30px;right:28px;font:400 12px/1 var(--mono);letter-spacing:.08em;color:var(--grafito)}
+.trio .ico{margin-bottom:26px}
+.trio h3{font-size:48px}
+.trio h3 + p{margin-top:12px}
+.trio ul{margin:22px 0 0;padding:0;list-style:none;font:400 14px/1.5 var(--mono);color:var(--grafito)}
+.trio li{padding:9px 0;border-top:1px solid var(--piedra);display:flex;gap:10px}
+.trio li::before{content:"—";color:var(--ocote)}
+@media (max-width:860px){.trio{grid-template-columns:1fr}.trio article{border-right:0;border-bottom:1px solid var(--piedra)}.trio article:last-child{border-bottom:0}}
+
+/* cómo trabajamos */
+.proceso{background:var(--carbon);color:var(--marfil)}
+.proceso .sec-head p{color:var(--tinta-osc)}
+.pasos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));counter-reset:paso}
+.pasos li{counter-increment:paso;padding:0 22px 0 0;position:relative}
+.pasos li::before{content:"0" counter(paso);display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:var(--r-sm);background:var(--cempasuchil);color:var(--carbon);font:700 32px/1 var(--display);padding-top:3px;margin-bottom:22px;position:relative;z-index:1}
+.pasos li::after{content:"";position:absolute;left:56px;right:0;top:28px;border-top:2px dashed var(--linea-osc)}
+.pasos li:last-child::after{display:none}
+.pasos h3{font-size:32px}
+.pasos p{margin-top:10px;font-size:16px;color:#d9d0c0;max-width:26ch}
+@media (max-width:960px){.pasos{grid-template-columns:1fr;gap:30px}.pasos li{display:grid;grid-template-columns:56px 1fr;column-gap:20px;padding:0}.pasos li::before{grid-row:span 2;margin:0}.pasos li::after{left:27px;right:auto;top:56px;bottom:-30px;border-top:0;border-left:2px dashed var(--linea-osc)}.pasos p{margin-top:6px}}
+
+/* el taller */
+.taller-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);align-items:start}
+.taller h2{font-size:clamp(52px,6.4vw,88px)}
+.taller .txt p + p{margin-top:18px}
+.taller .txt{max-width:56ch}
+.raices{margin:0;display:grid;grid-template-columns:auto 1fr;border-top:3px solid var(--carbon)}
+.raices dt,.raices dd{padding:16px 0;border-bottom:1px solid var(--piedra);margin:0}
+.raices dt{font:700 30px/1 var(--display);text-transform:uppercase;padding-right:28px;padding-top:18px}
+.raices dd{color:var(--grafito)}
+@media (max-width:860px){.taller-grid{grid-template-columns:1fr}}
+
+/* franjas a 16.5°, máximo tres */
+.franjas{display:flex;align-items:center;gap:10px;height:64px;margin-top:clamp(56px,7vw,88px)}
+.franjas::before{content:"";flex:1;border-top:3px solid var(--carbon)}
+.franjas i{width:22px;height:64px;transform:skewX(-16.5deg);background:var(--carbon)}
+.franjas i:nth-child(2){background:var(--cempasuchil)}
+.franjas i:nth-child(3){background:var(--ocote);margin-right:12px}
+
+/* contacto */
+.contacto{background:var(--cempasuchil);border-top:3px solid var(--carbon)}
+.contacto .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:48px;align-items:end}
+.contacto .eyebrow{color:var(--carbon)}
+.contacto .eyebrow::before{background:var(--carbon)}
+.contacto h2{font-size:clamp(60px,7.6vw,112px)}
+.contacto p{margin-top:20px;max-width:44ch;font-size:19px}
+.contacto .mail{display:flex;align-items:center;gap:14px;font:700 clamp(28px,2.7vw,38px)/1 var(--display);letter-spacing:.02em;text-decoration:none;border-bottom:4px solid var(--carbon);padding-bottom:10px;white-space:nowrap}
+.contacto .mail .ico{width:36px;height:36px}
+.contacto .mail:hover{color:var(--talavera);border-color:var(--talavera)}
+.contacto small{display:flex;align-items:center;gap:8px;margin-top:14px;font:400 13px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.contacto small .ico{width:20px;height:20px;stroke-width:2.5}
+@media (max-width:860px){.contacto .wrap{grid-template-columns:1fr}}
+
+/* footer */
+footer{background:var(--carbon);color:var(--marfil);padding:56px 0 48px}
+footer .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:end}
+footer img{width:128px}
+footer .lema{font:700 clamp(28px,3vw,40px)/.95 var(--display);text-transform:uppercase;letter-spacing:.02em}
+footer .lema span{color:var(--cempasuchil)}
+footer p.meta{font:400 12px/1.7 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-osc);text-align:right}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}footer p.meta{text-align:left}}
+
+/* manifiesto y valores */
+.manifiesto{background:var(--papel);border-bottom:1px solid var(--piedra)}
+.manifiesto .quote{font:700 clamp(40px,5vw,68px)/.95 var(--display);text-transform:uppercase;max-width:22ch;margin:0}
+.manifiesto .quote span{background:linear-gradient(transparent 60%,var(--cempasuchil) 60%,var(--cempasuchil) 90%,transparent 90%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.manifiesto .body{margin-top:28px;max-width:52ch;font-size:clamp(18px,1.5vw,20px)}
+.manifiesto .body p + p{margin-top:6px}
+.valores{list-style:none;margin:clamp(48px,6vw,72px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.valores li{background:var(--marfil);border:1px solid var(--piedra);border-radius:var(--r-md);padding:28px 26px 30px}
+.valores li::before{content:"";display:block;width:40px;height:6px;background:var(--cempasuchil);margin-bottom:22px}
+.valores h3{font-size:34px}
+.valores p{margin-top:12px;color:var(--grafito);font-size:16px}
+@media (max-width:960px){.valores{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.valores{grid-template-columns:1fr}}

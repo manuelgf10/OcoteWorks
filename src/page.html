@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<meta name="theme-color" content="#17171a">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="{{url}}">
+<link rel="alternate" hreflang="en" href="https://ocoteworks.com/">
+<link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/">
+<link rel="alternate" hreflang="x-default" href="https://ocoteworks.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OcoteWorks">
+<meta property="og:locale" content="{{og_locale}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{url}}">
+<meta property="og:image" content="https://ocoteworks.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{og_alt}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ocoteworks.com/og-image.png">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/atu2ijd.css">
+<!-- Respaldo: Barlow Condensed / Barlow (sustitutos oficiales de la guía). Solo se descargan si el kit de Adobe Fonts no carga. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap">
+<link rel="stylesheet" href="/assets/styles.css?v={{version}}">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- Íconos de línea · retícula 48 u · línea 3 u · margen 4 u · puntas redondas -->
+  <symbol id="i-diseno" viewBox="0 0 48 48"><path d="M8 6v34h34z"/><path d="M15 23v10h10z"/><path d="M8 14h4M8 22h4M8 30h4"/></symbol>
+  <symbol id="i-ingenieria" viewBox="0 0 48 48"><path d="M6 10h36v8H6z"/><path d="M10 18v22l6-6V18"/><path d="M26 18v22l6-6V18"/><path d="M24 6v4M30 6v4M36 6v4"/></symbol>
+  <symbol id="i-fabricacion" viewBox="0 0 48 48"><path d="M18 4h12v14H18z"/><path d="M18 18v18l6 8 6-8V18"/><path d="M18 26l12-5M18 33l12-5"/></symbol>
+  <symbol id="i-correo" viewBox="0 0 48 48"><path d="M6 12h36v24H6z"/><path d="M6 12l18 14 18-14"/></symbol>
+  <symbol id="i-ubicacion" viewBox="0 0 48 48"><path d="M24 44S10 30 10 19a14 14 0 0 1 28 0c0 11-14 25-14 25z"/><circle cx="24" cy="19" r="5"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="{{home}}#inicio" aria-label="{{home_label}}"><img src="/assets/logo-carbon.png" alt="OcoteWorks" width="88"></a>
+    <nav class="nav" aria-label="{{nav_label}}">
+      <a class="sec" href="#what">{{nav_what}}</a>
+      <a class="sec" href="#process">{{nav_process}}</a>
+      <a class="sec" href="#workshop">{{nav_workshop}}</a>
+      <span class="lang"><a href="/" hreflang="en" lang="en"{{cur_en}}>EN</a><span>/</span><a href="/es/" hreflang="es" lang="es"{{cur_es}}>ES</a></span>
+      <a class="btn" href="#contact">{{cta}}</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">{{hero_eyebrow}}</p>
+        <h1>{{hero_h1}}</h1>
+        <p class="lead">{{hero_lead}}</p>
+        <div class="ctas">
+          <a class="btn" href="#contact">{{cta}}</a>
+          <a class="btn ghost" href="#process">{{cta2}}</a>
+        </div>
+      </div>
+      <img class="mark" src="/assets/logo-sticker.png" alt="" width="720" height="513">
+    </div>
+    <figure class="cerro" aria-label="{{cerro_label}}">
+      <svg viewBox="-4 -252 1008 284" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <path d="{{cerro_path}}" fill="#f4ead7" stroke="#17171a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <line x1="0" y1="20" x2="1000" y2="20" stroke="#5c574f" stroke-width="1"/>
+        <line x1="0" y1="12" x2="0" y2="28" stroke="#5c574f" stroke-width="1"/>
+        <line x1="1000" y1="12" x2="1000" y2="28" stroke="#5c574f" stroke-width="1"/>
+      </svg>
+      <figcaption class="cap"><span>Cerro de la Silla</span><span>25.63° N · 100.23° {{west}}</span><span>Monterrey, Nuevo León</span></figcaption>
+    </figure>
+  </div>
+</div>
+
+<section class="manifiesto" id="manifesto">
+  <div class="wrap">
+    <p class="eyebrow">01 · {{man_eyebrow}}</p>
+    <p class="quote">{{man_quote}}</p>
+    <div class="body">{{man_body}}</div>
+    <ul class="valores">
+      {{values}}
+    </ul>
+  </div>
+</section>
+
+<section class="servicios" id="what">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">02 · {{what_eyebrow}}</p><h2>{{what_h2}}</h2></div>
+      <p>{{what_p}}</p>
+    </div>
+    <div class="trio">
+      {{services}}
+    </div>
+  </div>
+</section>
+
+<section class="proceso on-dark" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">03 · {{proc_eyebrow}}</p><h2>{{proc_h2}}</h2></div>
+      <p>{{proc_p}}</p>
+    </div>
+    <ol class="pasos">
+      {{steps}}
+    </ol>
+  </div>
+</section>
+
+<section class="taller" id="workshop">
+  <div class="wrap">
+    <div class="taller-grid">
+      <div class="txt">
+        <p class="eyebrow">04 · {{shop_eyebrow}}</p>
+        <h2>{{shop_h2}}</h2>
+        {{shop_body}}
+      </div>
+      <dl class="raices">
+        {{roots}}
+      </dl>
+    </div>
+  </div>
+  <div class="wrap"><div class="franjas" aria-hidden="true"><i></i><i></i><i></i></div></div>
+</section>
+
+<section class="contacto" id="contact">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">05 · {{con_eyebrow}}</p>
+      <h2>{{con_h2}}</h2>
+      <p>{{con_p}}</p>
+    </div>
+    <div>
+      <a class="mail" href="mailto:hola@ocoteworks.com"><svg class="ico" aria-hidden="true"><use href="#i-correo"/></svg>hola@ocoteworks.com</a>
+      <small><svg class="ico" aria-hidden="true"><use href="#i-ubicacion"/></svg>Monterrey, Nuevo León, {{mexico}}</small>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="/assets/logo-marfil.png" alt="OcoteWorks" width="128">
+    <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
+    <p class="meta">{{foot_meta}}<br>© 2026 OcoteWorks</p>
+  </div>
+</footer>
+</body>
+</html>
