@@ -182,7 +182,9 @@ def jsonld(lang, url, description):
 
 
 # Perfiles públicos de la marca (Instagram, LinkedIn, Behance...). Agregar las URL aquí.
-SAME_AS = []
+SAME_AS = [
+    "https://www.instagram.com/ocote.works/",
+]
 
 
 def render(tpl, data):
