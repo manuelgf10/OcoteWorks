@@ -167,6 +167,12 @@ def jsonld(lang, url, description):
                             "addressRegion": "Nuevo León", "addressCountry": "MX"},
                 "areaServed": "MX",
                 "sameAs": SAME_AS,
+                "founder": {
+                    "@type": "Person",
+                    "name": "Manuel",
+                    "jobTitle": "Industrial Designer",
+                    "sameAs": FOUNDER_SAME_AS,
+                },
             },
             {
                 "@type": "WebSite",
@@ -184,6 +190,12 @@ def jsonld(lang, url, description):
 # Perfiles públicos de la marca (Instagram, LinkedIn, Behance...). Agregar las URL aquí.
 SAME_AS = [
     "https://www.instagram.com/ocote.works/",
+]
+
+# Perfiles personales del fundador.
+FOUNDER_SAME_AS = [
+    "https://www.behance.net/manuelgf",
+    "https://www.linkedin.com/in/manuelgarflo",
 ]
 
 
