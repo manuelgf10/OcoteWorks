@@ -660,13 +660,13 @@ NAV = [("services", "nav_services", "u_services"), ("products", "nav_products", 
 
 
 # Franja superior: coordenadas del taller (izq.) y hora local de Monterrey en vivo (der.).
-STATUS_UI = {"es": ("25.68° N · 100.31° O", "Monterrey, N.L.", "Hora local en Monterrey"),
-             "en": ("25.68° N · 100.31° W", "Monterrey, Mexico", "Local time in Monterrey")}
+STATUS_UI = {"es": ("25° 41′ 03.7″ N, 100° 19′ 02.0″ O", "Monterrey, N.L.", "Hora local en Monterrey"),
+             "en": ("25° 41′ 03.7″ N, 100° 19′ 02.0″ W", "Monterrey, Mexico", "Local time in Monterrey")}
 
 
 def status_bar(d, active=""):
     coords, city, lbl = STATUS_UI[d["lang"]]
-    clock = f'<span class="st-time" aria-label="{lbl}"><time class="st-clock" data-tz="America/Monterrey">--:--</time>&nbsp;CST</span>'
+    clock = f'<span class="st-time" aria-label="{lbl}"><time class="st-clock" data-tz="America/Monterrey">--:--</time><span class="st-tz">&nbsp;CST</span></span>'
     left = (f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>{coords}<span class="st-sep st-city">·</span>'
             f'<span class="st-city">{city}</span>')
     if active == "quote":  # en el cotizador: la máquina arranca con tu proyecto

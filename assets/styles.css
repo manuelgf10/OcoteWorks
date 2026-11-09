@@ -718,3 +718,5 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .st-cnc .st-k .st-time{color:var(--tinta-osc)}
 @media (max-width:900px){.st-cnc .st-feed,.st-cnc .st-k>.st-sep:not(.st-city){display:none}.st-cnc .st-time{display:none}}
 @media (max-width:600px){.st-cnc .st-k{font-size:0}.st-cnc .st-dot{margin-right:0}.st-cnc .st-k::after{content:"MTY";font-size:11px;margin-left:8px}}
+@media (max-width:1020px){.st-cnc .st-city{display:none}}
+@media (max-width:380px){.status{font-size:10px;letter-spacing:.03em}.status .wrap{gap:8px}.st-tz{display:none}}
