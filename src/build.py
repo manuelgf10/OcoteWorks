@@ -659,6 +659,26 @@ NAV = [("services", "nav_services", "u_services"), ("products", "nav_products", 
        ("about", "nav_about", "about_href"), ("journal", "nav_journal", "u_journal")]
 
 
+# Franja "estado del taller": se actualiza editando solo este bloque y volviendo a generar el sitio.
+STATUS = {
+    "date": "2026-11-09",                       # AAAA-MM-DD de la última actualización
+    "href": "u_products",                       # a dónde lleva (clave de URL del diccionario EN/ES)
+    "es": "En banco: OW-01 · prototipo rev 0",
+    "en": "On the bench: OW-01 · prototype rev 0",
+}
+STATUS_UI = {"es": ("Taller", "Act."), "en": ("Workshop", "Upd.")}
+
+
+def status_bar(d):
+    y, m, dd = STATUS["date"].split("-")
+    k, upd = STATUS_UI[d["lang"]]
+    return (f'<div class="status" role="note"><div class="wrap">'
+            f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>{k}</span>'
+            f'<a class="st-t" href="{d[STATUS["href"]]}">{STATUS[d["lang"]]}</a>'
+            f'<time class="st-d" datetime="{STATUS["date"]}">{upd} {dd}.{m}.{y[2:]}</time>'
+            f'</div></div>')
+
+
 def header(d, active, en_url, es_url):
     """Cabecera común: logo, secciones, menú de celular, idioma y botón de cotizar."""
     cur = ' aria-current="page"'
@@ -669,7 +689,7 @@ def header(d, active, en_url, es_url):
     en_cur, es_cur = (cur, "") if d["lang"] == "en" else ("", cur)
     lang = (f'<span class="lang"><a href="{en_url}" hreflang="en" lang="en"{en_cur}>EN</a><span>/</span>'
             f'<a href="{es_url}" hreflang="es" lang="es"{es_cur}>ES</a></span>')
-    return (f'<header class="top"><div class="wrap">'
+    return (status_bar(d) + f'<header class="top"><div class="wrap">'
             f'<a class="brand" href="{d["u_home"]}" aria-label="{d["home_label"]}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp">'
             f'<img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>'
             f'<nav class="nav" aria-label="{d["nav_label"]}">{secs}{menu}{lang}<a class="btn" href="{d["quote_href"]}">{d["cta"]}</a></nav>'

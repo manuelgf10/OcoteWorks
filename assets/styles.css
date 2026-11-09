@@ -699,3 +699,15 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 }
 /* selección con color de marca */
 ::selection{background:var(--cempasuchil);color:var(--carbon)}
+
+/* ---------- Franja "estado del taller" (paso 6) ---------- */
+.status{background:var(--carbon);color:var(--marfil);font:400 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.status .wrap{display:flex;align-items:center;gap:18px;height:34px}
+.st-k{display:inline-flex;align-items:center;gap:10px;color:var(--cempasuchil);flex:none}
+.st-dot{width:8px;height:8px;border-radius:50%;background:var(--cempasuchil);box-shadow:0 0 0 0 rgba(237,181,68,.6);animation:st-pulse 2.4s ease-out infinite}
+@keyframes st-pulse{0%{box-shadow:0 0 0 0 rgba(237,181,68,.55)}70%{box-shadow:0 0 0 7px rgba(237,181,68,0)}100%{box-shadow:0 0 0 0 rgba(237,181,68,0)}}
+.st-t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none;color:var(--marfil)}
+.st-t:hover{color:var(--cempasuchil)}
+.st-t::after{content:" →";color:var(--cempasuchil)}
+.st-d{flex:none;color:var(--tinta-osc)}
+@media (max-width:600px){.status{font-size:11px;letter-spacing:.08em}.status .wrap{gap:12px;height:30px}.st-k{font-size:0;gap:0}.st-d{display:none}}
