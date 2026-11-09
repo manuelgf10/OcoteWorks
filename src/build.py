@@ -124,7 +124,7 @@ EN = dict(
     description="OcoteWorks is an independent design and fabrication workshop in Monterrey, Mexico. We design, engineer and build parts and objects, starting with adventure motorcycles.",
     og_alt="OcoteWorks logo and the tagline Rooted in Mexico. Made to go further.",
     home_label="OcoteWorks, home", nav_label="Main",
-    nav_what="What we do", nav_process="Process", nav_workshop="Workshop",
+    nav_what="What we do", nav_process="Process", nav_workshop="Workshop", menu_label="Menu",
     cta="Start a project", cta2="How we work",
     hero_eyebrow="Design &amp; fabrication · Monterrey, MX",
     hero_h1="Rooted in<br>Mexico.<br><em>Made to go<br>further.</em>",
@@ -281,7 +281,7 @@ ES = dict(
     description="OcoteWorks es un taller independiente de diseño y fabricación en Monterrey, México. Diseñamos, desarrollamos y fabricamos piezas y objetos, empezando por la moto de aventura.",
     og_alt="Logo de OcoteWorks y el lema Rooted in Mexico. Made to go further.",
     home_label="OcoteWorks, inicio", nav_label="Principal",
-    nav_what="Qué hacemos", nav_process="Proceso", nav_workshop="El taller",
+    nav_what="Qué hacemos", nav_process="Proceso", nav_workshop="El taller", menu_label="Menú",
     cta="Cotizar proyecto", cta2="Ver cómo trabajamos",
     hero_eyebrow="Diseño y fabricación · Monterrey, MX",
     hero_h1="<span lang=\"en\">Rooted in<br>Mexico.<br><em>Made to go<br>further.</em></span>",
@@ -496,7 +496,19 @@ FOUNDER_SAME_AS = [
 ]
 
 
+def mobile_menu(d):
+    """Menú desplegable para celular (sin JavaScript). En pantallas grandes se oculta."""
+    h = d["home"]
+    links = [(h + "#what", d["nav_what"]), (h + "#process", d["nav_process"]), (h + "#workshop", d["nav_workshop"]),
+             (d["about_href"], d["nav_about"]), (d["quote_href"], d["cta"])]
+    lis = "".join(f'<li><a href="{u}">{t}</a></li>' for u, t in links)
+    return (f'<details class="m-menu"><summary aria-label="{d["menu_label"]}"><span></span><span></span><span></span></summary>'
+            f'<ul>{lis}</ul></details>')
+
+
 def render(tpl, data):
+    if "nav_what" in data and "{{mobile_menu}}" in tpl:
+        tpl = tpl.replace("{{mobile_menu}}", mobile_menu(data))
     out = tpl
     for k, v in data.items():
         out = out.replace("{{" + k + "}}", v)

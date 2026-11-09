@@ -458,3 +458,17 @@ legend{font:700 15px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase
 @media (max-width:900px){.a-hero-photo{justify-self:start;order:-1}}
 .a-story .a-plate{margin-top:36px;box-shadow:6px 8px 0 var(--carbon)}
 .a-story .a-plate-name{font-size:clamp(36px,3.4vw,48px)}
+
+/* menú en celular */
+.m-menu{display:none;position:relative}
+.m-menu summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:0 10px;border:2px solid var(--carbon);border-radius:var(--r-md);background:var(--marfil)}
+.m-menu summary::-webkit-details-marker{display:none}
+.m-menu summary span{display:block;height:3px;background:var(--carbon);border-radius:1px;transition:transform .15s,opacity .15s}
+.m-menu[open] summary span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.m-menu[open] summary span:nth-child(2){opacity:0}
+.m-menu[open] summary span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.m-menu ul{position:absolute;right:0;top:54px;min-width:230px;list-style:none;margin:0;padding:8px;background:var(--carbon);border-radius:var(--r-md);box-shadow:0 14px 30px rgba(23,23,26,.3);z-index:30}
+.m-menu li a{display:block;white-space:nowrap;padding:13px 14px;color:var(--marfil);font:700 22px/1 var(--display);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border-radius:var(--r-sm)}
+.m-menu li a:hover,.m-menu li a:focus-visible{background:var(--carbon-2);color:var(--cempasuchil)}
+.m-menu li:last-child a{margin-top:6px;background:var(--cempasuchil);color:var(--carbon);text-align:center}
+@media (max-width:760px){.m-menu{display:block;order:3}.nav .btn{display:none}.nav{gap:12px}}
