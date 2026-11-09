@@ -821,3 +821,28 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 
 .cat-ow01 .wrap{max-width:860px}
 .cat-ow01 .w-form{max-width:560px}
+
+/* ---------- Inicio: bloque de tienda ---------- */
+.h-shop{background:var(--carbon);color:var(--marfil)}
+.h-shop .eyebrow{color:var(--tinta-osc)}
+.h-shop-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.h-shop-img{position:relative;display:block;aspect-ratio:16/10;border:3px solid var(--marfil);border-radius:var(--r-md);overflow:hidden;background:#d2d2d2;box-shadow:10px 10px 0 var(--cempasuchil)}
+.h-shop-img picture,.h-shop-img img{display:block;width:100%;height:100%;object-fit:cover}
+.h-shop-img img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){.h-shop-img:hover img{transform:scale(1.04)}}
+.h-shop h2{font-size:clamp(64px,7.5vw,112px);line-height:.86}
+.h-shop-fit{margin-top:14px;font:400 13px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cempasuchil)}
+.h-shop-tag{margin-top:18px;max-width:42ch;color:#d9d0c0}
+.h-shop-price{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:26px;padding-top:20px;border-top:2px solid var(--linea-osc)}
+.h-shop-price > span:first-child{font:700 clamp(44px,4.6vw,60px)/.9 var(--display)}
+.h-shop .pc-st{border-color:var(--marfil);color:var(--marfil)}
+.h-shop .ctas{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap}
+.h-shop .btn.ghost{color:var(--marfil);border-color:var(--marfil)}
+.h-shop .btn.ghost:hover{background:var(--marfil);color:var(--carbon)}
+@media (max-width:900px){.h-shop-grid{grid-template-columns:minmax(0,1fr)}}
+.h-path-render{background:#d2d2d2}
+.h-path-render img{object-fit:cover;object-position:center}
+.h-path-render img{object-fit:contain;padding:8%}
+@media (max-width:860px){.h-path-render img{padding:4% 10%}}
+.h-shop .btn:not(.ghost){border-color:var(--cempasuchil)}
+.h-shop .btn:not(.ghost):hover{background:var(--marfil);border-color:var(--marfil);color:var(--carbon)}

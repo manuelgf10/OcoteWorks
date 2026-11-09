@@ -450,8 +450,8 @@ EN_NEW = dict(
     h_p1_p="Product development for creators and brands: design, engineering, prototypes, packaging and short production runs.",
     h_p1_more="Explore services",
     h_p2_h="Original parts and gear.",
-    h_p2_p="Products we design, build and test ourselves. The first one, a rackless luggage system for adventure motorcycles, is on the bench.",
-    h_p2_more="See what’s coming",
+    h_p2_p="Products we design, build and test ourselves. The first one, a tail rack for the Ténéré 700, is getting its first batch ready.",
+    h_p2_more="Visit the shop",
     h_man="We shape ideas through design, engineering and hands-on work, and we learn by making, testing and using what we build.",
     h_work_h2="Built, tested, documented.",
     h_work_p="Projects from the workshop, documented from sketch to finished part.",
@@ -526,8 +526,8 @@ ES_NEW = dict(
     h_p1_p="Desarrollo de producto para creadores y marcas: diseño, ingeniería, prototipos, empaque y series cortas.",
     h_p1_more="Ver servicios",
     h_p2_h="Piezas y equipo propios.",
-    h_p2_p="Productos que diseñamos, fabricamos y probamos nosotros. El primero, un sistema de equipaje rackless para motos de aventura, está en el banco de trabajo.",
-    h_p2_more="Ver lo que viene",
+    h_p2_p="Productos que diseñamos, fabricamos y probamos nosotros. El primero, una parrilla trasera para la Ténéré 700, prepara su primer lote.",
+    h_p2_more="Ver la tienda",
     h_man="Les damos forma con diseño, ingeniería y trabajo manual, y aprendemos haciendo, probando y usando lo que construimos.",
     h_work_h2="Hecho, probado, documentado.",
     h_work_p="Proyectos del taller, documentados del boceto a la pieza terminada.",
@@ -867,7 +867,7 @@ def main():
             base.update(extra)
             return base
 
-        write(PAGES["home"][i], render(T["home"], ctx("home", jsonld=jsonld(data["lang"], data["url"], data["description"]))))
+        write(PAGES["home"][i], render(T["home"], ctx("home", h_shop=PR.home_feature(PR.PRODUCTS[0], data["lang"], data["u_products"]), jsonld=jsonld(data["lang"], data["url"], data["description"]))))
         write(PAGES["services"][i], render(T["services"], ctx("services", p_title=data["s_title"], p_description=data["s_description"], p_url=data["s_url"])))
         write(PAGES["quote"][i], render(T["quote"], ctx("quote", qversion=qversion, q_privacy=LG.TEXT[data["lang"]]["q_privacy"])))
         lt = LG.TEXT[data["lang"]]

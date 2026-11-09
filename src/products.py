@@ -77,6 +77,8 @@ PRODUCTS = [
 
 UI = {
     "es": dict(
+        home_eyebrow="Tienda · Primer lote",
+        home_all="Todos los productos",
         cat_title="Productos · OcoteWorks",
         cat_description="Productos propios de OcoteWorks, diseñados y probados en Monterrey: OW-02 Tail Rack para la Ténéré 700 y OW-01, equipaje rackless en desarrollo.",
         cat_eyebrow="Productos · Monterrey, MX",
@@ -112,6 +114,8 @@ UI = {
         dlg_privacy='Usamos tu correo solo para avisarte de este producto. <a href="/es/privacidad/">Aviso de privacidad</a>.',
     ),
     "en": dict(
+        home_eyebrow="Shop · First batch",
+        home_all="All products",
         cat_title="Products · OcoteWorks",
         cat_description="Original OcoteWorks products, designed and tested in Monterrey: the OW-02 Tail Rack for the Ténéré 700 and OW-01 rackless luggage in development.",
         cat_eyebrow="Products · Monterrey, MX",
@@ -231,3 +235,16 @@ def card_ow01(lang, moto):
             f'<p class="pc-fit">{"Motos de aventura" if lang == "es" else "Adventure motorcycles"}</p><h2>{u["ow01_name"]}</h2><p>{u["ow01_card"]}</p>'
             f'<div class="pc-foot"><span class="pc-st pc-st-dev">{u["status_dev"]}</span></div>'
             f'<span class="pc-go">{u["ow01_link"]} →</span></div></a>')
+
+
+def home_feature(p, lang, products_url):
+    """Bloque de la tienda en la página de inicio: el producto destacado del catálogo."""
+    u, P = UI[lang], p[lang]
+    return (f'<section class="h-shop on-dark" aria-labelledby="h-shop-h"><div class="wrap h-shop-grid">'
+            f'<a class="h-shop-img" href="{url(p, lang)}" tabindex="-1" aria-hidden="true">{picture(p, 0, lang, "(max-width:900px) 100vw, 660px")}'
+            f'<span class="pc-code">{p["code"]}</span></a>'
+            f'<div class="h-shop-info"><p class="eyebrow">{u["home_eyebrow"]}</p><h2 id="h-shop-h">{P["name"]}</h2>'
+            f'<p class="h-shop-fit">{P["fit"]}</p><p class="h-shop-tag">{P["tagline"]}</p>'
+            f'<div class="h-shop-price"><span>{price(p)}</span><span class="pc-st">{u["status_batch"]}</span></div>'
+            f'<div class="ctas"><a class="btn" href="{url(p, lang)}">{u["cat_view"]}</a>'
+            f'<a class="btn ghost" href="{products_url}">{u["home_all"]}</a></div></div></div></section>')
