@@ -842,7 +842,6 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 @media (max-width:900px){.h-shop-grid{grid-template-columns:minmax(0,1fr)}}
 .h-path-render{background:#d2d2d2}
 .h-path-render img{object-fit:cover;object-position:center}
-.h-path-render img{object-fit:contain;padding:8%}
-@media (max-width:860px){.h-path-render img{padding:4% 10%}}
+.h-path-render img{object-position:center 45%}
 .h-shop .btn:not(.ghost){border-color:var(--cempasuchil)}
 .h-shop .btn:not(.ghost):hover{background:var(--marfil);border-color:var(--marfil);color:var(--carbon)}
