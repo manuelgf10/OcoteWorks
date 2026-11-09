@@ -119,7 +119,7 @@ EN = dict(
     q_notes="Tell us about it", q_notesph="What it is, who it’s for, deadlines, references…",
     q_submit="Open email with my project",
     q_sheet="Project sheet", q_ref="Ref.", q_total="Estimated investment", q_vat="MXN · before VAT",
-    q_time="Timeline", q_review="Send this project", q_copy="Copy summary",
+    q_time="Time to launch", q_review="Send this project", q_copy="Copy summary",
     q_disclaimer="Ballpark ranges for planning. We confirm the price with a scoped proposal after reviewing your project.",
     q_bar="Estimate", q_bar_cta="View sheet",
 )
@@ -199,7 +199,7 @@ ES = dict(
     q_notes="Cuéntanos más", q_notesph="Qué es, para quién, fechas, referencias…",
     q_submit="Abrir correo con mi proyecto",
     q_sheet="Hoja de proyecto", q_ref="Ref.", q_total="Inversión estimada", q_vat="MXN · más IVA",
-    q_time="Tiempo estimado", q_review="Enviar este proyecto", q_copy="Copiar resumen",
+    q_time="Tiempo al lanzamiento", q_review="Enviar este proyecto", q_copy="Copiar resumen",
     q_disclaimer="Rangos de referencia para planear. Confirmamos el precio con una propuesta formal después de revisar tu proyecto.",
     q_bar="Estimación", q_bar_cta="Ver hoja",
 )

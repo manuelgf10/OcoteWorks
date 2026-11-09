@@ -87,15 +87,17 @@
     <div class="q-panel">
       <div class="q-panel-top"><h2 id="q-h-sheet">{{q_sheet}}</h2><span>{{q_ref}} <b id="q-ref"></b></span></div>
       <p id="q-meta" class="q-meta"></p>
-      <div id="q-summary" aria-live="polite"></div>
       <div class="q-total">
         <span class="q-k">{{q_total}}</span>
         <output id="q-total" aria-live="polite">—</output>
         <span class="q-k">{{q_vat}}</span>
       </div>
-      <div class="q-time"><span class="q-k">{{q_time}}</span><b id="q-weeks">—</b></div>
+      <div class="q-time"><span class="q-k">{{q_time}}</span><b id="q-weeks">—</b><span id="q-months" class="q-months"></span></div>
+      <div id="q-gantt" class="q-gantt"></div>
+      <div id="q-one" class="q-one" hidden></div>
       <a class="btn" href="#q-send">{{q_review}}</a>
       <button type="button" class="q-copy" id="q-copy">{{q_copy}}</button>
+      <div id="q-summary"></div>
       <p class="q-disc">{{q_disclaimer}}</p>
     </div>
   </aside>

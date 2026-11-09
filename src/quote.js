@@ -56,13 +56,13 @@ const OW_QUOTE = {
         { id: "none", lo: 0, hi: 0, w: [0, 0],
           en: { t: "Not now", d: "Skip prototyping for now." },
           es: { t: "Por ahora no", d: "Sin prototipos por el momento." } },
-        { id: "visual", lo: 2500, hi: 6000, w: [1, 1],
+        { id: "visual", lo: 2500, hi: 6000, w: [1, 1], test: [0, 0],
           en: { t: "Visual model", d: "3D printed (FDM or resin) to check size, shape and ergonomics." },
           es: { t: "Modelo visual", d: "Impreso en 3D (FDM o resina) para revisar tamaño, forma y ergonomía." } },
-        { id: "functional", lo: 8000, hi: 20000, w: [2, 3],
+        { id: "functional", lo: 8000, hi: 20000, w: [2, 3], test: [1, 1],
           en: { t: "Functional prototype", d: "CNC, sheet metal or mixed processes, made to be mounted and used." },
           es: { t: "Prototipo funcional", d: "CNC, lámina o procesos mixtos, hecho para montarse y usarse." } },
-        { id: "preprod", lo: 18000, hi: 35000, w: [3, 5],
+        { id: "preprod", lo: 18000, hi: 35000, w: [2, 3], test: [2, 3],
           en: { t: "Pre-production + field test", d: "Final materials and finishes, tested in real use before production." },
           es: { t: "Preserie + prueba en campo", d: "Materiales y acabados finales, probado en uso real antes de producir." } },
       ] }],
@@ -143,6 +143,23 @@ const OW_QUOTE = {
         ] }] },
   ],
 
+  // Semanas que el cliente tarda en aprobar el concepto (barra rayada del cronograma)
+  approval: [1, 1],
+
+  // Especialista que el cliente tendría que contratar por separado para cada servicio (tarjeta "N → 1")
+  specialists: {
+    design: { en: "Industrial designer", es: "Diseñador industrial" },
+    proto: { en: "Prototype shop", es: "Taller de prototipos" },
+    brand: { en: "Brand studio", es: "Estudio de marca" },
+    pack: { en: "Packaging designer", es: "Diseñador de empaque" },
+    ship: { en: "Box maker", es: "Fabricante de cajas" },
+    manual: { en: "Technical illustrator", es: "Ilustrador técnico" },
+    brochure: { en: "Graphic designer", es: "Diseñador gráfico" },
+    spec: { en: "Technical writer", es: "Redactor técnico" },
+    renders: { en: "3D render artist", es: "Artista de renders 3D" },
+    make: { en: "Machine shop", es: "Taller de maquinado" },
+  },
+
   presets: [
     { id: "sprint",
       en: { t: "Prototype sprint", d: "Concept, 3D and a working prototype." },
@@ -182,6 +199,10 @@ const T = {
       done: "Your email app should be open with everything filled in. If it didn't open, copy the summary and send it to" },
     mail: { subject: "Project request", hello: "Hi OcoteWorks,", intro: "I configured this project on ocoteworks.com:", link: "Configuration", notes: "Notes", from: "From", complexity: "Complexity", stage: "Stage", est: "Estimate", tl: "Timeline" },
     bar: "Estimate",
+    months: m => `≈ ${m} months`, wk: "weeks",
+    phases: { concept: "Concept", approval: "Concept approval", brand: "Branding", proto: "Prototyping", test: "Test & validate", pack: "Packaging", docs: "Instructions & print", make: "Low-volume release" },
+    waiting: "Waiting on your approval",
+    one: n => `<b>${n} specialists</b> you would otherwise find, brief and coordinate. With OcoteWorks: one workshop, one point of contact.`,
   },
   es: {
     presets: "Empieza desde", project: "Tu proyecto", what: "¿Qué quieres hacer?", where: "¿En qué punto está?",
@@ -200,6 +221,10 @@ const T = {
       done: "Tu app de correo debería estar abierta con todo escrito. Si no se abrió, copia el resumen y envíalo a" },
     mail: { subject: "Solicitud de proyecto", hello: "Hola, OcoteWorks:", intro: "Configuré este proyecto en ocoteworks.com:", link: "Configuración", notes: "Notas", from: "De", complexity: "Complejidad", stage: "Etapa", est: "Estimación", tl: "Tiempo" },
     bar: "Estimación",
+    months: m => `≈ ${m} meses`, wk: "semanas",
+    phases: { concept: "Concepto", approval: "Aprobación", brand: "Marca", proto: "Prototipos", test: "Prueba y validación", pack: "Empaque", docs: "Instructivos", make: "Serie corta" },
+    waiting: "Esperando tu aprobación",
+    one: n => `<b>${n} especialistas</b> que tendrías que buscar, explicarles y coordinar. Con OcoteWorks: un solo taller, un solo contacto.`,
   },
 };
 
@@ -236,11 +261,6 @@ const T = {
     let lo = o.lo * m, hi = o.hi * m;
     if (g.rounds) { const r = roundsOf(); lo *= r.f; hi *= r.f; }
     return [lo, hi];
-  }
-  function weeksOf(g, o) {
-    let w = o.w.slice();
-    if (g.rounds) { const r = roundsOf(); w = [Math.round(w[0] * r.wf), Math.round(w[1] * r.wf)]; }
-    return w;
   }
   const selected = id => Array.isArray(S[id]) ? S[id] : [S[id]];
   const rangeTxt = (lo, hi) => lo === hi ? money(rLo(lo)) : money(rLo(lo)) + " – " + money(rHi(hi));
@@ -286,23 +306,83 @@ const T = {
 
   /* ---------- cálculo y resumen ---------- */
   function compute() {
-    const lines = []; let lo = 0, hi = 0, serial = [0, 0], par = [0, 0];
+    const lines = []; let lo = 0, hi = 0;
     C.sections.forEach(s => s.groups.forEach(g => {
       selected(g.id).forEach(id => {
         const o = g.options.find(x => x.id === id); if (!o) return;
         const [a, b] = priceOf(g, o); if (!b) return;
-        const w = weeksOf(g, o);
         lo += a; hi += b;
-        if (g.serial) { serial[0] += w[0]; serial[1] += w[1]; }
-        else { par[0] = Math.max(par[0], w[0]); par[1] = Math.max(par[1], w[1]); }
         let label = o[L].t;
         if (g.rounds && S.rounds > 1) label += ` · ${S.rounds} ${t.roundN}`;
         lines.push({ code: s.code, label, lo: a, hi: b, group: g.id, opt: o.id });
       });
     }));
-    // docs y extras corren en paralelo; los serie no paralelos
-    const weeks = [Math.max(serial[0], par[0]), Math.max(serial[1], par[1])];
-    return { lines, lo, hi, weeks };
+    const sLo = schedule(0), sHi = schedule(1);
+    return { lines, lo, hi, weeks: [sLo.total, sHi.total], sLo, sHi };
+  }
+
+  /* ---------- cronograma por fases ----------
+   * Concepto → aprobación (cliente) → prototipos → prueba → serie corta.
+   * Marca arranca en paralelo desde el día 0; empaque espera la aprobación y la marca;
+   * instructivos e impresos arrancan con el concepto aprobado. */
+  function schedule(i) {
+    const pick = gid => {
+      const g = groups[gid], o = g.options.find(x => x.id === S[gid]);
+      if (!o || !priceOf(g, o)[1]) return null;
+      return { g, o };
+    };
+    const ph = []; const add = (k, s, d, hatch) => { if (d > 0) ph.push({ k, s, e: s + d, hatch: !!hatch }); return s + d; };
+    let a = 0;
+    const ds = pick("design");
+    if (ds) { const end = add("concept", 0, ds.o.w[i]); a = add("approval", end, C.approval[i], true); }
+    let brandEnd = 0; const br = pick("brand");
+    if (br) brandEnd = add("brand", 0, br.o.w[i]);
+    let pEnd = a; const pr = pick("proto");
+    if (pr) {
+      const r = roundsOf();
+      pEnd = add("proto", a, Math.round(pr.o.w[i] * r.wf));
+      pEnd = add("test", pEnd, Math.round((pr.o.test || [0, 0])[i] * r.wf));
+    }
+    const pk = pick("pack");
+    const shipW = S.ship.length ? groups.ship.options[0].w[i] : 0;
+    const packW = (pk ? pk.o.w[i] : 0) + (pk ? Math.ceil(shipW / 2) : shipW);
+    if (packW) add("pack", Math.max(a, brandEnd), packW);
+    const docsW = Math.max(0, ...S.docs.map(id => groups.docs.options.find(o => o.id === id).w[i]));
+    if (docsW) add("docs", a, docsW);
+    const mk = pick("make");
+    if (mk) add("make", pEnd, mk.o.w[i]);
+    const order = ["concept", "approval", "brand", "proto", "test", "pack", "docs", "make"];
+    ph.sort((x, y) => order.indexOf(x.k) - order.indexOf(y.k));
+    return { ph, total: ph.reduce((m, p) => Math.max(m, p.e), 0) };
+  }
+
+  function gantt(r) {
+    const el = document.getElementById("q-gantt");
+    if (!r.sHi.ph.length) { el.innerHTML = ""; return; }
+    const total = (r.sLo.total + r.sHi.total) / 2;
+    const step = [1, 2, 4, 6, 8, 12, 16].find(s => total / s <= 4) || 24;
+    const span = Math.max(step, Math.ceil(total / step) * step);
+    let h = `<ul class="q-g-rows">`;
+    r.sHi.ph.forEach(p => {
+      const q = r.sLo.ph.find(x => x.k === p.k) || p;
+      const s = (q.s + p.s) / 2, e = (q.e + p.e) / 2;
+      h += `<li><span>${t.phases[p.k]}</span><i><b class="${p.hatch ? "hatch" : ""}" style="left:${(s / span * 100).toFixed(2)}%;width:${Math.max(2.5, (e - s) / span * 100).toFixed(2)}%"></b></i></li>`;
+    });
+    h += `</ul><div class="q-g-axis"><span>${t.wk}</span><i>`;
+    for (let x = 0; x <= span; x += step) h += `<em style="left:${(x / span * 100).toFixed(2)}%">${x}</em>`;
+    h += `</i></div>`;
+    if (r.sHi.ph.some(p => p.hatch)) h += `<p class="q-g-legend"><b class="hatch"></b>${t.waiting}</p>`;
+    el.innerHTML = h;
+  }
+
+  function oneCard() {
+    const el = document.getElementById("q-one"), sp = C.specialists, list = [];
+    const addSp = k => { if (sp[k] && !list.includes(sp[k][L])) list.push(sp[k][L]); };
+    ["design", "proto", "brand", "pack", "make"].forEach(g => { const o = groups[g].options.find(x => x.id === S[g]); if (o && priceOf(groups[g], o)[1]) addSp(g); });
+    S.ship.forEach(() => addSp("ship")); S.docs.forEach(addSp);
+    if (list.length < 2) { el.hidden = true; return; }
+    el.hidden = false;
+    el.innerHTML = `<div class="q-one-n">${list.length}<span>→</span>1</div><div><p>${t.one(list.length)}</p><small>${list.join(" · ")}</small></div>`;
   }
   const weeksTxt = w => !w[1] ? t.none : (w[0] === w[1] ? w[0] : w[0] + "–" + w[1]) + " " + (w[1] === 1 ? t.week : t.weeks);
 
@@ -326,6 +406,9 @@ const T = {
     const tot = r.lines.length ? rangeTxt(r.lo, r.hi) : t.none;
     document.getElementById("q-total").textContent = tot;
     document.getElementById("q-weeks").textContent = weeksTxt(r.weeks);
+    const mo = r.weeks.map(w => w / 4.33);
+    document.getElementById("q-months").textContent = r.weeks[1] >= 8 ? t.months(Math.round(mo[0]) === Math.round(mo[1]) ? Math.round(mo[1]) : Math.max(1, Math.round(mo[0])) + "–" + Math.round(mo[1])) : "";
+    gantt(r); oneCard();
     document.getElementById("q-bar-total").textContent = tot;
     const cx = C.complexity.find(c => c.id === S.complexity), st = C.stage.find(s => s.id === S.stage);
     document.getElementById("q-meta").textContent = cx[L].t + " · " + st[L];
