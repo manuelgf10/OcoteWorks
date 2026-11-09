@@ -27,7 +27,7 @@
 
   // Grupos que entran en cascada (cada hijo con un pequeño retraso).
   var GROUPS = [".trio", ".pasos", ".h-paths-grid", ".a-photos", ".a-work-grid", ".a-tools-grid", ".a-timeline",
-                ".a-levels", ".s-start-grid", ".a-stats", ".lg-toc ol", ".cat-grid", ".pd-hl-grid", ".pd-specs dl"];
+                ".a-levels", ".s-start-grid", ".a-stats", ".lg-toc ol", ".cat-grid", ".pd-hl-grid", ".pd-specs dl", ".j-grid"];
   var fold = window.innerHeight * 0.92, items = [];
   var below = function (el) { return el.offsetHeight > 4 && el.getBoundingClientRect().top > fold; };
 
@@ -40,7 +40,7 @@
     });
   });
   // Bloques sueltos: hijos directos de cada sección que no contienen un grupo ya marcado.
-  document.querySelectorAll("main section > .wrap > *, main .lg-main > *, main .foto").forEach(function (el) {
+  document.querySelectorAll("main section > .wrap > *, main .lg-main > *, main .foto, main .j-body > figure").forEach(function (el) {
     if (el.classList.contains("rv") || el.querySelector(".rv") || el.closest(".rv") || !below(el)) return;
     el.classList.add("rv"); items.push(el);
   });

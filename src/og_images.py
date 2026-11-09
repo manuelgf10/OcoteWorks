@@ -69,8 +69,11 @@ PAGES = {
 PAGES["ow02"] = {"vis": lambda l: f'<div class="vis"><img src="{b64(R+"/assets/products/ow-02/hero-1600.jpg")}" style="object-fit:contain;background:linear-gradient(#d3d3d3,#c9c9c9);transform:scale(1.18)"><span class="code">OW-02</span></div>', "size": 92,
    "en": ("Ténéré 700 · 2019–2023", "Tail Rack <span>T7</span>", "One piece of folded aluminum. First batch in pre-production: join the list."),
    "es": ("Ténéré 700 · 2019–2023", "Tail Rack <span>T7</span>", "Una sola pieza de aluminio doblado. Primer lote en preparación: únete a la lista.")}
+PAGES["j-ow-02-silueta"] = {"vis": lambda l: f'<div class="vis"><img src="{b64(R+"/assets/journal/ow-02-silueta/carton-lado-1200.jpg")}" style="object-position:62% 50%"><span class="code">{"BITÁCORA" if l=="es" else "JOURNAL"}</span></div>', "size": 74,
+   "en": ("Journal · Build", "Keep it looking like a <span>dirt bike</span>", "How the OW-02 started: from notebook sketch to cardboard prototype."),
+   "es": ("Bitácora · Taller", "Que siga pareciendo <span>dirt bike</span>", "Cómo nació el OW-02: del boceto en el cuaderno al prototipo de cartón.")}
 ONLY = sys.argv[1:]  # p. ej. python3 src/og_images.py ow02
-URL = {"ow02":("/products/ow-02-tail-rack","/es/productos/ow-02-tail-rack"),"services":("/services","/es/servicios"),"about":("/about","/es/sobre-mi"),"products":("/products","/es/productos"),
+URL = {"j-ow-02-silueta":("/journal/ow-02-silueta","/es/bitacora/ow-02-silueta"),"ow02":("/products/ow-02-tail-rack","/es/productos/ow-02-tail-rack"),"services":("/services","/es/servicios"),"about":("/about","/es/sobre-mi"),"products":("/products","/es/productos"),
        "journal":("/journal","/es/bitacora"),"quote":("/quote","/es/cotizar")}
 with sync_playwright() as p:
     b = p.chromium.launch(); pg = b.new_page(viewport={"width":1200,"height":630})

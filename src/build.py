@@ -767,6 +767,7 @@ OG_PAGES = {
     "products": {"en": "Line drawing of an adventure motorcycle on a work stand, OW-01 in progress.", "es": "Dibujo de una moto de aventura en el banco de trabajo, OW-01 en desarrollo."},
     "journal": {"en": "Crossing a river on an adventure motorcycle, OcoteWorks journal.", "es": "Cruce de río en moto de aventura, bitácora de OcoteWorks."},
     "quote": {"en": "OcoteWorks quote builder project sheet.", "es": "Hoja de proyecto del cotizador de OcoteWorks."},
+    "j-ow-02-silueta": {"en": "Cardboard prototype of the OW-02 tail rack on a Ténéré 700.", "es": "Prototipo de cartón del OW-02 en una Ténéré 700."},
     "ow02": {"en": "OW-02 Tail Rack T7 for the Yamaha Ténéré 700, render in matte black.", "es": "Tail Rack T7 OW-02 para la Yamaha Ténéré 700, render en negro mate."},
 }
 
@@ -779,6 +780,10 @@ import products as PR
 for _p in PR.PRODUCTS:  # una página por producto, en los dos idiomas
     PAGES[_p["code"].lower().replace("-", "")] = (PR.url(_p, "en"), PR.url(_p, "es"))
 NAV_ACTIVE = {pp["code"].lower().replace("-", ""): "products" for pp in PR.PRODUCTS}
+import journal as JO
+for _e in JO.ENTRIES:
+    PAGES["j-" + _e["slug"]] = (JO.url(_e, "en"), JO.url(_e, "es"))
+    NAV_ACTIVE["j-" + _e["slug"]] = "journal"
 
 
 MOTION_V = ""
@@ -849,7 +854,7 @@ def main():
     open(os.path.join(ROOT, "assets", "motion.js"), "w", encoding="utf-8").write(mjs)
     global MOTION_V
     MOTION_V = hashlib.sha1(mjs.encode()).hexdigest()[:8]
-    T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about", "legal", "product", "catalog"]}
+    T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about", "legal", "product", "catalog", "journal_index", "journal_entry"]}
     pjs = open(os.path.join(SRC, "product.js"), encoding="utf-8").read()
     open(os.path.join(ROOT, "assets", "product.js"), "w", encoding="utf-8").write(pjs)
     pjsv = hashlib.sha1(pjs.encode()).hexdigest()[:8]
@@ -905,10 +910,29 @@ def main():
                                                           pd_hl_eyebrow=U["hl_eyebrow"], pd_hl_h2=U["hl_h2"], pd_highlights=PR.highlights(p, lang),
                                                           pd_specs_eyebrow=U["specs_eyebrow"], pd_specs_h2=U["specs_h2"], pd_specs_note=U["specs_note"],
                                                           pd_specs=PR.specs(p, lang), pd_fine=U["fine"], pd_dialog=PR.buy_dialog(p, lang), pd_jsv=pjsv)))
-        write(PAGES["journal"][i], render(T["soon"], ctx("journal", p_title=data["jo_title"], p_description=data["jo_description"], p_url=data["jo_url"],
-                                                         so_eyebrow=data["jo_eyebrow"], so_lead=data["jo_lead"], so_tag=data["jo_tag"],
-                                                         so_form="", so_cta1_cls="", so_cta1=data["jo_cta1"], so_cta1_href=ig,
-                                                         so_cta2=data["jo_cta2"], so_cta2_href=data["about_href"], moto_svg=moto_svg())))
+        JU = JO.UI[lang]
+        write(PAGES["journal"][i], render(T["journal_index"], ctx("journal", p_title=JU["idx_title"], p_description=JU["idx_description"], p_url=data["jo_url"],
+                                                                 j_eyebrow=JU["idx_eyebrow"], j_h1=JU["idx_h1"], j_lead=JU["idx_lead"],
+                                                                 j_cards="".join(JO.card(e, lang) for e in sorted(JO.ENTRIES, key=lambda x: x["date"], reverse=True)))))
+        for e in JO.ENTRIES:
+            key = "j-" + e["slug"]
+            E = e[lang]
+            prod = next(p for p in PR.PRODUCTS if p["code"] == e["product"])
+            purl = PR.url(prod, lang)
+            jurl = "https://ocoteworks.com" + JO.url(e, lang)
+            ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": E["title"], "description": E["dek"],
+                  "datePublished": e["date"], "inLanguage": lang, "url": jurl,
+                  "image": f"https://ocoteworks.com/assets/journal/{e['slug']}/{e['cover']}-1200.jpg",
+                  "author": {"@type": "Person", "name": "Manuel García", "url": "https://ocoteworks.com" + PAGES["about"][i]},
+                  "publisher": {"@type": "Organization", "name": "OcoteWorks", "url": "https://ocoteworks.com/"}}
+            write(PAGES[key][i], render(T["journal_entry"], ctx(key, p_title=f"{E['title']} · {JU['idx_eyebrow'].split(' · ')[0]} · OcoteWorks",
+                                                                p_description=E["dek"], p_url=jurl,
+                                                                j_jsonld='<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>",
+                                                                j_back=JU["back"], j_cat=e["category"][lang], j_date_iso=e["date"], j_date=JO.date_txt(e, lang),
+                                                                j_min=f'{JO.minutes(e, lang)} {JU["read"]}', j_title=E["title"], j_dek=E["dek"], j_by=JU["by"],
+                                                                j_cover=JO.picture(e, e["cover"], lang, "(max-width:1200px) 100vw, 1140px", eager=True),
+                                                                j_body=JO.body(e, lang, prod, purl), j_facts_k=JU["facts"], j_facts=JO.facts(e, lang),
+                                                                j_product_url=purl, j_cta_product=JU["cta_product"], j_cta_ig=JU["cta_ig"])))
 
     # Página 404 (bilingüe, una sola)
     p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version)
