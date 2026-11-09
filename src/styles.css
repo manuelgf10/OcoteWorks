@@ -640,3 +640,36 @@ html.owl-on{overflow:hidden}
 .f-privacy{grid-column:1/-1;margin-top:18px;font-size:13px;line-height:1.5;color:var(--grafito);max-width:72ch}
 .f-privacy a{color:var(--carbon);font-weight:700}
 .q-send .f-privacy{color:var(--carbon);opacity:.8}
+
+/* ---------- Movimiento sutil (paso 4) ---------- */
+/* cabecera compacta al bajar */
+.top{transition:box-shadow .25s,background-color .25s}
+.top .wrap{transition:height .25s cubic-bezier(.2,.7,.2,1)}
+.top .brand img{transition:width .25s cubic-bezier(.2,.7,.2,1)}
+.top.compact{background:rgba(244,234,215,.97);box-shadow:0 6px 18px rgba(23,23,26,.10)}
+.top.compact .wrap{height:58px}
+.top.compact .brand img{width:72px}
+.top.compact .m-menu ul{top:50px}
+
+/* aparición al hacer scroll (la clase .rv solo la pone motion.js) */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* respuesta al cursor */
+.btn{transition:background .15s,color .15s,transform .15s,box-shadow .15s}
+@media (hover:hover){
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--cempasuchil)}
+  .btn.ghost:hover{box-shadow:4px 4px 0 var(--cempasuchil)}
+  .trio article{transition:background .2s}
+  .trio article:hover{background:var(--marfil)}
+  .trio .ico{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+  .trio article:hover .ico{transform:rotate(-8deg) scale(1.06)}
+  .a-work-grid article{transition:transform .15s,box-shadow .15s}
+  .a-work-grid article:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--carbon)}
+  .a-photos img,.h-path img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .a-photos figure:hover img,.h-path:hover img{transform:scale(1.045)}
+  .h-path picture{overflow:hidden}
+  .pasos li::before{transition:transform .2s}
+  .pasos li:hover::before{transform:rotate(-6deg)}
+}
+.btn:active{transform:none;box-shadow:none}

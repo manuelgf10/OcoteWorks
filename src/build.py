@@ -758,6 +758,7 @@ PAGES = {  # clave: (ruta EN, ruta ES)
 }
 
 
+MOTION_V = ""
 FORMSPREE = "https://formspree.io/f/mwllgewa"
 
 
@@ -777,6 +778,7 @@ def waitlist_form(d):
 def write(path, html):
     lang = "es" if '<html lang="es"' in html else "en"
     html = add_loader(html, lang)
+    html = html.replace("</body>", f'<script src="/assets/motion.js?v={MOTION_V}" defer></script>\n</body>', 1)
     full = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
     os.makedirs(os.path.dirname(full), exist_ok=True)
     open(full, "w", encoding="utf-8").write(html)
@@ -791,6 +793,10 @@ def main():
     open(os.path.join(ROOT, "assets", "quote.js"), "w", encoding="utf-8").write(qjs)
     qversion = hashlib.sha1(qjs.encode()).hexdigest()[:8]
     open(os.path.join(ROOT, "assets", "forms.js"), "w", encoding="utf-8").write(open(os.path.join(SRC, "forms.js"), encoding="utf-8").read())
+    mjs = open(os.path.join(SRC, "motion.js"), encoding="utf-8").read()
+    open(os.path.join(ROOT, "assets", "motion.js"), "w", encoding="utf-8").write(mjs)
+    global MOTION_V
+    MOTION_V = hashlib.sha1(mjs.encode()).hexdigest()[:8]
     T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about", "legal"]}
 
     for data in (EN, ES):
