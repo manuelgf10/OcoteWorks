@@ -17,6 +17,7 @@ Para cambiar textos, edita los diccionarios EN y ES de abajo.
 """
 import hashlib
 import os
+import re
 import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -708,6 +709,22 @@ def moto_svg():
 </svg>"""
 
 
+LOADER = """<div id="ow-loader" aria-hidden="true"><div class="owl-in"><img src="/assets/logo-marfil.png" alt="" width="180" height="128"><span class="owl-txt">{txt}</span></div></div>
+<noscript><style>#ow-loader{{display:none}}</style></noscript>
+<script>(function(){{var l=document.getElementById("ow-loader");if(!l)return;
+try{{if(sessionStorage.getItem("ow-lit")){{l.remove();return}}sessionStorage.setItem("ow-lit","1")}}catch(e){{}}
+document.documentElement.classList.add("owl-on");
+var t0=Date.now(),gone=false,min=matchMedia("(prefers-reduced-motion: reduce)").matches?0:1600;
+function done(){{if(gone)return;gone=true;setTimeout(function(){{l.classList.add("out");document.documentElement.classList.remove("owl-on");setTimeout(function(){{l.remove()}},600)}},Math.max(0,min-(Date.now()-t0)))}}
+if(document.readyState==="complete")done();else addEventListener("load",done);setTimeout(done,4000)}})();</script>"""
+
+
+def add_loader(html, lang):
+    """Animación de carga: el logo se enciende y palpita mientras carga la página (una vez por visita)."""
+    txt = "Igniting the workshop" if lang == "en" else "Encendiendo el taller"
+    return re.sub(r"(<body[^>]*>)", lambda m: m.group(1) + "\n" + LOADER.format(txt=txt), html, count=1)
+
+
 def render(tpl, data):
     out = tpl
     for k, v in data.items():
@@ -723,6 +740,8 @@ PAGES = {  # clave: (ruta EN, ruta ES)
 
 
 def write(path, html):
+    lang = "es" if '<html lang="es"' in html else "en"
+    html = add_loader(html, lang)
     full = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
     os.makedirs(os.path.dirname(full), exist_ok=True)
     open(full, "w", encoding="utf-8").write(html)
