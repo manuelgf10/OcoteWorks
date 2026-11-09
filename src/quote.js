@@ -505,8 +505,13 @@ const T = {
     const label = btn.innerHTML; btn.disabled = true; btn.textContent = t.send.sending; msg.textContent = ""; msg.className = "q-msg";
     fetch(C.formspree, {
       method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify({ _subject: subject, name: f.name, email: f.email, project: f.project, notes: f.notes, source: "Quote builder · " + L.toUpperCase(),
-        reference: ref, estimate: r.lines.length ? rangeTxt(r.lo, r.hi) + " " + t.vat : "—", timeline: weeksTxt(r.weeks), configuration: configUrl(), summary })
+      // Campos cortos y sin URLs completas: un bloque largo con links hace que el filtro anti-spam de Formspree retenga la solicitud.
+      body: JSON.stringify({ _subject: subject, name: f.name, email: f.email, project: f.project || "—", notes: f.notes || "—",
+        reference: ref, language: L.toUpperCase(),
+        complexity: C.complexity.find(c => c.id === S.complexity)[L].t, stage: C.stage.find(s => s.id === S.stage)[L],
+        services: r.lines.map(l => l.code + " " + l.label).join(" / ") || "—",
+        estimate: r.lines.length ? rangeTxt(r.lo, r.hi) + " " + t.vat : "—", timeline: weeksTxt(r.weeks),
+        config: stateParams() })
     }).then(res => {
       if (!res.ok) throw new Error(res.status);
       const box = document.getElementById("q-send");
