@@ -742,6 +742,15 @@ def render(tpl, data):
 
 import privacy as LG
 
+# Imágenes Open Graph por página (assets/og/<clave>-<idioma>.jpg). Se regeneran con src/og_images.py (necesita Playwright).
+OG_PAGES = {
+    "services": {"en": "OcoteWorks engineering services: Design. Prototype. Fabricate.", "es": "Servicios de ingeniería de OcoteWorks: Diseñar. Prototipar. Fabricar."},
+    "about": {"en": "Manuel García in the OcoteWorks workshop at night.", "es": "Manuel García en el taller de OcoteWorks de noche."},
+    "products": {"en": "Line drawing of an adventure motorcycle on a work stand, OW-01 in progress.", "es": "Dibujo de una moto de aventura en el banco de trabajo, OW-01 en desarrollo."},
+    "journal": {"en": "Crossing a river on an adventure motorcycle, OcoteWorks journal.", "es": "Cruce de río en moto de aventura, bitácora de OcoteWorks."},
+    "quote": {"en": "OcoteWorks quote builder project sheet.", "es": "Hoja de proyecto del cotizador de OcoteWorks."},
+}
+
 PAGES = {  # clave: (ruta EN, ruta ES)
     "home": ("/", "/es/"), "services": ("/services/", "/es/servicios/"), "products": ("/products/", "/es/productos/"),
     "about": ("/about/", "/es/sobre-mi/"), "journal": ("/journal/", "/es/bitacora/"), "quote": ("/quote/", "/es/cotizar/"),
@@ -789,7 +798,10 @@ def main():
 
         def ctx(key, **extra):
             en, es = PAGES[key]
+            og = OG_PAGES.get(key)
             base = dict(data, version=version, header=header(data, key, en, es), footer=footer(data),
+                        og_image=f"https://ocoteworks.com/assets/og/{key}-{data['lang']}.jpg" if og else "https://ocoteworks.com/og-image.png",
+                        og_alt=og[data["lang"]] if og else data["og_alt"],
                         p_alt_en="https://ocoteworks.com" + en, p_alt_es="https://ocoteworks.com" + es)
             base.update(extra)
             return base
