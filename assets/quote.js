@@ -417,12 +417,15 @@ const T = {
   }
 
   /* ---------- estado en la URL (para compartir y para el correo) ---------- */
-  function writeHash() {
+  function stateParams() {
     const p = new URLSearchParams();
     ["complexity", "stage", "design", "proto", "brand", "pack", "make"].forEach(k => p.set(k, S[k]));
     p.set("rounds", S.rounds); p.set("ship", S.ship.join(",")); p.set("docs", S.docs.join(","));
-    history.replaceState(null, "", "#" + p.toString());
+    return p.toString();
   }
+  // Link que reconstruye la configuración, aunque el visitante haya usado un ancla (#q-send) después.
+  const configUrl = () => location.origin + location.pathname + "#" + stateParams();
+  function writeHash() { history.replaceState(null, "", "#" + stateParams()); }
   function readHash() {
     if (location.hash.length < 3) return;
     const p = new URLSearchParams(location.hash.slice(1));
@@ -460,7 +463,7 @@ const T = {
     let s = `${t.sheet} ${ref}\n${m.complexity}: ${cx[L].t}\n${m.stage}: ${st[L]}\n\n`;
     r.lines.forEach(l => { s += `[${l.code}] ${l.label}: ${rangeTxt(l.lo, l.hi)}\n`; });
     s += `\n${m.est}: ${r.lines.length ? rangeTxt(r.lo, r.hi) + " " + t.vat : t.none}\n${m.tl}: ${weeksTxt(r.weeks)}\n`;
-    s += `${m.link}: ${location.href}\n`;
+    s += `${m.link}: ${configUrl()}\n`;
     if (form) {
       if (form.notes) s += `\n${m.notes}:\n${form.notes}\n`;
       s += `\n${m.from}: ${form.name} <${form.email}>${form.project ? " · " + form.project : ""}\n`;
