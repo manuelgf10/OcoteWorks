@@ -27,7 +27,7 @@
 
   // Grupos que entran en cascada (cada hijo con un pequeño retraso).
   var GROUPS = [".trio", ".pasos", ".h-paths-grid", ".a-photos", ".a-work-grid", ".a-tools-grid", ".a-timeline",
-                ".a-levels", ".s-start-grid", ".a-stats", ".lg-toc ol"];
+                ".a-levels", ".s-start-grid", ".a-stats", ".lg-toc ol", ".cat-grid", ".pd-hl-grid", ".pd-specs dl"];
   var fold = window.innerHeight * 0.92, items = [];
   var below = function (el) { return el.offsetHeight > 4 && el.getBoundingClientRect().top > fold; };
 

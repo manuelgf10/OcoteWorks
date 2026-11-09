@@ -16,6 +16,7 @@ Escribe:
 Para cambiar textos, edita los diccionarios EN y ES de abajo.
 """
 import hashlib
+import json
 import os
 import re
 import shutil
@@ -766,6 +767,7 @@ OG_PAGES = {
     "products": {"en": "Line drawing of an adventure motorcycle on a work stand, OW-01 in progress.", "es": "Dibujo de una moto de aventura en el banco de trabajo, OW-01 en desarrollo."},
     "journal": {"en": "Crossing a river on an adventure motorcycle, OcoteWorks journal.", "es": "Cruce de río en moto de aventura, bitácora de OcoteWorks."},
     "quote": {"en": "OcoteWorks quote builder project sheet.", "es": "Hoja de proyecto del cotizador de OcoteWorks."},
+    "ow02": {"en": "OW-02 Tail Rack T7 for the Yamaha Ténéré 700, render in matte black.", "es": "Tail Rack T7 OW-02 para la Yamaha Ténéré 700, render en negro mate."},
 }
 
 PAGES = {  # clave: (ruta EN, ruta ES)
@@ -773,6 +775,10 @@ PAGES = {  # clave: (ruta EN, ruta ES)
     "about": ("/about/", "/es/sobre-mi/"), "journal": ("/journal/", "/es/bitacora/"), "quote": ("/quote/", "/es/cotizar/"),
     "privacy": ("/privacy/", "/es/privacidad/"),
 }
+import products as PR
+for _p in PR.PRODUCTS:  # una página por producto, en los dos idiomas
+    PAGES[_p["code"].lower().replace("-", "")] = (PR.url(_p, "en"), PR.url(_p, "es"))
+NAV_ACTIVE = {pp["code"].lower().replace("-", ""): "products" for pp in PR.PRODUCTS}
 
 
 MOTION_V = ""
@@ -843,7 +849,10 @@ def main():
     open(os.path.join(ROOT, "assets", "motion.js"), "w", encoding="utf-8").write(mjs)
     global MOTION_V
     MOTION_V = hashlib.sha1(mjs.encode()).hexdigest()[:8]
-    T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about", "legal"]}
+    T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about", "legal", "product", "catalog"]}
+    pjs = open(os.path.join(SRC, "product.js"), encoding="utf-8").read()
+    open(os.path.join(ROOT, "assets", "product.js"), "w", encoding="utf-8").write(pjs)
+    pjsv = hashlib.sha1(pjs.encode()).hexdigest()[:8]
 
     for data in (EN, ES):
         i = 0 if data["lang"] == "en" else 1
@@ -851,7 +860,7 @@ def main():
         def ctx(key, **extra):
             en, es = PAGES[key]
             og = OG_PAGES.get(key)
-            base = dict(data, version=version, header=header(data, key, en, es), footer=footer(data),
+            base = dict(data, version=version, header=header(data, NAV_ACTIVE.get(key, key), en, es), footer=footer(data),
                         og_image=f"https://ocoteworks.com/assets/og/{key}-{data['lang']}.jpg" if og else "https://ocoteworks.com/og-image.png",
                         og_alt=og[data["lang"]] if og else data["og_alt"],
                         p_alt_en="https://ocoteworks.com" + en, p_alt_es="https://ocoteworks.com" + es)
@@ -872,11 +881,30 @@ def main():
                                                           a_hero_visual=about_hero(data), a_plate_block=about_plate(data))))
         ig = "https://www.instagram.com/ocote.works/"
         subj = data["pr_mail_subject"].replace(" ", "%20").replace(":", "%3A")
-        write(PAGES["products"][i], render(T["soon"], ctx("products", p_title=data["pr_title"], p_description=data["pr_description"], p_url=data["pr_url"],
-                                                          so_eyebrow=data["pr_eyebrow"], so_lead=data["pr_lead"], so_tag=data["pr_tag"],
-                                                          so_form=waitlist_form(data), so_cta1_cls=" ghost",
-                                                          so_cta1=data["pr_cta2"], so_cta1_href=ig,
-                                                          so_cta2=data["h_cta_services"], so_cta2_href=data["u_services"], moto_svg=moto_svg())))
+        lang = data["lang"]
+        U = PR.UI[lang]
+        write(PAGES["products"][i], render(T["catalog"], ctx("products", p_title=U["cat_title"], p_description=U["cat_description"], p_url=data["pr_url"],
+                                                             cat_eyebrow=U["cat_eyebrow"], cat_h1=U["cat_h1"], cat_lead=U["cat_lead"],
+                                                             cat_cards="".join(PR.card(p, lang) for p in PR.PRODUCTS) + PR.card_ow01(lang, moto_svg()),
+                                                             cat_status_dev=U["status_dev"], cat_ow01_name=U["ow01_name"],
+                                                             so_form=waitlist_form(data), moto_svg=moto_svg())))
+        for p in PR.PRODUCTS:
+            key = p["code"].lower().replace("-", "")
+            P = p[lang]
+            pd_url = "https://ocoteworks.com" + PR.url(p, lang)
+            ld = {"@context": "https://schema.org", "@type": "Product", "name": f"{p['code']} {P['name']}", "sku": p["code"],
+                  "brand": {"@type": "Brand", "name": "OcoteWorks"}, "description": P["tagline"], "url": pd_url,
+                  "image": [f"https://ocoteworks.com{p['img_dir']}/{n}-{w[-1]}.jpg" for n, w, _ in p["images"]]}
+            write(PAGES[key][i], render(T["product"], ctx(key, p_title=f"{p['code']} {P['name']} · {P['fit']} · OcoteWorks",
+                                                          p_description=P["tagline"], p_url=pd_url,
+                                                          pd_jsonld='<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>",
+                                                          pd_back=U["back"], pd_gallery=PR.gallery(p, lang), pd_code=p["code"], pd_name=P["name"],
+                                                          pd_fit=P["fit"], pd_tagline=P["tagline"], pd_intent=P["intent"], pd_price=PR.price(p), pd_price_note=U["price_note"],
+                                                          pd_status=U["status_batch"], pd_variant_k=U["variant"], pd_variants=PR.variants(p, lang),
+                                                          pd_white_note=U["white_note"], pd_buy=U["buy"], pd_buy_note=U["buy_note"],
+                                                          pd_hl_eyebrow=U["hl_eyebrow"], pd_hl_h2=U["hl_h2"], pd_highlights=PR.highlights(p, lang),
+                                                          pd_specs_eyebrow=U["specs_eyebrow"], pd_specs_h2=U["specs_h2"], pd_specs_note=U["specs_note"],
+                                                          pd_specs=PR.specs(p, lang), pd_fine=U["fine"], pd_dialog=PR.buy_dialog(p, lang), pd_jsv=pjsv)))
         write(PAGES["journal"][i], render(T["soon"], ctx("journal", p_title=data["jo_title"], p_description=data["jo_description"], p_url=data["jo_url"],
                                                          so_eyebrow=data["jo_eyebrow"], so_lead=data["jo_lead"], so_tag=data["jo_tag"],
                                                          so_form="", so_cta1_cls="", so_cta1=data["jo_cta1"], so_cta1_href=ig,

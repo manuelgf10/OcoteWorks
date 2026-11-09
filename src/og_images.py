@@ -66,11 +66,16 @@ PAGES = {
    "en": ("Quote builder","Build your <span>project</span>","Pick what you need and get a cost range and a timeline in minutes."),
    "es": ("Cotizador","Arma tu <span>proyecto</span>","Elige lo que necesitas y obtén un rango de costo y un cronograma en minutos.")},
 }
-URL = {"services":("/services","/es/servicios"),"about":("/about","/es/sobre-mi"),"products":("/products","/es/productos"),
+PAGES["ow02"] = {"vis": lambda l: f'<div class="vis"><img src="{b64(R+"/assets/products/ow-02/hero-1600.jpg")}" style="object-fit:contain;background:linear-gradient(#d3d3d3,#c9c9c9);transform:scale(1.18)"><span class="code">OW-02</span></div>', "size": 92,
+   "en": ("Ténéré 700 · 2019–2023", "Tail Rack <span>T7</span>", "One piece of folded aluminum. First batch in pre-production: join the list."),
+   "es": ("Ténéré 700 · 2019–2023", "Tail Rack <span>T7</span>", "Una sola pieza de aluminio doblado. Primer lote en preparación: únete a la lista.")}
+ONLY = sys.argv[1:]  # p. ej. python3 src/og_images.py ow02
+URL = {"ow02":("/products/ow-02-tail-rack","/es/productos/ow-02-tail-rack"),"services":("/services","/es/servicios"),"about":("/about","/es/sobre-mi"),"products":("/products","/es/productos"),
        "journal":("/journal","/es/bitacora"),"quote":("/quote","/es/cotizar")}
 with sync_playwright() as p:
     b = p.chromium.launch(); pg = b.new_page(viewport={"width":1200,"height":630})
     for key, d in PAGES.items():
+        if ONLY and key not in ONLY: continue
         for i, lang in enumerate(("en","es")):
             eb, h1, lead = d[lang]
             html = f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="c">{d["vis"](lang)}<div class="txt"><img class="logo" src="{logo}"><div class="eb">{eb}</div><h1 style="font-size:{d.get('size',86)}px">{h1}</h1><p>{lead}</p></div><div class="foot"><span>ocoteworks.com{URL[key][i]}</span><span class="fr"><i></i><i></i><i></i></span></div></div></body></html>'

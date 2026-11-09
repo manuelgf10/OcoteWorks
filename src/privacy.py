@@ -17,7 +17,7 @@ SECTIONS = {
 <p>Solo los que tú nos das:</p>
 <ul>
 <li><b>Cotizador:</b> nombre, correo electrónico, nombre del proyecto o marca, la información que escribas en las notas y la configuración del proyecto que elegiste.</li>
-<li><b>Lista de espera de productos:</b> correo electrónico.</li>
+<li><b>Listas de espera de productos:</b> correo electrónico y, en su caso, el acabado y el número de piezas que te interesan.</li>
 <li><b>Correo directo:</b> la información que incluyas en tu mensaje.</li>
 </ul>
 <p>No recabamos datos personales sensibles. Te pedimos no incluirlos en tus mensajes.</p>"""),
@@ -26,7 +26,7 @@ SECTIONS = {
 <ul>
 <li>Responder tu solicitud, hacerte preguntas sobre el proyecto y enviarte una propuesta y cotización.</li>
 <li>Dar seguimiento al proyecto si decides contratarlo.</li>
-<li>Avisarte cuando un producto de la lista de espera esté disponible.</li>
+<li>Avisarte cuando un producto de la lista de espera esté disponible y conocer cuánto interés hay en los productos en preparación, para decidir qué fabricar.</li>
 </ul>
 <p>No usamos tus datos para publicidad, no los vendemos y no los compartimos con terceros para sus propios fines. Si en el futuro quisiéramos usarlos para algo distinto, te pediríamos antes tu consentimiento.</p>"""),
         ("Cómo limitar su uso", f"""
@@ -62,7 +62,7 @@ SECTIONS = {
 <p>Only what you give us:</p>
 <ul>
 <li><b>Quote builder:</b> name, email, project or brand name, anything you write in the notes and the project configuration you chose.</li>
-<li><b>Product waitlist:</b> email.</li>
+<li><b>Product waitlists:</b> email and, where applicable, the finish and number of pieces you’re interested in.</li>
 <li><b>Direct email:</b> whatever you include in your message.</li>
 </ul>
 <p>We do not collect sensitive personal data. Please don’t include it in your messages.</p>"""),
@@ -71,7 +71,7 @@ SECTIONS = {
 <ul>
 <li>Reply to your request, ask questions about the project and send you a proposal and quote.</li>
 <li>Follow up on the project if you decide to go ahead.</li>
-<li>Let you know when a waitlisted product is available.</li>
+<li>Let you know when a waitlisted product is available and gauge interest in products in pre-production, to decide what to make.</li>
 </ul>
 <p>We don’t use your data for advertising, we don’t sell it and we don’t share it with third parties for their own purposes. If we ever wanted to use it for something else, we would ask for your consent first.</p>"""),
         ("How to limit its use", f"""
