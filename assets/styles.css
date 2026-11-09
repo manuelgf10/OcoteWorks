@@ -570,10 +570,12 @@ html.owl-on{overflow:hidden}
 .owl-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 42% at 50% 44%,rgba(244,234,215,.16),rgba(244,234,215,0) 70%);opacity:0;animation:owl-tube .9s steps(1,end) forwards}
 .owl-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:30px}
 #ow-loader img{width:180px;height:auto;opacity:0;animation:owl-tube .9s steps(1,end) forwards,owl-hum .09s linear .9s infinite alternate;filter:drop-shadow(0 0 14px rgba(244,234,215,.35))}
-/* arranque de balastro: clic, destellos cortos, pausa, tartamudeo y luz estable */
+/* arranque de balastro: tres destellos y luz estable */
 @keyframes owl-tube{
-  0%{opacity:0}6%{opacity:0}8%{opacity:.7}11%{opacity:0}15%{opacity:.85}18%{opacity:.05}
-  22%{opacity:.9}25%{opacity:.1}29%{opacity:1}32%{opacity:.2}36%{opacity:1}39%{opacity:.4}43%,100%{opacity:1}}
+  0%{opacity:0}10%{opacity:0}12%{opacity:.7}17%{opacity:0}
+  28%{opacity:.85}33%{opacity:.05}
+  44%{opacity:.95}49%{opacity:.1}
+  60%,100%{opacity:1}}
 /* zumbido del balastro: variación casi imperceptible */
 @keyframes owl-hum{from{opacity:1}to{opacity:.95}}
 /* consola de la CNC */
