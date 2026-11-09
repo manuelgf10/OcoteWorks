@@ -28,7 +28,6 @@
 <meta name="twitter:image" content="https://ocoteworks.com/og-image.png">
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/atu2ijd.css">
-<!-- Respaldo: Barlow Condensed / Barlow (sustitutos oficiales de la guía). Solo se descargan si el kit de Adobe Fonts no carga. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap">
@@ -37,29 +36,12 @@
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <!-- Íconos de línea · retícula 48 u · línea 3 u · margen 4 u · puntas redondas -->
-  <symbol id="i-diseno" viewBox="0 0 48 48"><path d="M8 6v34h34z"/><path d="M15 23v10h10z"/><path d="M8 14h4M8 22h4M8 30h4"/></symbol>
-  <symbol id="i-ingenieria" viewBox="0 0 48 48"><path d="M6 10h36v8H6z"/><path d="M10 18v22l6-6V18"/><path d="M26 18v22l6-6V18"/><path d="M24 6v4M30 6v4M36 6v4"/></symbol>
-  <symbol id="i-fabricacion" viewBox="0 0 48 48"><path d="M18 4h12v14H18z"/><path d="M18 18v18l6 8 6-8V18"/><path d="M18 26l12-5M18 33l12-5"/></symbol>
   <symbol id="i-correo" viewBox="0 0 48 48"><path d="M6 12h36v24H6z"/><path d="M6 12l18 14 18-14"/></symbol>
-  <symbol id="i-camara" viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="10"/><circle cx="24" cy="24" r="8"/><path d="M34 13v.01"/></symbol>
   <symbol id="i-ubicacion" viewBox="0 0 48 48"><path d="M24 44S10 30 10 19a14 14 0 0 1 28 0c0 11-14 25-14 25z"/><circle cx="24" cy="19" r="5"/></symbol>
+  <symbol id="i-camara" viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="10"/><circle cx="24" cy="24" r="8"/><path d="M34 13v.01"/></symbol>
 </svg>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="{{home}}#inicio" aria-label="{{home_label}}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp"><img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>
-    <nav class="nav" aria-label="{{nav_label}}">
-      <a class="sec" href="#what">{{nav_what}}</a>
-      <a class="sec" href="#process">{{nav_process}}</a>
-      <a class="sec" href="#workshop">{{nav_workshop}}</a>
-      <a class="sec" href="{{about_href}}">{{nav_about}}</a>
-      {{mobile_menu}}
-      <span class="lang"><a href="/" hreflang="en" lang="en"{{cur_en}}>EN</a><span>/</span><a href="/es/" hreflang="es" lang="es"{{cur_es}}>ES</a></span>
-      <a class="btn" href="{{quote_href}}">{{cta}}</a>
-    </nav>
-  </div>
-</header>
+{{header}}
 
 <main id="inicio">
 <div class="hero">
@@ -68,10 +50,11 @@
       <div>
         <p class="eyebrow">{{hero_eyebrow}}</p>
         <h1>{{hero_h1}}</h1>
-        <p class="lead">{{hero_lead}}</p>
+        <p class="h-claim">{{h_claim}}</p>
+        <p class="lead">{{h_lead}}</p>
         <div class="ctas">
-          <a class="btn" href="{{quote_href}}">{{cta}}</a>
-          <a class="btn ghost" href="#process">{{cta2}}</a>
+          <a class="btn" href="{{u_services}}">{{h_cta_services}}</a>
+          <a class="btn ghost" href="{{u_products}}">{{h_cta_products}}</a>
         </div>
       </div>
       <picture><source srcset="/assets/logo-sticker-720.webp" type="image/webp"><img class="mark" src="/assets/logo-sticker.png" alt="" width="720" height="513" fetchpriority="high"></picture>
@@ -86,14 +69,37 @@
   </div>
 </div>
 
-<section class="manifiesto" id="manifesto">
+<section class="h-paths" aria-labelledby="h-paths-h">
   <div class="wrap">
-    <p class="eyebrow">01 · {{man_eyebrow}}</p>
+    <h2 class="sr" id="h-paths-h">{{h_paths_h}}</h2>
+    <div class="h-paths-grid">
+      <a class="h-path" href="{{u_services}}">
+        <picture><source srcset="/assets/photos/about/engine-teardown-600.webp 600w, /assets/photos/about/engine-teardown-1000.webp 1000w" sizes="(max-width:860px) 100vw, 560px" type="image/webp"><img src="/assets/photos/about/engine-teardown-600.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"></picture>
+        <div>
+          <span class="h-code">01 · {{nav_services}}</span>
+          <h3>{{h_p1_h}}</h3>
+          <p>{{h_p1_p}}</p>
+          <span class="h-more">{{h_p1_more}} →</span>
+        </div>
+      </a>
+      <a class="h-path" href="{{u_products}}">
+        <picture><source srcset="/assets/photos/about/tenere-maintenance-600.webp 600w, /assets/photos/about/tenere-maintenance-1000.webp 1000w" sizes="(max-width:860px) 100vw, 560px" type="image/webp"><img src="/assets/photos/about/tenere-maintenance-600.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"></picture>
+        <div>
+          <span class="h-code">02 · {{nav_products}}</span>
+          <h3>{{h_p2_h}}</h3>
+          <p>{{h_p2_p}}</p>
+          <span class="h-more">{{h_p2_more}} →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="manifiesto h-man">
+  <div class="wrap">
+    <p class="eyebrow">{{man_eyebrow}}</p>
     <p class="quote">{{man_quote}}</p>
-    <div class="body">{{man_body}}</div>
-    <ul class="valores">
-      {{values}}
-    </ul>
+    <div class="body"><p>{{h_man}}</p></div>
   </div>
 </section>
 
@@ -107,53 +113,37 @@
   <figcaption><span lang="en">Prove it in use</span><span>{{photo_cap}}</span></figcaption>
 </figure>
 
-<section class="servicios" id="what">
+<section class="a-work h-work">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="eyebrow">02 · {{what_eyebrow}}</p><h2>{{what_h2}}</h2></div>
-      <p>{{what_p}}</p>
+      <div><p class="eyebrow">{{a_work_eyebrow}}</p><h2>{{h_work_h2}}</h2></div>
+      <p>{{h_work_p}} <a href="{{u_journal}}">{{h_work_link}} →</a></p>
     </div>
-    <div class="trio">
-      {{services}}
-    </div>
+    <div class="a-work-grid">{{a_work}}</div>
   </div>
 </section>
 
-<section class="proceso on-dark" id="process">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><p class="eyebrow">03 · {{proc_eyebrow}}</p><h2>{{proc_h2}}</h2></div>
-      <p>{{proc_p}}</p>
-    </div>
-    <ol class="pasos">
-      {{steps}}
-    </ol>
-  </div>
-</section>
-
-<section class="taller" id="workshop">
-  <div class="wrap">
-    <div class="taller-grid">
-      <div class="txt">
-        <p class="eyebrow">04 · {{shop_eyebrow}}</p>
-        <h2>{{shop_h2}}</h2>
-        {{shop_body}}
-      </div>
-      <dl class="raices">
-        {{roots}}
-      </dl>
+<section class="h-maker">
+  <div class="wrap h-maker-grid">
+    <figure>
+      <picture><source srcset="/assets/photos/about/bike-rebuild-600.webp 600w, /assets/photos/about/bike-rebuild-1000.webp 1000w" sizes="(max-width:860px) 100vw, 460px" type="image/webp"><img src="/assets/photos/about/bike-rebuild-600.jpg" alt="{{h_maker_alt}}" width="600" height="600" loading="lazy" decoding="async"></picture>
+    </figure>
+    <div>
+      <p class="eyebrow">{{h_maker_eyebrow}}</p>
+      <h2>{{a_h1}}</h2>
+      <p>{{h_maker_p}}</p>
+      <a class="btn ghost" href="{{about_href}}">{{h_maker_cta}}</a>
     </div>
   </div>
-  <div class="wrap"><div class="franjas" aria-hidden="true"><i></i><i></i><i></i></div></div>
 </section>
 
 <section class="contacto" id="contact">
   <div class="wrap">
     <div>
-      <p class="eyebrow">05 · {{con_eyebrow}}</p>
-      <h2>{{con_h2}}</h2>
-      <p>{{con_p}}</p>
-      <a class="btn" href="{{quote_href}}">{{con_quote}}</a>
+      <p class="eyebrow">{{con_eyebrow}}</p>
+      <h2>{{h_con_h2}}</h2>
+      <p>{{h_con_p}}</p>
+      <a class="btn" href="{{quote_href}}">{{cta}}</a>
     </div>
     <div>
       <a class="mail" href="mailto:hola@ocoteworks.com"><svg class="ico" aria-hidden="true"><use href="#i-correo"/></svg>hola@ocoteworks.com</a>
@@ -164,12 +154,6 @@
 </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>
-    <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
-    <p class="meta">{{foot_meta}}<br><a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · <a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks</p>
-  </div>
-</footer>
+{{footer}}
 </body>
 </html>

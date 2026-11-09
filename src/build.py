@@ -3,7 +3,9 @@
 
     python3 src/build.py
 
-Lee src/page.html + src/styles.css y escribe:
+Plantillas: src/home.html, services.html, soon.html (Productos y Bitácora en construcción),
+quote.html, about.html. Cabecera y pie comunes en header() y footer(). Estilos src/styles.css.
+Escribe:
   /index.html      (inglés, versión principal)
   /es/index.html   (español)
   /quote/ y /es/cotizar/  (cotizador; precios en src/quote.js)
@@ -220,7 +222,8 @@ EN = dict(
     a_story="<p>I trained as an industrial designer at the Universidad Iberoamericana. Over time my work kept moving toward the same question: not only what a product should be, but how it gets made.</p>"
             "<p>My first industrial job, in 2015 at Mosaicos Venecianos, put me next to lathes, milling machines and equipment maintenance. At IKTA, from 2019 to 2020, I worked on steel structures and decorative architectural elements, moving between CAD, CAM and visualization.</p>"
             "<p>Since 2020 I’ve developed medical devices at Bioana, in an ISO 13485 environment where decisions are documented and parts have to be made reliably. Since 2022 I also manage the prototyping lab. Designing the parts and running the equipment that makes them has taught me more about manufacturability than either role would alone.</p>"
-            "<p>OcoteWorks is my independent workshop, where that background meets motorcycles, mechanical systems and the outdoors. It is not an extension of Bioana, and it isn’t a medical device company.</p>",
+            "<p>OcoteWorks is my independent workshop, where that background meets motorcycles, mechanical systems and the outdoors. It is not an extension of Bioana, and it isn’t a medical device company.</p>"
+            "<p>The name comes from <i>ocote</i>, the resin-rich pine splinter used to start a fire in the mountains: small, resourceful and reliable when it counts. And from Ocotepec, the town where I’m from.</p>",
     a_cv_eyebrow="Experience", a_cv_h2="Experience",
     a_cv_p="A compact timeline. Client work at Bioana is confidential, so it’s described by type of work, not by project.",
     a_timeline="".join([
@@ -377,7 +380,8 @@ ES = dict(
     a_story="<p>Me formé como diseñador industrial en la Universidad Iberoamericana. Con el tiempo, mi trabajo se fue moviendo hacia la misma pregunta: no solo qué debe ser un producto, sino cómo se fabrica.</p>"
             "<p>Mi primer trabajo industrial, en 2015 en Mosaicos Venecianos, me puso junto a tornos, fresadoras y mantenimiento de equipo. En IKTA, de 2019 a 2020, trabajé en estructuras de acero y elementos arquitectónicos decorativos, entre CAD, CAM y visualización.</p>"
             "<p>Desde 2020 desarrollo dispositivos médicos en Bioana, en un entorno ISO 13485 donde las decisiones se documentan y las piezas tienen que fabricarse de forma confiable. Desde 2022 además soy responsable del laboratorio de prototipos. Diseñar las piezas y operar el equipo que las fabrica me ha enseñado más sobre manufacturabilidad que cualquiera de los dos roles por separado.</p>"
-            "<p>OcoteWorks es mi taller independiente, donde esa experiencia se junta con las motos, los sistemas mecánicos y el campo. No es una extensión de Bioana ni una empresa de dispositivos médicos.</p>",
+            "<p>OcoteWorks es mi taller independiente, donde esa experiencia se junta con las motos, los sistemas mecánicos y el campo. No es una extensión de Bioana ni una empresa de dispositivos médicos.</p>"
+            "<p>El nombre viene del <i>ocote</i>, la astilla de pino resinoso con la que se prende el fuego en el monte: pequeña, ingeniosa y confiable cuando hace falta. Y de Ocotepec, el pueblo de donde soy.</p>",
     a_cv_eyebrow="Experiencia", a_cv_h2="Experiencia",
     a_cv_p="Una línea de tiempo breve. El trabajo para clientes en Bioana es confidencial, así que lo describo por tipo de trabajo, no por proyecto.",
     a_timeline="".join([
@@ -430,6 +434,154 @@ ES = dict(
     a_con_h2="Construyamos algo",
     a_con_p="Para desarrollo de producto, colaboraciones o preguntas técnicas, escríbeme. Para una estimación de tu proyecto, usa el cotizador.",
 )
+
+EN_NEW = dict(
+    nav_services="Services", nav_products="Products", nav_journal="Journal",
+    u_home="/", u_services="/services/", u_products="/products/", u_journal="/journal/",
+    foot_nav="Site",
+    # inicio
+    h_claim="Independent design, engineering and fabrication workshop in Monterrey, Mexico.",
+    h_lead="We develop products for other creators and build our own, starting with gear for adventure motorcycles.",
+    h_cta_services="Engineering services", h_cta_products="Our products",
+    h_paths_h="Two ways to work with us",
+    h_p1_h="Design. Prototype. Fabricate.",
+    h_p1_p="Product development for creators and brands: design, engineering, prototypes, packaging and short production runs.",
+    h_p1_more="Explore services",
+    h_p2_h="Original parts and gear.",
+    h_p2_p="Products we design, build and test ourselves. The first one, a rackless luggage system for adventure motorcycles, is on the bench.",
+    h_p2_more="See what’s coming",
+    h_man="We shape ideas through design, engineering and hands-on work, and we learn by making, testing and using what we build.",
+    h_work_h2="Built, tested, documented.",
+    h_work_p="Projects from the workshop, documented from sketch to finished part.",
+    h_work_link="Read the Journal",
+    h_maker_eyebrow="The maker",
+    h_maker_alt="Manuel working on a motorcycle in the OcoteWorks workshop",
+    h_maker_p="OcoteWorks is run by Manuel García Flores, industrial designer and product development engineer. Since 2020 he has developed medical devices and run a prototyping lab. Here he puts that discipline into his own products, and into yours.",
+    h_maker_cta="About Manuel",
+    h_con_h2="Have something in mind?",
+    h_con_p="Tell us what you want to build. Get a ballpark with the quote builder, or just write to us.",
+    # servicios
+    s_url="https://ocoteworks.com/services/",
+    s_title="Services · Design, engineering, prototyping & fabrication · OcoteWorks",
+    s_description="Product development in Monterrey, Mexico: industrial design, engineering, prototypes, short production runs, packaging and instructions. Hire OcoteWorks for one stage or the whole project.",
+    s_eyebrow="Services · Monterrey, MX",
+    s_h1="Design. Prototype.<br><em>Fabricate.</em>",
+    s_lead="From a sketch to a finished part. Hire us for a single stage or the whole development, from the first concept to a short production run with its box and instructions.",
+    s_cta1="Build your quote", s_cta2="Write to us",
+    s_what_eyebrow="What we do", s_what_h2="Four disciplines, one workshop",
+    s_what_p="Each one can be hired on its own. Together they take a product from idea to a part you can sell.",
+    s_cards=service("i-diseno", "OW-DS", "Design", "Parts, accessories and objects designed around how they’re used: form, function and fit.",
+                    ["Concept &amp; sketches", "3D CAD &amp; assemblies", "Fabrication drawings"])
+            + service("i-ingenieria", "OW-EN", "Engineering", "Making sure the part survives real use: materials, tolerances and testing before we cut.",
+                      ["GD&amp;T &amp; tolerances", "DFM / DFA", "Material &amp; process selection"])
+            + service("i-prototipo", "OW-PT", "Prototyping", "Real parts early, to measure, fit and adjust before committing.",
+                      ["3D printing (SLA / FDM)", "Machined prototypes", "Fixtures &amp; tooling"])
+            + service("i-fabricacion", "OW-FX", "Fabrication", "From prototype to short runs, with local processes and suppliers.",
+                      ["Short production runs", "Finishing &amp; assembly", "Supplier management"]),
+    s_launch_k="Launch", s_launch_h="Beyond the part",
+    s_launch_p="Everything a product needs to reach a customer. Add it to your project in the quote builder.",
+    s_launch_items="".join(f"<li>{x}</li>" for x in ["Brand", "Packaging &amp; labels", "Illustrated instructions", "Brochures &amp; data sheets", "Product renders"]),
+    s_caps_eyebrow="Capabilities", s_caps_h2="How things get made",
+    s_caps_p="What happens in our workshop and what we produce with regional suppliers. Professional experience with lab equipment is listed on the About page.",
+    s_caps_link="See full experience",
+    s_caps=levels([("In the workshop", "Hands-on", ["Design &amp; CAD", "FDM 3D printing", "Woodworking &amp; routing", "Metal cutting &amp; welding", "Mechanical assembly", "Field testing"]),
+                   ("With regional suppliers", "Managed by us", ["CNC machining", "Laser cutting", "Sheet metal", "Anodizing &amp; coatings", "Injection molding", "Printing &amp; packaging"])]),
+    s_start_eyebrow="Start a project", s_start_h2="Two ways to start",
+    s_start_p="Use whichever fits. Both reach the same workshop, and we reply within two business days.",
+    s_o1_h="Quote builder", s_o1_p="Pick the services you need and get a ballpark cost and timeline in two minutes.",
+    s_o2_h="Write to us", s_o2_p="Prefer to explain it yourself? Send a description, sketches, photos or references.",
+    # próximamente
+    so_cap="Work in progress",
+    pr_url="https://ocoteworks.com/products/",
+    pr_title="Products · Building in progress · OcoteWorks",
+    pr_description="Original OcoteWorks products are on the bench. The first one is a rackless luggage system for adventure motorcycles.",
+    pr_eyebrow="Products",
+    pr_lead="Our first product, a rackless luggage system for adventure motorcycles, is on the bench: machined hardware, leather and textile. We’d rather show it finished and tested than rush it.",
+    pr_tag="OW-01 · Rackless luggage · In development",
+    pr_cta1="Notify me", pr_cta2="Follow on Instagram",
+    pr_mail_subject="Products: notify me",
+    jo_url="https://ocoteworks.com/journal/",
+    jo_title="Journal · Building in progress · OcoteWorks",
+    jo_description="The OcoteWorks Journal: field notes, prototypes, CNC tests, materials and trips. First entries coming soon.",
+    jo_eyebrow="Journal",
+    jo_lead="Field notes, prototypes, CNC tests, materials and trips. The first entries are being written, with photos and technical details.",
+    jo_tag="Field log · First entries coming soon",
+    jo_cta1="Follow on Instagram", jo_cta2="About the workshop",
+)
+
+ES_NEW = dict(
+    nav_services="Servicios", nav_products="Productos", nav_journal="Bitácora",
+    u_home="/es/", u_services="/es/servicios/", u_products="/es/productos/", u_journal="/es/bitacora/",
+    foot_nav="Sitio",
+    h_claim="Taller independiente de diseño, ingeniería y fabricación en Monterrey, México.",
+    h_lead="Desarrollamos productos para otros creadores y fabricamos los nuestros, empezando por equipo para motos de aventura.",
+    h_cta_services="Servicios de ingeniería", h_cta_products="Nuestros productos",
+    h_paths_h="Dos formas de trabajar con nosotros",
+    h_p1_h="Diseñar. Prototipar. Fabricar.",
+    h_p1_p="Desarrollo de producto para creadores y marcas: diseño, ingeniería, prototipos, empaque y series cortas.",
+    h_p1_more="Ver servicios",
+    h_p2_h="Piezas y equipo propios.",
+    h_p2_p="Productos que diseñamos, fabricamos y probamos nosotros. El primero, un sistema de equipaje rackless para motos de aventura, está en el banco de trabajo.",
+    h_p2_more="Ver lo que viene",
+    h_man="Les damos forma con diseño, ingeniería y trabajo manual, y aprendemos haciendo, probando y usando lo que construimos.",
+    h_work_h2="Hecho, probado, documentado.",
+    h_work_p="Proyectos del taller, documentados del boceto a la pieza terminada.",
+    h_work_link="Leer la Bitácora",
+    h_maker_eyebrow="Quién lo hace",
+    h_maker_alt="Manuel trabajando en una moto en el taller de OcoteWorks",
+    h_maker_p="OcoteWorks lo dirige Manuel García Flores, diseñador industrial e ingeniero de desarrollo de producto. Desde 2020 desarrolla dispositivos médicos y dirige un laboratorio de prototipos. Aquí pone esa disciplina en sus propios productos, y en los tuyos.",
+    h_maker_cta="Sobre Manuel",
+    h_con_h2="¿Tienes algo en mente?",
+    h_con_p="Cuéntanos qué quieres construir. Obtén una estimación con el cotizador o escríbenos directo.",
+    s_url="https://ocoteworks.com/es/servicios/",
+    s_title="Servicios · Diseño, ingeniería, prototipos y fabricación · OcoteWorks",
+    s_description="Desarrollo de producto en Monterrey: diseño industrial, ingeniería, prototipos, series cortas, empaque e instructivos. Contrata a OcoteWorks para una etapa o para todo el proyecto.",
+    s_eyebrow="Servicios · Monterrey, MX",
+    s_h1="Diseñar. Prototipar.<br><em>Fabricar.</em>",
+    s_lead="Del boceto a la pieza terminada. Contrátanos para una etapa o para todo el desarrollo, del primer concepto a una serie corta con su caja y su instructivo.",
+    s_cta1="Arma tu cotización", s_cta2="Escríbenos",
+    s_what_eyebrow="Qué hacemos", s_what_h2="Cuatro disciplinas, un taller",
+    s_what_p="Cada una se puede contratar por separado. Juntas llevan un producto de la idea a una pieza que puedes vender.",
+    s_cards=service("i-diseno", "OW-DS", "Diseño", "Piezas, accesorios y objetos pensados para cómo se usan: forma, función y montaje.",
+                    ["Concepto y bocetos", "CAD 3D y ensambles", "Planos de fabricación"])
+            + service("i-ingenieria", "OW-EN", "Ingeniería", "Que la pieza aguante el uso real: materiales, tolerancias y pruebas antes de fabricar.",
+                      ["GD&amp;T y tolerancias", "DFM / DFA", "Selección de materiales y procesos"])
+            + service("i-prototipo", "OW-PT", "Prototipos", "Piezas reales desde temprano, para medir, montar y ajustar antes de comprometerse.",
+                      ["Impresión 3D (SLA / FDM)", "Prototipos maquinados", "Fixtures y herramentales"])
+            + service("i-fabricacion", "OW-FX", "Fabricación", "Del prototipo a la serie corta, con procesos y proveedores de la región.",
+                      ["Series cortas", "Acabados y ensamble", "Gestión de proveedores"]),
+    s_launch_k="Lanzamiento", s_launch_h="Más allá de la pieza",
+    s_launch_p="Todo lo que necesita un producto para llegar al cliente. Agrégalo a tu proyecto en el cotizador.",
+    s_launch_items="".join(f"<li>{x}</li>" for x in ["Marca", "Empaque y etiquetas", "Instructivos ilustrados", "Brochures y fichas técnicas", "Renders de producto"]),
+    s_caps_eyebrow="Capacidades", s_caps_h2="Cómo se fabrica",
+    s_caps_p="Lo que se hace en nuestro taller y lo que producimos con proveedores de la región. La experiencia profesional con equipo de laboratorio está en la página Sobre mí.",
+    s_caps_link="Ver experiencia completa",
+    s_caps=levels([("En el taller", "Práctica directa", ["Diseño y CAD", "Impresión 3D FDM", "Carpintería y ruteo", "Corte y soldadura de metal", "Ensamble mecánico", "Pruebas en campo"]),
+                   ("Con proveedores de la región", "Gestionado por nosotros", ["Maquinado CNC", "Corte láser", "Lámina", "Anodizado y recubrimientos", "Moldeo por inyección", "Impresión y empaque"])]),
+    s_start_eyebrow="Empieza un proyecto", s_start_h2="Dos formas de empezar",
+    s_start_p="Usa la que te acomode. Las dos llegan al mismo taller y respondemos en dos días hábiles.",
+    s_o1_h="Cotizador", s_o1_p="Elige los servicios que necesitas y obtén una estimación de costo y tiempo en dos minutos.",
+    s_o2_h="Escríbenos", s_o2_p="¿Prefieres explicarlo tú? Mándanos una descripción, bocetos, fotos o referencias.",
+    so_cap="Trabajo en proceso",
+    pr_url="https://ocoteworks.com/es/productos/",
+    pr_title="Productos · En construcción · OcoteWorks",
+    pr_description="Los productos propios de OcoteWorks están en el banco de trabajo. El primero es un sistema de equipaje rackless para motos de aventura.",
+    pr_eyebrow="Productos",
+    pr_lead="Nuestro primer producto, un sistema de equipaje rackless para motos de aventura, está en el banco de trabajo: herrajes maquinados, cuero y textil. Preferimos enseñarlo terminado y probado que apresurarlo.",
+    pr_tag="OW-01 · Equipaje rackless · En desarrollo",
+    pr_cta1="Avísame", pr_cta2="Síguenos en Instagram",
+    pr_mail_subject="Productos: avísame",
+    jo_url="https://ocoteworks.com/es/bitacora/",
+    jo_title="Bitácora · En construcción · OcoteWorks",
+    jo_description="La Bitácora de OcoteWorks: notas de campo, prototipos, pruebas CNC, materiales y viajes. Primeras entradas muy pronto.",
+    jo_eyebrow="Bitácora",
+    jo_lead="Notas de campo, prototipos, pruebas CNC, materiales y viajes. Las primeras entradas se están escribiendo, con fotos y detalles técnicos.",
+    jo_tag="Bitácora · Primeras entradas muy pronto",
+    jo_cta1="Síguenos en Instagram", jo_cta2="Conoce el taller",
+)
+
+EN.update(EN_NEW)
+ES.update(ES_NEW)
 
 
 def jsonld(lang, url, description):
@@ -496,19 +648,65 @@ FOUNDER_SAME_AS = [
 ]
 
 
-def mobile_menu(d):
-    """Menú desplegable para celular (sin JavaScript). En pantallas grandes se oculta."""
-    h = d["home"]
-    links = [(h + "#what", d["nav_what"]), (h + "#process", d["nav_process"]), (h + "#workshop", d["nav_workshop"]),
-             (d["about_href"], d["nav_about"]), (d["quote_href"], d["cta"])]
-    lis = "".join(f'<li><a href="{u}">{t}</a></li>' for u, t in links)
-    return (f'<details class="m-menu"><summary aria-label="{d["menu_label"]}"><span></span><span></span><span></span></summary>'
+NAV = [("services", "nav_services", "u_services"), ("products", "nav_products", "u_products"),
+       ("about", "nav_about", "about_href"), ("journal", "nav_journal", "u_journal")]
+
+
+def header(d, active, en_url, es_url):
+    """Cabecera común: logo, secciones, menú de celular, idioma y botón de cotizar."""
+    cur = ' aria-current="page"'
+    secs = "".join(f'<a class="sec" href="{d[u]}"{cur if k == active else ""}>{d[t]}</a>' for k, t, u in NAV)
+    lis = "".join(f'<li><a href="{d[u]}">{d[t]}</a></li>' for k, t, u in NAV) + f'<li><a href="{d["quote_href"]}">{d["cta"]}</a></li>'
+    menu = (f'<details class="m-menu"><summary aria-label="{d["menu_label"]}"><span></span><span></span><span></span></summary>'
             f'<ul>{lis}</ul></details>')
+    en_cur, es_cur = (cur, "") if d["lang"] == "en" else ("", cur)
+    lang = (f'<span class="lang"><a href="{en_url}" hreflang="en" lang="en"{en_cur}>EN</a><span>/</span>'
+            f'<a href="{es_url}" hreflang="es" lang="es"{es_cur}>ES</a></span>')
+    return (f'<header class="top"><div class="wrap">'
+            f'<a class="brand" href="{d["u_home"]}" aria-label="{d["home_label"]}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp">'
+            f'<img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>'
+            f'<nav class="nav" aria-label="{d["nav_label"]}">{secs}{menu}{lang}<a class="btn" href="{d["quote_href"]}">{d["cta"]}</a></nav>'
+            f'</div></header>')
+
+
+def footer(d):
+    links = " · ".join(f'<a href="{d[u]}">{d[t]}</a>' for k, t, u in NAV)
+    return (f'<footer><div class="wrap">'
+            f'<picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>'
+            f'<p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>'
+            f'<p class="meta">{d["foot_meta"]}<br><span class="f-nav" aria-label="{d["foot_nav"]}">{links}</span><br>'
+            f'<a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · '
+            f'<a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks</p></div></footer>')
+
+
+def moto_svg():
+    """Moto de aventura genérica en un banco de trabajo, sin rueda delantera (línea punteada) y una llave española."""
+    return """<svg viewBox="0 0 520 330" role="img" aria-hidden="true" class="moto">
+  <g fill="none" stroke="#17171a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 300H500" stroke-width="3"/>
+    <circle cx="130" cy="228" r="62"/><circle cx="130" cy="228" r="47" stroke-width="3"/><circle cx="130" cy="228" r="8"/>
+    <circle cx="398" cy="228" r="62" stroke-dasharray="10 12" stroke-width="3"/><circle cx="398" cy="228" r="6" stroke-width="3"/>
+    <path d="M130 228L252 206"/><path d="M200 142L230 200"/>
+    <rect x="240" y="168" width="72" height="52" rx="6"/><path d="M252 180h48M252 192h48M252 204h48" stroke-width="3"/>
+    <path d="M252 206L246 150L332 118"/><path d="M312 168L338 122"/>
+    <path d="M250 128Q292 98 336 112L330 142Q290 148 252 147Z" fill="#edb544"/>
+    <path d="M150 132Q200 117 252 124"/><path d="M150 132L160 146H250"/><path d="M150 132L92 142"/>
+    <path d="M338 112L398 228"/><path d="M347 108L404 220" stroke-width="3"/>
+    <path d="M320 92L362 82"/><path d="M338 112L341 90"/>
+    <path d="M354 104L380 97L392 128L368 135Z"/>
+    <path d="M262 214Q205 232 175 180L152 162"/><rect x="132" y="146" width="30" height="16" rx="3" transform="rotate(35 147 154)"/>
+    <path d="M236 300L252 252H302L318 300" stroke-width="4"/><path d="M246 252H308" stroke-width="4"/>
+  </g>
+  <g transform="translate(300 64) rotate(28)" stroke="#17171a" stroke-width="4" stroke-linejoin="round">
+    <path d="M30 -8H150V8H30Z" fill="#edb544"/>
+    <path d="M30 -8L20 -22A24 24 0 0 0 -16 -15L2 -6V6L-16 15A24 24 0 0 0 20 22L30 8Z" fill="#edb544"/>
+    <circle cx="170" cy="0" r="21" fill="#edb544"/><circle cx="170" cy="0" r="9" fill="#f4ead7"/>
+  </g>
+  <g transform="translate(36 262)"><rect width="16" height="30" fill="#17171a" transform="skewX(-16.5)"/><rect x="24" width="16" height="30" fill="#edb544" transform="skewX(-16.5)"/><rect x="48" width="16" height="30" fill="#e48233" transform="skewX(-16.5)"/></g>
+</svg>"""
 
 
 def render(tpl, data):
-    if "nav_what" in data and "{{mobile_menu}}" in tpl:
-        tpl = tpl.replace("{{mobile_menu}}", mobile_menu(data))
     out = tpl
     for k, v in data.items():
         out = out.replace("{{" + k + "}}", v)
@@ -516,40 +714,53 @@ def render(tpl, data):
     return out
 
 
-def main():
-    tpl = open(os.path.join(SRC, "page.html"), encoding="utf-8").read()
-    css = open(os.path.join(SRC, "styles.css"), encoding="utf-8").read()
-    cerro = open(os.path.join(SRC, "cerro_path.txt"), encoding="utf-8").read().strip()
-    version = hashlib.sha1(css.encode()).hexdigest()[:8]
+PAGES = {  # clave: (ruta EN, ruta ES)
+    "home": ("/", "/es/"), "services": ("/services/", "/es/servicios/"), "products": ("/products/", "/es/productos/"),
+    "about": ("/about/", "/es/sobre-mi/"), "journal": ("/journal/", "/es/bitacora/"), "quote": ("/quote/", "/es/cotizar/"),
+}
 
+
+def write(path, html):
+    full = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
+    os.makedirs(os.path.dirname(full), exist_ok=True)
+    open(full, "w", encoding="utf-8").write(html)
+
+
+def main():
+    css = open(os.path.join(SRC, "styles.css"), encoding="utf-8").read()
+    version = hashlib.sha1(css.encode()).hexdigest()[:8]
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
     open(os.path.join(ROOT, "assets", "styles.css"), "w", encoding="utf-8").write(css)
-
-    for data, path in [(EN, "index.html"), (ES, os.path.join("es", "index.html"))]:
-        full = os.path.join(ROOT, path)
-        os.makedirs(os.path.dirname(full), exist_ok=True)
-        page = render(tpl, dict(data, cerro_path=cerro, version=version,
-                                jsonld=jsonld(data["lang"], data["url"], data["description"])))
-        open(full, "w", encoding="utf-8").write(page)
-
-    # Cotizador
-    qtpl = open(os.path.join(SRC, "quote.html"), encoding="utf-8").read()
     qjs = open(os.path.join(SRC, "quote.js"), encoding="utf-8").read()
     open(os.path.join(ROOT, "assets", "quote.js"), "w", encoding="utf-8").write(qjs)
     qversion = hashlib.sha1(qjs.encode()).hexdigest()[:8]
-    for data, path in [(EN, os.path.join("quote", "index.html")), (ES, os.path.join("es", "cotizar", "index.html"))]:
-        full = os.path.join(ROOT, path)
-        os.makedirs(os.path.dirname(full), exist_ok=True)
-        open(full, "w", encoding="utf-8").write(render(qtpl, dict(data, version=version, qversion=qversion)))
+    T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about"]}
 
-    # Sobre mí
-    atpl = open(os.path.join(SRC, "about.html"), encoding="utf-8").read()
-    for data, path in [(EN, os.path.join("about", "index.html")), (ES, os.path.join("es", "sobre-mi", "index.html"))]:
-        full = os.path.join(ROOT, path)
-        os.makedirs(os.path.dirname(full), exist_ok=True)
-        open(full, "w", encoding="utf-8").write(render(atpl, dict(data, version=version, a_jsonld=person_jsonld(data),
-                                                                 a_photos=about_photos(data["lang"]), a_hero_visual=about_hero(data),
-                                                                 a_plate_block=about_plate(data))))
+    for data in (EN, ES):
+        i = 0 if data["lang"] == "en" else 1
+
+        def ctx(key, **extra):
+            en, es = PAGES[key]
+            base = dict(data, version=version, header=header(data, key, en, es), footer=footer(data),
+                        p_alt_en="https://ocoteworks.com" + en, p_alt_es="https://ocoteworks.com" + es)
+            base.update(extra)
+            return base
+
+        write(PAGES["home"][i], render(T["home"], ctx("home", jsonld=jsonld(data["lang"], data["url"], data["description"]))))
+        write(PAGES["services"][i], render(T["services"], ctx("services", p_title=data["s_title"], p_description=data["s_description"], p_url=data["s_url"])))
+        write(PAGES["quote"][i], render(T["quote"], ctx("quote", qversion=qversion)))
+        write(PAGES["about"][i], render(T["about"], ctx("about", a_jsonld=person_jsonld(data), a_photos=about_photos(data["lang"]),
+                                                          a_hero_visual=about_hero(data), a_plate_block=about_plate(data))))
+        ig = "https://www.instagram.com/ocote.works/"
+        subj = data["pr_mail_subject"].replace(" ", "%20").replace(":", "%3A")
+        write(PAGES["products"][i], render(T["soon"], ctx("products", p_title=data["pr_title"], p_description=data["pr_description"], p_url=data["pr_url"],
+                                                          so_eyebrow=data["pr_eyebrow"], so_lead=data["pr_lead"], so_tag=data["pr_tag"],
+                                                          so_cta1=data["pr_cta1"], so_cta1_href=f"mailto:hola@ocoteworks.com?subject={subj}",
+                                                          so_cta2=data["pr_cta2"], so_cta2_href=ig, moto_svg=moto_svg())))
+        write(PAGES["journal"][i], render(T["soon"], ctx("journal", p_title=data["jo_title"], p_description=data["jo_description"], p_url=data["jo_url"],
+                                                         so_eyebrow=data["jo_eyebrow"], so_lead=data["jo_lead"], so_tag=data["jo_tag"],
+                                                         so_cta1=data["jo_cta1"], so_cta1_href=ig,
+                                                         so_cta2=data["jo_cta2"], so_cta2_href=data["about_href"], moto_svg=moto_svg())))
 
     # Página 404 (bilingüe, una sola)
     p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version)
@@ -558,9 +769,7 @@ def main():
     def alt(en, es):
         return (f'<xhtml:link rel="alternate" hreflang="en" href="{en}"/>'
                 f'<xhtml:link rel="alternate" hreflang="es" href="{es}"/>')
-    pairs = [("https://ocoteworks.com/", "https://ocoteworks.com/es/"),
-             ("https://ocoteworks.com/quote/", "https://ocoteworks.com/es/cotizar/"),
-             ("https://ocoteworks.com/about/", "https://ocoteworks.com/es/sobre-mi/")]
+    pairs = [("https://ocoteworks.com" + en, "https://ocoteworks.com" + es) for en, es in PAGES.values()]
     urls = "".join(
         f"  <url><loc>{u}</loc><lastmod>{LASTMOD}</lastmod>{alt(en, es)}</url>\n"
         for en, es in pairs for u in (en, es))

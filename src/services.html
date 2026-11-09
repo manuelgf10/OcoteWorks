@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{p_title}}</title>
+<meta name="description" content="{{p_description}}">
+<meta name="theme-color" content="#17171a">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="{{p_url}}">
+<link rel="alternate" hreflang="en" href="{{p_alt_en}}">
+<link rel="alternate" hreflang="es" href="{{p_alt_es}}">
+<link rel="alternate" hreflang="x-default" href="{{p_alt_en}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OcoteWorks">
+<meta property="og:locale" content="{{og_locale}}">
+<meta property="og:title" content="{{p_title}}">
+<meta property="og:description" content="{{p_description}}">
+<meta property="og:url" content="{{p_url}}">
+<meta property="og:image" content="https://ocoteworks.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{og_alt}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ocoteworks.com/og-image.png">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/atu2ijd.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap">
+<link rel="stylesheet" href="/assets/styles.css?v={{version}}">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-diseno" viewBox="0 0 48 48"><path d="M8 6v34h34z"/><path d="M15 23v10h10z"/><path d="M8 14h4M8 22h4M8 30h4"/></symbol>
+  <symbol id="i-ingenieria" viewBox="0 0 48 48"><path d="M6 10h36v8H6z"/><path d="M10 18v22l6-6V18"/><path d="M26 18v22l6-6V18"/><path d="M24 6v4M30 6v4M36 6v4"/></symbol>
+  <symbol id="i-prototipo" viewBox="0 0 48 48"><path d="M24 6l16 9v18l-16 9-16-9V15z"/><path d="M8 15l16 9 16-9M24 24v18"/></symbol>
+  <symbol id="i-fabricacion" viewBox="0 0 48 48"><path d="M18 4h12v14H18z"/><path d="M18 18v18l6 8 6-8V18"/><path d="M18 26l12-5M18 33l12-5"/></symbol>
+  <symbol id="i-correo" viewBox="0 0 48 48"><path d="M6 12h36v24H6z"/><path d="M6 12l18 14 18-14"/></symbol>
+</svg>
+
+{{header}}
+
+<main>
+<div class="hero s-hero">
+  <div class="wrap">
+    <p class="eyebrow">{{s_eyebrow}}</p>
+    <h1>{{s_h1}}</h1>
+    <p class="lead">{{s_lead}}</p>
+    <div class="ctas">
+      <a class="btn" href="{{quote_href}}">{{s_cta1}}</a>
+      <a class="btn ghost" href="mailto:hola@ocoteworks.com">{{s_cta2}}</a>
+    </div>
+  </div>
+</div>
+
+<section class="servicios">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">01 · {{s_what_eyebrow}}</p><h2>{{s_what_h2}}</h2></div>
+      <p>{{s_what_p}}</p>
+    </div>
+    <div class="trio s-four">{{s_cards}}</div>
+    <div class="s-launch">
+      <div><span class="h-code">+ {{s_launch_k}}</span><h3>{{s_launch_h}}</h3><p>{{s_launch_p}}</p></div>
+      <ul>{{s_launch_items}}</ul>
+      <a class="btn" href="{{quote_href}}">{{s_cta1}}</a>
+    </div>
+  </div>
+</section>
+
+<section class="proceso on-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">02 · {{proc_eyebrow}}</p><h2>{{proc_h2}}</h2></div>
+      <p>{{proc_p}}</p>
+    </div>
+    <ol class="pasos">{{steps}}</ol>
+  </div>
+</section>
+
+<section class="s-caps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">03 · {{s_caps_eyebrow}}</p><h2>{{s_caps_h2}}</h2></div>
+      <p>{{s_caps_p}} <a href="{{about_href}}">{{s_caps_link}} →</a></p>
+    </div>
+    <div class="a-levels">{{s_caps}}</div>
+  </div>
+</section>
+
+<section class="s-start">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">04 · {{s_start_eyebrow}}</p><h2>{{s_start_h2}}</h2></div>
+      <p>{{s_start_p}}</p>
+    </div>
+    <div class="s-start-grid">
+      <a class="s-opt s-opt-main" href="{{quote_href}}"><span class="h-code">A</span><h3>{{s_o1_h}}</h3><p>{{s_o1_p}}</p><span class="h-more">{{s_cta1}} →</span></a>
+      <a class="s-opt" href="mailto:hola@ocoteworks.com"><span class="h-code">B</span><h3>{{s_o2_h}}</h3><p>{{s_o2_p}}</p><span class="h-more"><svg class="ico" aria-hidden="true"><use href="#i-correo"/></svg>hola@ocoteworks.com</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+{{footer}}
+</body>
+</html>

@@ -2,13 +2,18 @@
 
 Sitio web de [ocoteworks.com](https://ocoteworks.com). Publicado con GitHub Pages desde la rama `main`.
 
-- `/` — inglés (versión principal)
-- `/es/` — español
-- `/quote/` y `/es/cotizar/` — cotizador de proyectos
+| Página | EN | ES |
+|---|---|---|
+| Inicio | `/` | `/es/` |
+| Servicios | `/services/` | `/es/servicios/` |
+| Productos (en construcción) | `/products/` | `/es/productos/` |
+| Sobre mí | `/about/` | `/es/sobre-mi/` |
+| Bitácora (en construcción) | `/journal/` | `/es/bitacora/` |
+| Cotizador | `/quote/` | `/es/cotizar/` |
 
 ## Editar el sitio
 
-Los textos de los dos idiomas viven en `src/build.py` (diccionarios `EN` y `ES`). La estructura está en `src/page.html` y los estilos en `src/styles.css`. Después de editar:
+Los textos de los dos idiomas viven en `src/build.py` (diccionarios `EN` y `ES`). Plantillas en `src/` (home, services, soon, quote, about); cabecera y pie comunes en `header()` / `footer()` de `build.py`; estilos en `src/styles.css`. Después de editar:
 
 ```
 python3 src/build.py

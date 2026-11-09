@@ -38,19 +38,7 @@
   <symbol id="i-correo" viewBox="0 0 48 48"><path d="M6 12h36v24H6z"/><path d="M6 12l18 14 18-14"/></symbol>
 </svg>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="{{home}}" aria-label="{{home_label}}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp"><img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>
-    <nav class="nav" aria-label="{{nav_label}}">
-      <a class="sec" href="{{home}}#what">{{nav_what}}</a>
-      <a class="sec" href="{{home}}#process">{{nav_process}}</a>
-      <a class="sec" href="{{about_href}}">{{nav_about}}</a>
-      {{mobile_menu}}
-      <span class="lang"><a href="/quote/" hreflang="en" lang="en"{{cur_en}}>EN</a><span>/</span><a href="/es/cotizar/" hreflang="es" lang="es"{{cur_es}}>ES</a></span>
-      <a class="btn" href="#q-send">{{q_nav_cta}}</a>
-    </nav>
-  </div>
-</header>
+{{header}}
 
 <main>
 <div class="hero q-hero">
@@ -110,13 +98,7 @@
 </div>
 </main>
 
-<footer>
-  <div class="wrap">
-    <picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>
-    <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
-    <p class="meta">{{foot_meta}}<br><a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · <a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks</p>
-  </div>
-</footer>
+{{footer}}
 <script src="/assets/quote.js?v={{qversion}}" defer></script>
 </body>
 </html>

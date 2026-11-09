@@ -41,19 +41,7 @@
   <symbol id="i-prueba" viewBox="0 0 48 48"><path d="M8 34a16 16 0 0 1 32 0"/><path d="M24 34l8-11"/><path d="M8 40h32"/><path d="M12 24l3 2M24 18v4M36 24l-3 2"/></symbol>
 </svg>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="{{home}}" aria-label="{{home_label}}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp"><img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>
-    <nav class="nav" aria-label="{{nav_label}}">
-      <a class="sec" href="{{home}}#what">{{nav_what}}</a>
-      <a class="sec" href="{{home}}#process">{{nav_process}}</a>
-      <a class="sec" href="{{about_href}}" aria-current="page">{{nav_about}}</a>
-      {{mobile_menu}}
-      <span class="lang"><a href="/about/" hreflang="en" lang="en"{{cur_en}}>EN</a><span>/</span><a href="/es/sobre-mi/" hreflang="es" lang="es"{{cur_es}}>ES</a></span>
-      <a class="btn" href="{{quote_href}}">{{cta}}</a>
-    </nav>
-  </div>
-</header>
+{{header}}
 
 <main>
 <!-- 01 · Introducción -->
@@ -184,12 +172,6 @@
 </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>
-    <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
-    <p class="meta">{{foot_meta}}<br><a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · <a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks</p>
-  </div>
-</footer>
+{{footer}}
 </body>
 </html>
