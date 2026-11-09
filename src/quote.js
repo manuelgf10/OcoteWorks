@@ -503,16 +503,16 @@ const T = {
     const mailto = () => { location.href = `mailto:${C.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`${t.mail.hello}\n\n${t.mail.intro}\n\n` + summary)}`; };
     if (fm._gotcha && fm._gotcha.value) return;            // bot
     const label = btn.innerHTML; btn.disabled = true; btn.textContent = t.send.sending; msg.textContent = ""; msg.className = "q-msg";
-    fetch(C.formspree, {
-      method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" },
-      // Campos cortos y sin URLs completas: un bloque largo con links hace que el filtro anti-spam de Formspree retenga la solicitud.
-      body: JSON.stringify({ _subject: subject, name: f.name, email: f.email, project: f.project || "—", notes: f.notes || "—",
-        reference: ref, language: L.toUpperCase(),
-        complexity: C.complexity.find(c => c.id === S.complexity)[L].t, stage: C.stage.find(s => s.id === S.stage)[L],
-        services: r.lines.map(l => l.code + " " + l.label).join(" / ") || "—",
-        estimate: r.lines.length ? rangeTxt(r.lo, r.hi) + " " + t.vat : "—", timeline: weeksTxt(r.weeks),
-        config: stateParams() })
-    }).then(res => {
+    // Envío como formulario normal, con campos cortos y SIN montos ni URLs completas:
+    // probado el 9-nov-2026, el filtro anti-spam de Formspree retiene las solicitudes que llevan cantidades en $.
+    // La estimación se recupera abriendo ocoteworks.com/es/cotizar/#<config>.
+    const data = { _subject: subject, name: f.name, email: f.email, project: f.project || "—", notes: f.notes || "—",
+      reference: ref, language: L.toUpperCase(),
+      complexity: C.complexity.find(c => c.id === S.complexity)[L].t, stage: C.stage.find(s => s.id === S.stage)[L],
+      services: r.lines.map(l => l.code + " " + l.label).join(" / ") || "—",
+      timeline: weeksTxt(r.weeks), config: stateParams() };
+    const body = new FormData(); Object.entries(data).forEach(([k, v]) => body.append(k, v));
+    fetch(C.formspree, { method: "POST", headers: { "Accept": "application/json" }, body }).then(res => {
       if (!res.ok) throw new Error(res.status);
       const box = document.getElementById("q-send");
       box.classList.add("q-sent");
