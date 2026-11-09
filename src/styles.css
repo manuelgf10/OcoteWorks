@@ -702,12 +702,17 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 
 /* ---------- Franja "estado del taller" (paso 6) ---------- */
 .status{background:var(--carbon);color:var(--marfil);font:400 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums}
-.status .wrap{display:flex;align-items:center;gap:18px;height:34px}
-.st-k{display:inline-flex;align-items:center;gap:10px;color:var(--cempasuchil);flex:none}
-.st-dot{width:8px;height:8px;border-radius:50%;background:var(--cempasuchil);box-shadow:0 0 0 0 rgba(237,181,68,.6);animation:st-pulse 2.4s ease-out infinite}
+.status .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;height:34px}
+.st-k{display:inline-flex;align-items:center;white-space:nowrap;color:var(--tinta-osc);flex:none}
+.st-dot{width:8px;height:8px;margin-right:12px;border-radius:50%;background:var(--cempasuchil);box-shadow:0 0 0 0 rgba(237,181,68,.6);animation:st-pulse 2.4s ease-out infinite}
 @keyframes st-pulse{0%{box-shadow:0 0 0 0 rgba(237,181,68,.55)}70%{box-shadow:0 0 0 7px rgba(237,181,68,0)}100%{box-shadow:0 0 0 0 rgba(237,181,68,0)}}
-.st-t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none;color:var(--marfil)}
+.st-city{color:var(--marfil)}
+.st-sep{margin:0 .7em}
+.st-clock{color:var(--cempasuchil)}
+.st-t{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none;color:var(--marfil)}
+.st-cs{color:var(--cempasuchil)}
 .st-t:hover{color:var(--cempasuchil)}
-.st-t::after{content:" →";color:var(--cempasuchil)}
-.st-d{flex:none;color:var(--tinta-osc)}
-@media (max-width:600px){.status{font-size:11px;letter-spacing:.08em}.status .wrap{gap:12px;height:30px}.st-k{font-size:0;gap:0}.st-d{display:none}}
+.st-cur{display:inline-block;width:.6em;height:1.05em;margin-left:.35em;vertical-align:-.2em;background:var(--cempasuchil);animation:st-blink 1.1s steps(1,end) infinite}
+@keyframes st-blink{50%{opacity:0}}
+@media (max-width:900px){.st-coord,.st-feed{display:none}}
+@media (max-width:600px){.status{font-size:11px;letter-spacing:.08em}.status .wrap{gap:10px;height:30px}.st-cs,.st-city+.st-sep{display:none}.st-city{font-size:0}.st-city::before{content:"MTY";font-size:11px}.st-dot{margin-right:8px}}

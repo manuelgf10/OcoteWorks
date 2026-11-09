@@ -659,23 +659,24 @@ NAV = [("services", "nav_services", "u_services"), ("products", "nav_products", 
        ("about", "nav_about", "about_href"), ("journal", "nav_journal", "u_journal")]
 
 
-# Franja "estado del taller": se actualiza editando solo este bloque y volviendo a generar el sitio.
+# Franja "estado del taller": ubicación + hora local en vivo (izq.) y consola CNC (der.).
+# Para cambiar lo que "corre" en la máquina, editar PROGRAM (y el link) y volver a generar.
 STATUS = {
-    "date": "2026-11-09",                       # AAAA-MM-DD de la última actualización
-    "href": "u_products",                       # a dónde lleva (clave de URL del diccionario EN/ES)
-    "es": "En banco: OW-01 · prototipo rev 0",
-    "en": "On the bench: OW-01 · prototype rev 0",
+    "program": "OW-01",          # programa en la máquina (p. ej. OW-01, OW-02, RACK-TEST)
+    "href": "u_products",        # a dónde lleva la consola (clave de URL del diccionario EN/ES)
 }
-STATUS_UI = {"es": ("Taller", "Act."), "en": ("Workshop", "Upd.")}
+STATUS_UI = {"es": ("25.68° N · 100.31° O", "Monterrey, N.L."), "en": ("25.68° N · 100.31° W", "Monterrey, Mexico")}
 
 
 def status_bar(d):
-    y, m, dd = STATUS["date"].split("-")
-    k, upd = STATUS_UI[d["lang"]]
+    coords, city = STATUS_UI[d["lang"]]
+    prg = STATUS["program"]
     return (f'<div class="status" role="note"><div class="wrap">'
-            f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>{k}</span>'
-            f'<a class="st-t" href="{d[STATUS["href"]]}">{STATUS[d["lang"]]}</a>'
-            f'<time class="st-d" datetime="{STATUS["date"]}">{upd} {dd}.{m}.{y[2:]}</time>'
+            f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>'
+            f'<span class="st-coord">{coords}</span><span class="st-sep st-coord">·</span><span class="st-city">{city}</span>'
+            f'<span class="st-sep">·</span><time class="st-clock" data-tz="America/Monterrey">--:--</time>&nbsp;CST</span>'
+            f'<a class="st-t" href="{d[STATUS["href"]]}" lang="en"><span class="st-cs">Cycle start · </span>PRG {prg}'
+            f'<span class="st-feed"> · Feed 100%</span> · Spindle on<i class="st-cur" aria-hidden="true"></i></a>'
             f'</div></div>')
 
 

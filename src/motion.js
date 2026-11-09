@@ -3,6 +3,13 @@
    2. Las secciones aparecen al entrar en pantalla (solo lo que está debajo del primer pantallazo).
    Respeta "reducir movimiento" y no toca el cotizador. */
 (function () {
+  // Reloj de la franja del taller (hora de Monterrey)
+  var clock = document.querySelector(".st-clock");
+  if (clock && window.Intl) {
+    var fmt = new Intl.DateTimeFormat("es-MX", { timeZone: clock.dataset.tz, hour: "2-digit", minute: "2-digit", hour12: false });
+    var tick = function () { var t = fmt.format(new Date()); clock.textContent = t; clock.setAttribute("datetime", t); };
+    tick(); setInterval(tick, 15000);
+  }
   var top = document.querySelector(".top");
   if (top) {
     var on = false, ticking = false;
