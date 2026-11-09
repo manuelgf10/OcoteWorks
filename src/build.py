@@ -77,23 +77,40 @@ def work(items):
                    for c, h, p, st in items)
 
 
-# Fotos de "Sobre mí": agrega aquí las fotos del taller cuando estén en /assets/photos/about/
-# (nombre base sin extensión, texto alternativo EN, texto alternativo ES). Si la lista está vacía, la tira no aparece.
-ABOUT_PHOTOS = []
+# Fotos de "Sobre mí" en /assets/photos/about/ (cada una en -600 y -1000, .jpg y .webp).
+# (nombre base, alt EN, alt ES, pie EN, pie ES). Si la lista está vacía, la tira no aparece.
+ABOUT_PHOTOS = [
+    ("bike-rebuild", "Manuel rebuilding a motorcycle in front of the workshop tool wall", "Manuel reconstruyendo una moto frente al muro de herramientas del taller", "Rebuild", "Reconstrucción"),
+    ("engine-teardown", "A Honda engine and parts laid out on the workbench in front of the tool wall", "Un motor Honda y sus piezas sobre el banco de trabajo, frente al muro de herramientas", "Teardown", "Desarmado"),
+    ("mini-restoration", "Manuel next to the open engine bay of a classic Mini", "Manuel junto al motor de un Mini clásico", "Restoration", "Restauración"),
+    ("tenere-maintenance", "Manuel servicing his Yamaha Ténéré 700 with the rear wheel off", "Manuel dando servicio a su Yamaha Ténéré 700 sin la rueda trasera", "Maintenance · Ténéré 700", "Mantenimiento · Ténéré 700"),
+]
 
 
 def about_photos(lang):
     if not ABOUT_PHOTOS:
         return ""
-    figs = "".join(f'<figure><img src="/assets/photos/about/{b}.jpg" alt="{en if lang == "en" else es}" loading="lazy" decoding="async"></figure>'
-                   for b, en, es in ABOUT_PHOTOS)
+    figs = ""
+    for b, aen, aes, cen, ces in ABOUT_PHOTOS:
+        alt, cap = (aen, cen) if lang == "en" else (aes, ces)
+        figs += (f'<figure><picture><source srcset="/assets/photos/about/{b}-600.webp 600w, /assets/photos/about/{b}-1000.webp 1000w" '
+                 f'sizes="(max-width:760px) 50vw, 290px" type="image/webp">'
+                 f'<img src="/assets/photos/about/{b}-600.jpg" alt="{alt}" width="600" height="600" loading="lazy" decoding="async"></picture>'
+                 f'<figcaption>{cap}</figcaption></figure>')
     return f'<div class="wrap a-photos">{figs}</div>'
 
 
-def about_hero(d):
+def about_plate(d):
     return (f'<aside class="a-plate" aria-label="{d["a_plate_label"]}"><div class="a-plate-top"><span>OW · ID-001</span><span>{d["a_plate_tag"]}</span></div>'
             f'<p class="a-plate-name">Manuel García<span>Flores</span></p><dl>{d["a_plate"]}</dl>'
             '<div class="a-plate-foot"><span>REV 2026</span><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></div></aside>')
+
+
+def about_hero(d):
+    return ('<figure class="a-hero-photo"><picture>'
+            '<source srcset="/assets/photos/about/workshop-night-800.webp 800w, /assets/photos/about/workshop-night-1400.webp 1400w" sizes="(max-width:900px) 100vw, 480px" type="image/webp">'
+            f'<img src="/assets/photos/about/workshop-night-800.jpg" alt="{d["a_hero_alt"]}" width="800" height="1000" fetchpriority="high" decoding="async"></picture>'
+            f'<figcaption><span>{d["a_hero_cap"]}</span><span>OW · Field log 002</span></figcaption></figure>')
 
 
 def tags(items):
@@ -184,6 +201,10 @@ EN = dict(
     a_title="About Manuel García Flores · Industrial designer & product development engineer · OcoteWorks",
     a_description="Manuel García Flores is an industrial designer and product development engineer in Monterrey, Mexico, and the founder of OcoteWorks. Design, engineering, prototyping, manufacturing and testing.",
     a_eyebrow="About", a_plate_label="Profile summary", a_plate_tag="Founder",
+    a_hero_alt="The OcoteWorks workshop at night: Manuel at the workbench with sparks flying, next to a motorcycle and a classic Mini",
+    a_hero_cap="The workshop after dark",
+    a_off_alt="Manuel crossing a river on his Yamaha Ténéré 700, with green hills behind",
+    a_off_cap="Field log · River crossing on the Ténéré 700",
     a_h1="Designer by training.<br><em>Engineer by habit.</em>",
     a_lead="<p>I’m Manuel García Flores, an industrial designer and product development engineer in Monterrey, Mexico, and the founder of OcoteWorks.</p>"
            "<p>I care about the whole life of a product: how it’s designed, fabricated, assembled, tested and, finally, used. Most of my week is spent between CAD and the machines that turn it into parts.</p>",
@@ -336,6 +357,10 @@ ES = dict(
     a_title="Sobre Manuel García Flores · Diseñador industrial e ingeniero de producto · OcoteWorks",
     a_description="Manuel García Flores es diseñador industrial e ingeniero de desarrollo de producto en Monterrey y fundador de OcoteWorks. Diseño, ingeniería, prototipos, manufactura y pruebas.",
     a_eyebrow="Sobre mí", a_plate_label="Resumen de perfil", a_plate_tag="Fundador",
+    a_hero_alt="El taller de OcoteWorks de noche: Manuel en el banco de trabajo entre chispas, junto a una moto y un Mini clásico",
+    a_hero_cap="El taller de noche",
+    a_off_alt="Manuel cruzando un río en su Yamaha Ténéré 700, con cerros verdes al fondo",
+    a_off_cap="Bitácora · Cruce de río en la Ténéré 700",
     a_h1="Diseñador de formación.<br><em>Ingeniero por costumbre.</em>",
     a_lead="<p>Soy Manuel García Flores, diseñador industrial e ingeniero de desarrollo de producto en Monterrey, y fundador de OcoteWorks.</p>"
            "<p>Me importa la vida completa de un producto: cómo se diseña, se fabrica, se ensambla, se prueba y, al final, se usa. Paso casi toda la semana entre el CAD y las máquinas que lo convierten en piezas.</p>",
@@ -509,7 +534,8 @@ def main():
         full = os.path.join(ROOT, path)
         os.makedirs(os.path.dirname(full), exist_ok=True)
         open(full, "w", encoding="utf-8").write(render(atpl, dict(data, version=version, a_jsonld=person_jsonld(data),
-                                                                 a_photos=about_photos(data["lang"]), a_hero_visual=about_hero(data))))
+                                                                 a_photos=about_photos(data["lang"]), a_hero_visual=about_hero(data),
+                                                                 a_plate_block=about_plate(data))))
 
     # Página 404 (bilingüe, una sola)
     p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version)
