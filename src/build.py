@@ -664,12 +664,16 @@ STATUS_UI = {"es": ("25.68° N · 100.31° O", "Monterrey, N.L.", "Hora local en
              "en": ("25.68° N · 100.31° W", "Monterrey, Mexico", "Local time in Monterrey")}
 
 
-def status_bar(d):
+def status_bar(d, active=""):
     coords, city, lbl = STATUS_UI[d["lang"]]
-    return (f'<div class="status" role="note"><div class="wrap">'
-            f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>{coords}<span class="st-sep st-city">·</span><span class="st-city">{city}</span></span>'
-            f'<span class="st-time" aria-label="{lbl}"><time class="st-clock" data-tz="America/Monterrey">--:--</time>&nbsp;CST</span>'
-            f'</div></div>')
+    clock = f'<span class="st-time" aria-label="{lbl}"><time class="st-clock" data-tz="America/Monterrey">--:--</time>&nbsp;CST</span>'
+    left = (f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>{coords}<span class="st-sep st-city">·</span>'
+            f'<span class="st-city">{city}</span>')
+    if active == "quote":  # en el cotizador: la máquina arranca con tu proyecto
+        return (f'<div class="status st-cnc" role="note"><div class="wrap">{left}<span class="st-sep">·</span>{clock}</span>'
+                f'<span class="st-con" lang="en"><span class="st-cs">Cycle start</span><span class="st-feed"> · PRG OW-Q · Feed 100%</span>'
+                f' · <span class="st-sp">Spindle on</span></span></div></div>')
+    return f'<div class="status" role="note"><div class="wrap">{left}</span>{clock}</div></div>'
 
 
 def header(d, active, en_url, es_url):
@@ -682,7 +686,7 @@ def header(d, active, en_url, es_url):
     en_cur, es_cur = (cur, "") if d["lang"] == "en" else ("", cur)
     lang = (f'<span class="lang"><a href="{en_url}" hreflang="en" lang="en"{en_cur}>EN</a><span>/</span>'
             f'<a href="{es_url}" hreflang="es" lang="es"{es_cur}>ES</a></span>')
-    return (status_bar(d) + f'<header class="top"><div class="wrap">'
+    return (status_bar(d, active) + f'<header class="top"><div class="wrap">'
             f'<a class="brand" href="{d["u_home"]}" aria-label="{d["home_label"]}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp">'
             f'<img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>'
             f'<nav class="nav" aria-label="{d["nav_label"]}">{secs}{menu}{lang}<a class="btn" href="{d["quote_href"]}">{d["cta"]}</a></nav>'

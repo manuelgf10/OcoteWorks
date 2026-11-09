@@ -710,3 +710,11 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .st-time{white-space:nowrap;color:var(--tinta-osc)}
 .st-clock{color:var(--cempasuchil)}
 @media (max-width:600px){.status{font-size:11px;letter-spacing:.08em}.status .wrap{height:30px}.st-city{display:none}.st-dot{margin-right:8px}}
+/* cotizador: consola CNC a la derecha, "Spindle on" parpadea como indicador */
+.st-con{white-space:nowrap;color:var(--marfil)}
+.st-cs{color:var(--cempasuchil)}
+.st-sp{color:var(--cempasuchil);animation:st-flash 1s steps(1,end) infinite}
+@keyframes st-flash{50%{opacity:.15}}
+.st-cnc .st-k .st-time{color:var(--tinta-osc)}
+@media (max-width:900px){.st-cnc .st-feed,.st-cnc .st-k>.st-sep:not(.st-city){display:none}.st-cnc .st-time{display:none}}
+@media (max-width:600px){.st-cnc .st-k{font-size:0}.st-cnc .st-dot{margin-right:0}.st-cnc .st-k::after{content:"MTY";font-size:11px;margin-left:8px}}
