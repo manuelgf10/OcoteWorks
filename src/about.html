@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{a_title}}</title>
+<meta name="description" content="{{a_description}}">
+<meta name="theme-color" content="#17171a">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="{{a_url}}">
+<link rel="alternate" hreflang="en" href="https://ocoteworks.com/about/">
+<link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/sobre-mi/">
+<link rel="alternate" hreflang="x-default" href="https://ocoteworks.com/about/">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="OcoteWorks">
+<meta property="og:locale" content="{{og_locale}}">
+<meta property="og:title" content="{{a_title}}">
+<meta property="og:description" content="{{a_description}}">
+<meta property="og:url" content="{{a_url}}">
+<meta property="og:image" content="https://ocoteworks.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ocoteworks.com/og-image.png">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/atu2ijd.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap">
+<link rel="stylesheet" href="/assets/styles.css?v={{version}}">
+<script type="application/ld+json">{{a_jsonld}}</script>
+</head>
+<body class="a-page">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- Íconos de línea · retícula 48 u · línea 3 u -->
+  <symbol id="i-diseno" viewBox="0 0 48 48"><path d="M8 6v34h34z"/><path d="M15 23v10h10z"/><path d="M8 14h4M8 22h4M8 30h4"/></symbol>
+  <symbol id="i-ingenieria" viewBox="0 0 48 48"><path d="M6 10h36v8H6z"/><path d="M10 18v22l6-6V18"/><path d="M26 18v22l6-6V18"/><path d="M24 6v4M30 6v4M36 6v4"/></symbol>
+  <symbol id="i-prototipo" viewBox="0 0 48 48"><path d="M24 6l16 9v18l-16 9-16-9V15z"/><path d="M8 15l16 9 16-9M24 24v18"/></symbol>
+  <symbol id="i-fabricacion" viewBox="0 0 48 48"><path d="M18 4h12v14H18z"/><path d="M18 18v18l6 8 6-8V18"/><path d="M18 26l12-5M18 33l12-5"/></symbol>
+  <symbol id="i-prueba" viewBox="0 0 48 48"><path d="M8 34a16 16 0 0 1 32 0"/><path d="M24 34l8-11"/><path d="M8 40h32"/><path d="M12 24l3 2M24 18v4M36 24l-3 2"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="{{home}}" aria-label="{{home_label}}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp"><img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>
+    <nav class="nav" aria-label="{{nav_label}}">
+      <a class="sec" href="{{home}}#what">{{nav_what}}</a>
+      <a class="sec" href="{{home}}#process">{{nav_process}}</a>
+      <a class="sec" href="{{about_href}}" aria-current="page">{{nav_about}}</a>
+      <span class="lang"><a href="/about/" hreflang="en" lang="en"{{cur_en}}>EN</a><span>/</span><a href="/es/sobre-mi/" hreflang="es" lang="es"{{cur_es}}>ES</a></span>
+      <a class="btn" href="{{quote_href}}">{{cta}}</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 01 · Introducción -->
+<div class="hero a-hero">
+  <div class="wrap">
+    <div class="a-hero-grid">
+      <div>
+        <p class="eyebrow">01 · {{a_eyebrow}}</p>
+        <h1>{{a_h1}}</h1>
+        <div class="lead">{{a_lead}}</div>
+        <div class="ctas">
+          <a class="btn" href="#experience">{{a_cta}}</a>
+          <a class="btn ghost" href="#contact">{{a_cta2}}</a>
+        </div>
+      </div>
+      {{a_hero_visual}}
+    </div>
+  </div>
+</div>
+
+<section class="a-stats" aria-label="{{a_stats_label}}">
+  <div class="wrap"><ul>{{a_stats}}</ul></div>
+</section>
+
+<!-- 02 · Trayectoria profesional -->
+<section class="a-story">
+  <div class="wrap a-story-grid">
+    <div><p class="eyebrow">02 · {{a_story_eyebrow}}</p><h2>{{a_story_h2}}</h2></div>
+    <div class="a-story-body">{{a_story}}</div>
+  </div>
+  {{a_photos}}
+</section>
+
+<!-- 03 · Experiencia -->
+<section class="a-cv on-dark" id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">03 · {{a_cv_eyebrow}}</p><h2>{{a_cv_h2}}</h2></div>
+      <p>{{a_cv_p}}</p>
+    </div>
+    <ol class="a-timeline">{{a_timeline}}</ol>
+    <div class="a-award">
+      <span class="a-award-mark" aria-hidden="true">2020</span>
+      <div><p class="a-k">{{a_award_k}}</p><p class="a-award-t">{{a_award}}</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · Lo que hago -->
+<section class="servicios a-caps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">04 · {{a_caps_eyebrow}}</p><h2>{{a_caps_h2}}</h2></div>
+      <p>{{a_caps_p}}</p>
+    </div>
+    <div class="trio a-five">{{a_caps}}</div>
+  </div>
+</section>
+
+<!-- 05 · Herramientas y tecnologías -->
+<section class="a-tools">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">05 · {{a_tools_eyebrow}}</p><h2>{{a_tools_h2}}</h2></div>
+      <p>{{a_tools_p}}</p>
+    </div>
+    <div class="a-tools-grid">{{a_tools}}</div>
+    <h3 class="a-sub">{{a_methods_h}}</h3>
+    <div class="a-levels">{{a_methods}}</div>
+    <h3 class="a-sub">{{a_equip_h}}</h3>
+    <div class="a-equip">{{a_equip}}</div>
+    <p class="a-note">{{a_equip_note}}</p>
+  </div>
+</section>
+
+<!-- 06 · Trabajo seleccionado -->
+<section class="a-work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">06 · {{a_work_eyebrow}}</p><h2>{{a_work_h2}}</h2></div>
+      <p>{{a_work_p}}</p>
+    </div>
+    <div class="a-work-grid">{{a_work}}</div>
+  </div>
+</section>
+
+<!-- 07 · Más allá del taller -->
+<section class="a-off">
+  <div class="wrap a-off-grid">
+    <div>
+      <p class="eyebrow">07 · {{a_off_eyebrow}}</p>
+      <h2>{{a_off_h2}}</h2>
+      <p>{{a_off_p}}</p>
+      <p class="a-sign">— Manuel</p>
+    </div>
+    <figure>
+      <picture>
+        <source srcset="/assets/photos/field-test-1200.webp" type="image/webp">
+        <img src="/assets/photos/field-test-1600.jpg" alt="{{photo_alt}}" width="1600" height="914" loading="lazy" decoding="async">
+      </picture>
+      <figcaption>{{photo_cap}}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 08 · Contacto -->
+<section class="contacto" id="contact">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">08 · {{con_eyebrow}}</p>
+      <h2>{{a_con_h2}}</h2>
+      <p>{{a_con_p}}</p>
+      <a class="btn" href="{{quote_href}}">{{con_quote}}</a>
+    </div>
+    <div>
+      <a class="mail" href="mailto:hola@ocoteworks.com">hola@ocoteworks.com</a>
+      <small><a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn · manuelgarflo</a></small>
+      <small><a href="https://www.behance.net/manuelgf" rel="me">Behance · manuelgf</a></small>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>
+    <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
+    <p class="meta">{{foot_meta}}<br><a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · <a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks</p>
+  </div>
+</footer>
+</body>
+</html>
