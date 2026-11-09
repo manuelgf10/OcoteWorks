@@ -44,12 +44,23 @@
 {{header}}
 
 <main id="inicio">
-<div class="hero">
+<figure class="foto foto-top" aria-label="{{photo_alt}}">
+  <picture>
+    <source media="(max-width:700px)" srcset="/assets/photos/field-test-m-900.webp" type="image/webp">
+    <source srcset="/assets/photos/field-test-1200.webp 1200w, /assets/photos/field-test-2400.webp 2400w" sizes="100vw" type="image/webp">
+    <img src="/assets/photos/field-test-1600.jpg" alt="{{photo_alt}}" width="1600" height="914" fetchpriority="high" decoding="async">
+  </picture>
+  <img class="foto-logo" src="/assets/logo-carbon.png" alt="" aria-hidden="true" loading="lazy">
+  <figcaption><span lang="en">Prove it in use</span><span>{{photo_cap}}</span></figcaption>
+</figure>
+<div class="hero h-hero">
   <div class="wrap">
-    <div class="hero-grid">
+    <div class="hero-grid h-hero-grid">
       <div>
         <p class="eyebrow">{{hero_eyebrow}}</p>
         <h1>{{hero_h1}}</h1>
+      </div>
+      <div class="h-hero-side">
         <p class="h-claim">{{h_claim}}</p>
         <p class="lead">{{h_lead}}</p>
         <div class="ctas">
@@ -57,15 +68,7 @@
           <a class="btn ghost" href="{{u_products}}">{{h_cta_products}}</a>
         </div>
       </div>
-      <picture><source srcset="/assets/logo-sticker-720.webp" type="image/webp"><img class="mark" src="/assets/logo-sticker.png" alt="" width="720" height="513" fetchpriority="high"></picture>
     </div>
-    <figure class="hero-foto">
-      <picture>
-        <source srcset="/assets/photos/salinas-1200.webp 1200w, /assets/photos/salinas-2400.webp 2400w" sizes="(max-width:1200px) 100vw, 1100px" type="image/webp">
-        <img src="/assets/photos/salinas-1600.jpg" alt="{{hero_photo_alt}}" width="1600" height="1200" decoding="async">
-      </picture>
-      <figcaption class="cap"><span>{{hero_photo_cap}}</span><span>OW · Field log 001</span></figcaption>
-    </figure>
   </div>
 </div>
 
@@ -103,14 +106,12 @@
   </div>
 </section>
 
-<figure class="foto" aria-label="{{photo_alt}}">
+<figure class="foto foto-b" aria-label="{{hero_photo_alt}}">
   <picture>
-    <source media="(max-width:700px)" srcset="/assets/photos/field-test-m-900.webp" type="image/webp">
-    <source srcset="/assets/photos/field-test-1200.webp 1200w, /assets/photos/field-test-2400.webp 2400w" sizes="100vw" type="image/webp">
-    <img src="/assets/photos/field-test-1600.jpg" alt="{{photo_alt}}" width="1600" height="914" loading="lazy" decoding="async">
+    <source srcset="/assets/photos/salinas-1200.webp 1200w, /assets/photos/salinas-2400.webp 2400w" sizes="100vw" type="image/webp">
+    <img src="/assets/photos/salinas-1600.jpg" alt="{{hero_photo_alt}}" width="1600" height="1200" loading="lazy" decoding="async">
   </picture>
-  <img class="foto-logo" src="/assets/logo-carbon.png" alt="" aria-hidden="true" loading="lazy">
-  <figcaption><span lang="en">Prove it in use</span><span>{{photo_cap}}</span></figcaption>
+  <figcaption><span>OW · Field log 001</span><span>{{hero_photo_cap}}</span></figcaption>
 </figure>
 
 <section class="a-work h-work">
