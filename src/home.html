@@ -44,12 +44,13 @@
 {{header}}
 
 <main id="inicio">
-<figure class="foto foto-top" aria-label="{{photo_alt}}">
+<figure class="foto foto-top" aria-label="{{hero_video_alt}}">
   <picture>
-    <source media="(max-width:700px)" srcset="/assets/photos/field-test-m-600.webp 600w, /assets/photos/field-test-m-900.webp 900w" sizes="100vw" type="image/webp">
-    <source srcset="/assets/photos/field-test-1200.webp 1200w, /assets/photos/field-test-1600.webp 1600w, /assets/photos/field-test-2400.webp 2400w" sizes="100vw" type="image/webp">
-    <img src="/assets/photos/field-test-1600.jpg" alt="{{photo_alt}}" width="1600" height="914" fetchpriority="high" decoding="async">
+    <source media="(max-width:700px)" srcset="/assets/video/hero-loop-m-600.webp 600w, /assets/video/hero-loop-m-900.webp 900w" sizes="100vw" type="image/webp">
+    <source srcset="/assets/video/hero-loop-1200.webp 1200w, /assets/video/hero-loop-1600.webp 1600w, /assets/video/hero-loop-2400.webp 2400w" sizes="100vw" type="image/webp">
+    <img src="/assets/video/hero-loop-1600.jpg" alt="{{hero_video_alt}}" width="1600" height="900" fetchpriority="high" decoding="async">
   </picture>
+  <video class="foto-video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-lg="/assets/video/hero-loop-1920.mp4" data-sm="/assets/video/hero-loop-m-720.mp4"></video>
   <img class="foto-logo" src="/assets/logo-carbon-720.webp" srcset="/assets/logo-carbon-400.webp 400w, /assets/logo-carbon-720.webp 720w" sizes="(max-width:700px) 60vw, 30vw" alt="" aria-hidden="true" loading="lazy">
   <figcaption><span lang="en">Prove it in use</span><span>{{photo_cap}}</span></figcaption>
 </figure>
@@ -99,6 +100,22 @@
 </section>
 
 {{h_shop}}
+
+<section class="h-film" aria-labelledby="h-film-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">{{h_film_eyebrow}}</p><h2 id="h-film-h">{{h_film_h2}}</h2></div>
+      <p>{{h_film_p}}</p>
+    </div>
+    <figure class="h-film-box">
+      <video class="h-film-v" controls playsinline preload="none" poster="/assets/video/ow-film-001-poster-1920.webp" aria-label="{{h_film_alt}}">
+        <source src="/assets/video/ow-film-001-1280.mp4" type="video/mp4" media="(max-width:900px)">
+        <source src="/assets/video/ow-film-001-1920.mp4" type="video/mp4">
+      </video>
+      <button class="h-film-play" type="button"><span aria-hidden="true" class="h-film-tri"></span>{{h_film_play}} <span class="h-film-t">0:20</span></button>
+    </figure>
+  </div>
+</section>
 
 <section class="manifiesto h-man">
   <div class="wrap">

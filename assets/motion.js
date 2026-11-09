@@ -10,6 +10,32 @@
     var tick = function () { var t = fmt.format(new Date()); clock.textContent = t; clock.setAttribute("datetime", t); };
     tick(); setInterval(tick, 15000);
   }
+  // Video de portada: se carga después de la página; no en "reducir movimiento" ni con ahorro de datos.
+  var hv = document.querySelector(".foto-video");
+  var rmq = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var save = navigator.connection && navigator.connection.saveData;
+  if (hv && !rmq && !save) {
+    var startHero = function () {
+      hv.src = window.matchMedia("(max-width:700px)").matches ? hv.dataset.sm : hv.dataset.lg;
+      hv.addEventListener("playing", function () { hv.classList.add("on"); }, { once: true });
+      var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {});
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (en) {
+          en.forEach(function (e) { if (e.isIntersecting) { var q = hv.play(); if (q && q.catch) q.catch(function () {}); } else hv.pause(); });
+        }).observe(hv);
+      }
+    };
+    if (document.readyState === "complete") startHero(); else window.addEventListener("load", startHero, { once: true });
+  }
+  // Cortometraje: botón propio de reproducir.
+  document.querySelectorAll(".h-film-box").forEach(function (box) {
+    var v = box.querySelector("video"), b = box.querySelector(".h-film-play");
+    if (!v || !b) return;
+    v.removeAttribute("controls");
+    b.addEventListener("click", function () { var q = v.play(); if (q && q.catch) q.catch(function () {}); });
+    v.addEventListener("play", function () { box.classList.add("playing"); v.setAttribute("controls", ""); });
+  });
+
   var top = document.querySelector(".top");
   if (top) {
     var on = false, ticking = false;
