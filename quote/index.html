@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build your project · Quote builder · OcoteWorks</title>
+<meta name="description" content="Configure your product project with OcoteWorks: design, prototypes, brand, packaging, instructions and short production runs. Get a ballpark estimate in MXN in two minutes.">
+<meta name="theme-color" content="#17171a">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://ocoteworks.com/quote/">
+<link rel="alternate" hreflang="en" href="https://ocoteworks.com/quote/">
+<link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/cotizar/">
+<link rel="alternate" hreflang="x-default" href="https://ocoteworks.com/quote/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OcoteWorks">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Build your project · Quote builder · OcoteWorks">
+<meta property="og:description" content="Configure your product project with OcoteWorks: design, prototypes, brand, packaging, instructions and short production runs. Get a ballpark estimate in MXN in two minutes.">
+<meta property="og:url" content="https://ocoteworks.com/quote/">
+<meta property="og:image" content="https://ocoteworks.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OcoteWorks logo and the tagline Rooted in Mexico. Made to go further.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ocoteworks.com/og-image.png">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/atu2ijd.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap">
+<link rel="stylesheet" href="/assets/styles.css?v=58a4c8a0">
+</head>
+<body class="q-page">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-correo" viewBox="0 0 48 48"><path d="M6 12h36v24H6z"/><path d="M6 12l18 14 18-14"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="OcoteWorks, home"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp"><img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>
+    <nav class="nav" aria-label="Main">
+      <a class="sec" href="/#what">What we do</a>
+      <a class="sec" href="/#process">Process</a>
+      <a class="sec" href="/#workshop">Workshop</a>
+      <span class="lang"><a href="/quote/" hreflang="en" lang="en" aria-current="page">EN</a><span>/</span><a href="/es/cotizar/" hreflang="es" lang="es">ES</a></span>
+      <a class="btn" href="#q-send">Send project</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero q-hero">
+  <div class="wrap">
+    <p class="eyebrow">Project builder · Ballpark estimate</p>
+    <h1>Build your <em>project</em></h1>
+    <p class="lead">From idea to a product ready to sell. Choose what your project needs and get a ballpark estimate and timeline in two minutes. Most creators come for the part and discover they also need the box, the instructions and a first batch. Plan it all here.</p>
+    <ul class="q-tags" aria-label="What we can do for you"><li><b>OW-DS</b>Design</li><li><b>OW-PT</b>Prototypes</li><li><b>OW-BR</b>Brand</li><li><b>OW-PK</b>Packaging</li><li><b>OW-DC</b>Instructions &amp; print</li><li><b>OW-MF</b>Short runs</li></ul>
+  </div>
+</div>
+
+<div class="wrap q-layout">
+  <div class="q-main">
+    <noscript><p class="q-noscript">The project builder needs JavaScript. Write to us and we'll put together your estimate: <a href="mailto:hola@ocoteworks.com">hola@ocoteworks.com</a></p></noscript>
+    <form id="builder" class="q-builder" onsubmit="return false" aria-label="Project builder"></form>
+
+    <section class="q-sec q-send" id="q-send" aria-labelledby="q-h-send">
+      <div class="q-head"><span class="q-code">OW-08</span><h2 id="q-h-send">Send it to the workshop</h2><p>Your email app opens with the whole configuration filled in. We reply within two business days with questions and a proposal.</p></div>
+      <form id="q-form" novalidate>
+        <div class="q-fields">
+          <label><span>Name</span><input name="name" autocomplete="name" required></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label class="full"><span>Project or brand</span><input name="project" placeholder="Optional"></label>
+          <label class="full"><span>Tell us about it</span><textarea name="notes" rows="5" placeholder="What it is, who it’s for, deadlines, references…"></textarea></label>
+        </div>
+        <div class="q-actions">
+          <button class="btn" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-correo"/></svg>Open email with my project</button>
+          <p id="q-msg" class="q-msg" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <aside class="q-aside" id="q-sheet-anchor" aria-labelledby="q-h-sheet">
+    <div class="q-panel">
+      <div class="q-panel-top"><h2 id="q-h-sheet">Project sheet</h2><span>Ref. <b id="q-ref"></b></span></div>
+      <p id="q-meta" class="q-meta"></p>
+      <div id="q-summary" aria-live="polite"></div>
+      <div class="q-total">
+        <span class="q-k">Estimated investment</span>
+        <output id="q-total" aria-live="polite">—</output>
+        <span class="q-k">MXN · before VAT</span>
+      </div>
+      <div class="q-time"><span class="q-k">Timeline</span><b id="q-weeks">—</b></div>
+      <a class="btn" href="#q-send">Send this project</a>
+      <button type="button" class="q-copy" id="q-copy">Copy summary</button>
+      <p class="q-disc">Ballpark ranges for planning. We confirm the price with a scoped proposal after reviewing your project.</p>
+    </div>
+  </aside>
+</div>
+
+<div class="q-bar" aria-hidden="true">
+  <div><span>Estimate</span><b id="q-bar-total">—</b></div>
+  <a class="btn" href="#q-sheet-anchor" tabindex="-1">View sheet</a>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>
+    <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
+    <p class="meta">Designed in Monterrey · Made in Mexico<br><a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · <a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks</p>
+  </div>
+</footer>
+<script src="/assets/quote.js?v=fc9904ca" defer></script>
+</body>
+</html>

@@ -6,6 +6,7 @@
 Lee src/page.html + src/styles.css y escribe:
   /index.html      (inglés, versión principal)
   /es/index.html   (español)
+  /quote/ y /es/cotizar/  (cotizador; precios en src/quote.js)
   /assets/styles.css
   /sitemap.xml
   /404.html
@@ -17,7 +18,7 @@ import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src")
-LASTMOD = "2026-11-07"
+LASTMOD = "2026-11-08"
 
 
 def service(icon, code, h3, p, items):
@@ -37,6 +38,10 @@ def value(h3, p):
 
 def root(dt, dd):
     return f"<dt>{dt}</dt><dd>{dd}</dd>"
+
+
+def tags(items):
+    return "".join(f"<li><b>{c}</b>{t}</li>" for c, t in items)
 
 
 EN = dict(
@@ -95,6 +100,28 @@ EN = dict(
     con_eyebrow="Contact", con_h2="Tell us about your project",
     con_p="Write to us about what you want to build or solve. We’ll reply with questions, a proposal and an estimated timeline.",
     mexico="Mexico", foot_meta="Designed in Monterrey · Made in Mexico",
+    quote_href="/quote/", con_quote="Build your quote",
+    # cotizador
+    q_url="https://ocoteworks.com/quote/",
+    q_title="Build your project · Quote builder · OcoteWorks",
+    q_description="Configure your product project with OcoteWorks: design, prototypes, brand, packaging, instructions and short production runs. Get a ballpark estimate in MXN in two minutes.",
+    q_nav_cta="Send project",
+    q_eyebrow="Project builder · Ballpark estimate",
+    q_h1="Build your <em>project</em>",
+    q_h1_plain="Project builder",
+    q_lead="From idea to a product ready to sell. Choose what your project needs and get a ballpark estimate and timeline in two minutes. Most creators come for the part and discover they also need the box, the instructions and a first batch. Plan it all here.",
+    q_tags_label="What we can do for you",
+    q_tags=tags([("OW-DS", "Design"), ("OW-PT", "Prototypes"), ("OW-BR", "Brand"), ("OW-PK", "Packaging"), ("OW-DC", "Instructions &amp; print"), ("OW-MF", "Short runs")]),
+    q_noscript="The project builder needs JavaScript. Write to us and we'll put together your estimate:",
+    q_send_h="Send it to the workshop",
+    q_send_p="Your email app opens with the whole configuration filled in. We reply within two business days with questions and a proposal.",
+    q_name="Name", q_email="Email", q_projname="Project or brand", q_projph="Optional",
+    q_notes="Tell us about it", q_notesph="What it is, who it’s for, deadlines, references…",
+    q_submit="Open email with my project",
+    q_sheet="Project sheet", q_ref="Ref.", q_total="Estimated investment", q_vat="MXN · before VAT",
+    q_time="Timeline", q_review="Send this project", q_copy="Copy summary",
+    q_disclaimer="Ballpark ranges for planning. We confirm the price with a scoped proposal after reviewing your project.",
+    q_bar="Estimate", q_bar_cta="View sheet",
 )
 
 ES = dict(
@@ -153,6 +180,28 @@ ES = dict(
     con_eyebrow="Contacto", con_h2="Cuéntanos tu proyecto",
     con_p="Escríbenos qué quieres construir o resolver. Te respondemos con preguntas, una propuesta y un tiempo estimado.",
     mexico="México", foot_meta="Diseñado en Monterrey · Hecho en México",
+    quote_href="/es/cotizar/", con_quote="Arma tu cotización",
+    # cotizador
+    q_url="https://ocoteworks.com/es/cotizar/",
+    q_title="Arma tu proyecto · Cotizador · OcoteWorks",
+    q_description="Configura tu proyecto de producto con OcoteWorks: diseño, prototipos, marca, empaque, instructivos y series cortas. Obtén una estimación en pesos en dos minutos.",
+    q_nav_cta="Enviar proyecto",
+    q_eyebrow="Cotizador · Estimación de referencia",
+    q_h1="Arma tu <em>proyecto</em>",
+    q_h1_plain="Cotizador de proyecto",
+    q_lead="De la idea a un producto listo para vender. Elige lo que necesita tu proyecto y obtén una estimación de costo y tiempo en dos minutos. Casi todos llegan por la pieza y descubren que también hace falta la caja, el instructivo y un primer lote. Plánealo todo aquí.",
+    q_tags_label="Lo que podemos hacer por ti",
+    q_tags=tags([("OW-DS", "Diseño"), ("OW-PT", "Prototipos"), ("OW-BR", "Marca"), ("OW-PK", "Empaque"), ("OW-DC", "Instructivos e impresos"), ("OW-MF", "Series cortas")]),
+    q_noscript="El cotizador necesita JavaScript. Escríbenos y armamos tu estimación:",
+    q_send_h="Mándalo al taller",
+    q_send_p="Se abre tu correo con toda la configuración ya escrita. Te respondemos en dos días hábiles con preguntas y una propuesta.",
+    q_name="Nombre", q_email="Correo", q_projname="Proyecto o marca", q_projph="Opcional",
+    q_notes="Cuéntanos más", q_notesph="Qué es, para quién, fechas, referencias…",
+    q_submit="Abrir correo con mi proyecto",
+    q_sheet="Hoja de proyecto", q_ref="Ref.", q_total="Inversión estimada", q_vat="MXN · más IVA",
+    q_time="Tiempo estimado", q_review="Enviar este proyecto", q_copy="Copiar resumen",
+    q_disclaimer="Rangos de referencia para planear. Confirmamos el precio con una propuesta formal después de revisar tu proyecto.",
+    q_bar="Estimación", q_bar_cta="Ver hoja",
 )
 
 
@@ -231,15 +280,28 @@ def main():
                                 jsonld=jsonld(data["lang"], data["url"], data["description"])))
         open(full, "w", encoding="utf-8").write(page)
 
+    # Cotizador
+    qtpl = open(os.path.join(SRC, "quote.html"), encoding="utf-8").read()
+    qjs = open(os.path.join(SRC, "quote.js"), encoding="utf-8").read()
+    open(os.path.join(ROOT, "assets", "quote.js"), "w", encoding="utf-8").write(qjs)
+    qversion = hashlib.sha1(qjs.encode()).hexdigest()[:8]
+    for data, path in [(EN, os.path.join("quote", "index.html")), (ES, os.path.join("es", "cotizar", "index.html"))]:
+        full = os.path.join(ROOT, path)
+        os.makedirs(os.path.dirname(full), exist_ok=True)
+        open(full, "w", encoding="utf-8").write(render(qtpl, dict(data, version=version, qversion=qversion)))
+
     # Página 404 (bilingüe, una sola)
     p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version)
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(p404)
 
-    alt = ('<xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/"/>'
-           '<xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/"/>')
+    def alt(en, es):
+        return (f'<xhtml:link rel="alternate" hreflang="en" href="{en}"/>'
+                f'<xhtml:link rel="alternate" hreflang="es" href="{es}"/>')
+    pairs = [("https://ocoteworks.com/", "https://ocoteworks.com/es/"),
+             ("https://ocoteworks.com/quote/", "https://ocoteworks.com/es/cotizar/")]
     urls = "".join(
-        f"  <url><loc>{u}</loc><lastmod>{LASTMOD}</lastmod>{alt}</url>\n"
-        for u in ["https://ocoteworks.com/", "https://ocoteworks.com/es/"])
+        f"  <url><loc>{u}</loc><lastmod>{LASTMOD}</lastmod>{alt(en, es)}</url>\n"
+        for en, es in pairs for u in (en, es))
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '

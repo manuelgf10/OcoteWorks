@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url><loc>https://ocoteworks.com/</loc><lastmod>2026-11-07</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/"/><xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/"/></url>
-  <url><loc>https://ocoteworks.com/es/</loc><lastmod>2026-11-07</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/"/><xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/"/></url>
+  <url><loc>https://ocoteworks.com/</loc><lastmod>2026-11-08</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/"/><xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/"/></url>
+  <url><loc>https://ocoteworks.com/es/</loc><lastmod>2026-11-08</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/"/><xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/"/></url>
+  <url><loc>https://ocoteworks.com/quote/</loc><lastmod>2026-11-08</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/quote/"/><xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/cotizar/"/></url>
+  <url><loc>https://ocoteworks.com/es/cotizar/</loc><lastmod>2026-11-08</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://ocoteworks.com/quote/"/><xhtml:link rel="alternate" hreflang="es" href="https://ocoteworks.com/es/cotizar/"/></url>
 </urlset>
