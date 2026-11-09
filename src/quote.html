@@ -58,6 +58,7 @@
     <section class="q-sec q-send" id="q-send" aria-labelledby="q-h-send">
       <div class="q-head"><span class="q-code">OW-08</span><h2 id="q-h-send">{{q_send_h}}</h2><p>{{q_send_p}}</p></div>
       <form id="q-form" novalidate>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
         <div class="q-fields">
           <label><span>{{q_name}}</span><input name="name" autocomplete="name" required></label>
           <label><span>{{q_email}}</span><input name="email" type="email" autocomplete="email" required></label>
@@ -65,7 +66,7 @@
           <label class="full"><span>{{q_notes}}</span><textarea name="notes" rows="5" placeholder="{{q_notesph}}"></textarea></label>
         </div>
         <div class="q-actions">
-          <button class="btn" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-correo"/></svg>{{q_submit}}</button>
+          <button class="btn" type="submit">{{q_submit}}</button>
           <p id="q-msg" class="q-msg" role="status" aria-live="polite"></p>
         </div>
       </form>

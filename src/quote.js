@@ -8,6 +8,8 @@
  * ------------------------------------------------------------------ */
 const OW_QUOTE = {
   email: "hola@ocoteworks.com",
+  // Formulario que recibe las solicitudes (formspree.io). Si falla, se abre el correo como respaldo.
+  formspree: "https://formspree.io/f/mwllgewa",
   round: 500,
 
   complexity: [
@@ -193,9 +195,12 @@ const T = {
     review: "Send this project", copy: "Copy summary", copied: "Copied",
     disclaimer: "Ballpark ranges for planning. We confirm the price with a scoped proposal after reviewing your project.",
     unitsNote: "includes setup", perRound: "per round",
-    send: { h: "Send it to the workshop", p: "Your email app opens with the whole configuration filled in. We reply within two business days with questions and a proposal.",
+    send: { h: "Send it to the workshop", p: "We receive your full configuration. We reply within two business days with questions and a proposal.",
       name: "Name", email: "Email", projectName: "Project or brand", projectPh: "Optional", notes: "Tell us about it", notesPh: "What it is, who it's for, deadlines, references…",
-      submit: "Open email with my project", required: "Please fill in your name and a valid email.",
+      submit: "Send my project", sending: "Sending…", required: "Please fill in your name and a valid email.",
+      okH: "Received.", okP: (ref, mail) => `Your project <b>${ref}</b> is in the workshop. We’ll reply to <b>${mail}</b> within two business days.`,
+      okNew: "Configure another project",
+      fail: "We couldn’t send it from here, so your email app will open with everything filled in. If it doesn’t, copy the summary and send it to",
       done: "Your email app should be open with everything filled in. If it didn't open, copy the summary and send it to" },
     mail: { subject: "Project request", hello: "Hi OcoteWorks,", intro: "I configured this project on ocoteworks.com:", link: "Configuration", notes: "Notes", from: "From", complexity: "Complexity", stage: "Stage", est: "Estimate", tl: "Timeline" },
     bar: "Estimate",
@@ -215,9 +220,12 @@ const T = {
     review: "Enviar este proyecto", copy: "Copiar resumen", copied: "Copiado",
     disclaimer: "Rangos de referencia para planear. Confirmamos el precio con una propuesta formal después de revisar tu proyecto.",
     unitsNote: "incluye preparación", perRound: "por ronda",
-    send: { h: "Mándalo al taller", p: "Se abre tu correo con toda la configuración ya escrita. Te respondemos en dos días hábiles con preguntas y una propuesta.",
+    send: { h: "Mándalo al taller", p: "Recibimos tu configuración completa. Te respondemos en dos días hábiles con preguntas y una propuesta.",
       name: "Nombre", email: "Correo", projectName: "Proyecto o marca", projectPh: "Opcional", notes: "Cuéntanos más", notesPh: "Qué es, para quién, fechas, referencias…",
-      submit: "Abrir correo con mi proyecto", required: "Escribe tu nombre y un correo válido.",
+      submit: "Enviar mi proyecto", sending: "Enviando…", required: "Escribe tu nombre y un correo válido.",
+      okH: "Recibido.", okP: (ref, mail) => `Tu proyecto <b>${ref}</b> ya está en el taller. Te respondemos a <b>${mail}</b> en dos días hábiles.`,
+      okNew: "Configurar otro proyecto",
+      fail: "No pudimos enviarlo desde aquí, así que se abrirá tu correo con todo escrito. Si no se abre, copia el resumen y envíalo a",
       done: "Tu app de correo debería estar abierta con todo escrito. Si no se abrió, copia el resumen y envíalo a" },
     mail: { subject: "Solicitud de proyecto", hello: "Hola, OcoteWorks:", intro: "Configuré este proyecto en ocoteworks.com:", link: "Configuración", notes: "Notas", from: "De", complexity: "Complejidad", stage: "Etapa", est: "Estimación", tl: "Tiempo" },
     bar: "Estimación",
@@ -488,12 +496,29 @@ const T = {
   }
   document.getElementById("q-form").addEventListener("submit", e => {
     e.preventDefault();
-    const f = readForm(), msg = document.getElementById("q-msg");
+    const fm = e.target, f = readForm(), msg = document.getElementById("q-msg"), btn = fm.querySelector("button[type=submit]");
     if (!f.name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) { msg.textContent = t.send.required; msg.className = "q-msg err"; return; }
     const subject = `${t.mail.subject} · ${f.project || f.name} · ${ref}`;
-    const body = `${t.mail.hello}\n\n${t.mail.intro}\n\n` + summaryText(f);
-    location.href = `mailto:${C.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    msg.innerHTML = `${t.send.done} <a href="mailto:${C.email}">${C.email}</a>.`; msg.className = "q-msg ok";
+    const summary = summaryText(f), r = compute();
+    const mailto = () => { location.href = `mailto:${C.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`${t.mail.hello}\n\n${t.mail.intro}\n\n` + summary)}`; };
+    if (fm._gotcha && fm._gotcha.value) return;            // bot
+    const label = btn.innerHTML; btn.disabled = true; btn.textContent = t.send.sending; msg.textContent = ""; msg.className = "q-msg";
+    fetch(C.formspree, {
+      method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" },
+      body: JSON.stringify({ _subject: subject, name: f.name, email: f.email, project: f.project, notes: f.notes, source: "Quote builder · " + L.toUpperCase(),
+        reference: ref, estimate: r.lines.length ? rangeTxt(r.lo, r.hi) + " " + t.vat : "—", timeline: weeksTxt(r.weeks), configuration: configUrl(), summary })
+    }).then(res => {
+      if (!res.ok) throw new Error(res.status);
+      const box = document.getElementById("q-send");
+      box.classList.add("q-sent");
+      fm.outerHTML = `<div class="q-ok" role="status" tabindex="-1"><p class="q-ok-h">${t.send.okH}</p><p>${t.send.okP(ref, esc(f.email))}</p>` +
+        `<button type="button" class="btn ghost" onclick="location.reload()">${t.send.okNew}</button></div>`;
+      const ok = box.querySelector(".q-ok"); ok.focus({ preventScroll: true }); box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }).catch(() => {
+      btn.disabled = false; btn.innerHTML = label;
+      msg.innerHTML = `${t.send.fail} <a href="mailto:${C.email}">${C.email}</a>.`; msg.className = "q-msg err";
+      setTimeout(mailto, 1200);
+    });
   });
 
   // textos estáticos del panel

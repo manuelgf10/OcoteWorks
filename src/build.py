@@ -190,10 +190,10 @@ EN = dict(
     q_tags=tags([("OW-DS", "Design"), ("OW-PT", "Prototypes"), ("OW-BR", "Brand"), ("OW-PK", "Packaging"), ("OW-DC", "Instructions &amp; print"), ("OW-MF", "Short runs")]),
     q_noscript="The project builder needs JavaScript. Write to us and we'll put together your estimate:",
     q_send_h="Send it to the workshop",
-    q_send_p="Your email app opens with the whole configuration filled in. We reply within two business days with questions and a proposal.",
+    q_send_p="We receive your full configuration. We reply within two business days with questions and a proposal.",
     q_name="Name", q_email="Email", q_projname="Project or brand", q_projph="Optional",
     q_notes="Tell us about it", q_notesph="What it is, who it’s for, deadlines, references…",
-    q_submit="Open email with my project",
+    q_submit="Send my project",
     q_sheet="Project sheet", q_ref="Ref.", q_total="Estimated investment", q_vat="MXN · before VAT",
     q_time="Time to launch", q_review="Send this project", q_copy="Copy summary",
     q_disclaimer="Ballpark ranges for planning. We confirm the price with a scoped proposal after reviewing your project.",
@@ -348,10 +348,10 @@ ES = dict(
     q_tags=tags([("OW-DS", "Diseño"), ("OW-PT", "Prototipos"), ("OW-BR", "Marca"), ("OW-PK", "Empaque"), ("OW-DC", "Instructivos e impresos"), ("OW-MF", "Series cortas")]),
     q_noscript="El cotizador necesita JavaScript. Escríbenos y armamos tu estimación:",
     q_send_h="Mándalo al taller",
-    q_send_p="Se abre tu correo con toda la configuración ya escrita. Te respondemos en dos días hábiles con preguntas y una propuesta.",
+    q_send_p="Recibimos tu configuración completa. Te respondemos en dos días hábiles con preguntas y una propuesta.",
     q_name="Nombre", q_email="Correo", q_projname="Proyecto o marca", q_projph="Opcional",
     q_notes="Cuéntanos más", q_notesph="Qué es, para quién, fechas, referencias…",
-    q_submit="Abrir correo con mi proyecto",
+    q_submit="Enviar mi proyecto",
     q_sheet="Hoja de proyecto", q_ref="Ref.", q_total="Inversión estimada", q_vat="MXN · más IVA",
     q_time="Tiempo al lanzamiento", q_review="Enviar este proyecto", q_copy="Copiar resumen",
     q_disclaimer="Rangos de referencia para planear. Confirmamos el precio con una propuesta formal después de revisar tu proyecto.",
@@ -501,6 +501,8 @@ EN_NEW = dict(
     pr_lead="Our first product, a rackless luggage system for adventure motorcycles, is on the bench: machined hardware, leather and textile. We’d rather show it finished and tested than rush it.",
     pr_tag="OW-01 · Rackless luggage · In development",
     pr_cta1="Notify me", pr_cta2="Follow on Instagram",
+    pr_form_label="Your email", pr_form_ph="you@email.com", pr_form_note="Just one email when OW-01 is ready. No spam.",
+    pr_form_ok="You’re on the list. We’ll write when OW-01 is ready.", pr_form_err="Something went wrong. Please write to hola@ocoteworks.com.",
     pr_mail_subject="Products: notify me",
     jo_url="https://ocoteworks.com/journal/",
     jo_title="Journal · Building in progress · OcoteWorks",
@@ -573,6 +575,8 @@ ES_NEW = dict(
     pr_lead="Nuestro primer producto, un sistema de equipaje rackless para motos de aventura, está en el banco de trabajo: herrajes maquinados, cuero y textil. Preferimos enseñarlo terminado y probado que apresurarlo.",
     pr_tag="OW-01 · Equipaje rackless · En desarrollo",
     pr_cta1="Avísame", pr_cta2="Síguenos en Instagram",
+    pr_form_label="Tu correo", pr_form_ph="tu@correo.com", pr_form_note="Un solo correo cuando OW-01 esté listo. Sin spam.",
+    pr_form_ok="Ya estás en la lista. Te escribimos cuando OW-01 esté listo.", pr_form_err="Algo falló. Escríbenos a hola@ocoteworks.com.",
     pr_mail_subject="Productos: avísame",
     jo_url="https://ocoteworks.com/es/bitacora/",
     jo_title="Bitácora · En construcción · OcoteWorks",
@@ -741,6 +745,21 @@ PAGES = {  # clave: (ruta EN, ruta ES)
 }
 
 
+FORMSPREE = "https://formspree.io/f/mwllgewa"
+
+
+def waitlist_form(d):
+    return (f'<form class="w-form" action="{FORMSPREE}" method="POST" data-ok="{d["pr_form_ok"]}" data-err="{d["pr_form_err"]}">'
+            f'<label class="sr" for="w-email">{d["pr_form_label"]}</label>'
+            f'<input id="w-email" type="email" name="email" required autocomplete="email" placeholder="{d["pr_form_ph"]}">'
+            f'<input type="hidden" name="source" value="Waitlist · OW-01 · {d["lang"].upper()}">'
+            f'<input type="hidden" name="_subject" value="Waitlist · OW-01">'
+            f'<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">'
+            f'<button class="btn" type="submit">{d["pr_cta1"]}</button>'
+            f'<p class="w-note">{d["pr_form_note"]}</p><p class="w-msg" role="status" aria-live="polite"></p></form>'
+            f'<script src="/assets/forms.js" defer></script>')
+
+
 def write(path, html):
     lang = "es" if '<html lang="es"' in html else "en"
     html = add_loader(html, lang)
@@ -757,6 +776,7 @@ def main():
     qjs = open(os.path.join(SRC, "quote.js"), encoding="utf-8").read()
     open(os.path.join(ROOT, "assets", "quote.js"), "w", encoding="utf-8").write(qjs)
     qversion = hashlib.sha1(qjs.encode()).hexdigest()[:8]
+    open(os.path.join(ROOT, "assets", "forms.js"), "w", encoding="utf-8").write(open(os.path.join(SRC, "forms.js"), encoding="utf-8").read())
     T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about"]}
 
     for data in (EN, ES):
@@ -778,11 +798,12 @@ def main():
         subj = data["pr_mail_subject"].replace(" ", "%20").replace(":", "%3A")
         write(PAGES["products"][i], render(T["soon"], ctx("products", p_title=data["pr_title"], p_description=data["pr_description"], p_url=data["pr_url"],
                                                           so_eyebrow=data["pr_eyebrow"], so_lead=data["pr_lead"], so_tag=data["pr_tag"],
-                                                          so_cta1=data["pr_cta1"], so_cta1_href=f"mailto:hola@ocoteworks.com?subject={subj}",
-                                                          so_cta2=data["pr_cta2"], so_cta2_href=ig, moto_svg=moto_svg())))
+                                                          so_form=waitlist_form(data), so_cta1_cls=" ghost",
+                                                          so_cta1=data["pr_cta2"], so_cta1_href=ig,
+                                                          so_cta2=data["h_cta_services"], so_cta2_href=data["u_services"], moto_svg=moto_svg())))
         write(PAGES["journal"][i], render(T["soon"], ctx("journal", p_title=data["jo_title"], p_description=data["jo_description"], p_url=data["jo_url"],
                                                          so_eyebrow=data["jo_eyebrow"], so_lead=data["jo_lead"], so_tag=data["jo_tag"],
-                                                         so_cta1=data["jo_cta1"], so_cta1_href=ig,
+                                                         so_form="", so_cta1_cls="", so_cta1=data["jo_cta1"], so_cta1_href=ig,
                                                          so_cta2=data["jo_cta2"], so_cta2_href=data["about_href"], moto_svg=moto_svg())))
 
     # Página 404 (bilingüe, una sola)
