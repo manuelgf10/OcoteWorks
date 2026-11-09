@@ -909,7 +909,7 @@ def main():
                                                           pd_white_note=U["white_note"], pd_buy=U["buy"], pd_buy_note=U["buy_note"],
                                                           pd_hl_eyebrow=U["hl_eyebrow"], pd_hl_h2=U["hl_h2"], pd_highlights=PR.highlights(p, lang),
                                                           pd_specs_eyebrow=U["specs_eyebrow"], pd_specs_h2=U["specs_h2"], pd_specs_note=U["specs_note"],
-                                                          pd_specs=PR.specs(p, lang), pd_fine=U["fine"], pd_dialog=PR.buy_dialog(p, lang), pd_jsv=pjsv)))
+                                                          pd_specs=PR.specs(p, lang), pd_fine=U["fine"], pd_story="".join(f'<a class="pd-story" href="{JO.url(e, lang)}"><span>{JO.UI[lang]["idx_eyebrow"].split(" · ")[0]}</span>{e[lang]["title"]} →</a>' for e in JO.ENTRIES if e["product"] == p["code"]), pd_dialog=PR.buy_dialog(p, lang), pd_jsv=pjsv)))
         JU = JO.UI[lang]
         write(PAGES["journal"][i], render(T["journal_index"], ctx("journal", p_title=JU["idx_title"], p_description=JU["idx_description"], p_url=data["jo_url"],
                                                                  j_eyebrow=JU["idx_eyebrow"], j_h1=JU["idx_h1"], j_lead=JU["idx_lead"],

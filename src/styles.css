@@ -893,3 +893,6 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .j-ctas{display:flex;flex-direction:column;gap:10px;margin-top:20px}
 .j-ctas .btn{justify-content:center;font-size:19px}
 @media (max-width:960px){.j-wrap{grid-template-columns:minmax(0,1fr)}.j-facts{position:static}}
+.pd-story{display:flex;flex-direction:column;gap:6px;margin-top:22px;padding:14px 16px;border:2px solid var(--carbon);border-radius:var(--r-md);text-decoration:none;font:700 22px/1 var(--display);letter-spacing:.02em;text-transform:uppercase;transition:background .15s}
+.pd-story span{font:400 11px/1 var(--mono);letter-spacing:.12em;color:var(--grafito)}
+.pd-story:hover{background:var(--papel)}
