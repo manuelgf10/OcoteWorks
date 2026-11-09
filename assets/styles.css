@@ -673,3 +673,29 @@ html.owl-on{overflow:hidden}
   .pasos li:hover::before{transform:rotate(-6deg)}
 }
 .btn:active{transform:none;box-shadow:none}
+
+/* ---------- Pulido tipográfico (paso 5) ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-kerning:normal;font-feature-settings:"kern","liga";text-rendering:optimizeLegibility}
+/* titulares repartidos en líneas parejas; párrafos sin viudas */
+h1,h2,h3,.lead,.h-claim,.eyebrow{text-wrap:balance}
+p,li,figcaption,dd{text-wrap:pretty}
+/* cifras alineadas donde se comparan números */
+.q-page,.a-stats,.a-timeline,.lg-meta,.w-note,.pasos,.code,.q-code,.h-code{font-variant-numeric:tabular-nums lining-nums}
+/* comillas y viñetas colgadas (Safari) */
+blockquote,.manifiesto p{hanging-punctuation:first}
+/* largo de línea cómodo en textos corridos */
+.lead{max-width:38ch}
+.sec-head p,.a-story-body p,.lg-txt p,.lg-txt li{max-width:66ch}
+/* titulares grandes: un poco más cerrados a tamaño display */
+.hero h1,.sec-head h2{letter-spacing:-.002em}
+/* subrayados de links finos y separados de la línea base */
+a{text-underline-offset:.18em;text-decoration-thickness:from-font}
+.lg-txt a,.f-privacy a,.q-msg a,.mail{text-decoration-color:var(--cempasuchil);text-decoration-thickness:2px}
+/* celular: guionado suave en párrafos de columnas angostas */
+@media (max-width:520px){
+  html[lang=es] p,html[lang=es] li{hyphens:auto;-webkit-hyphens:auto;hyphenate-limit-chars:7 3 3}
+  .lead{font-size:18px}
+}
+/* selección con color de marca */
+::selection{background:var(--cempasuchil);color:var(--carbon)}

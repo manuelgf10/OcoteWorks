@@ -188,7 +188,7 @@ EN = dict(
     q_lead="From idea to a product ready to sell. Choose what your project needs and get a ballpark estimate and timeline in two minutes. Most creators come for the part and discover they also need the box, the instructions and a first batch. Plan it all here.",
     q_tags_label="What we can do for you",
     q_tags=tags([("OW-DS", "Design"), ("OW-PT", "Prototypes"), ("OW-BR", "Brand"), ("OW-PK", "Packaging"), ("OW-DC", "Instructions &amp; print"), ("OW-MF", "Short runs")]),
-    q_noscript="The project builder needs JavaScript. Write to us and we'll put together your estimate:",
+    q_noscript="The project builder needs JavaScript. Write to us and we’ll put together your estimate:",
     q_send_h="Send it to the workshop",
     q_send_p="We receive your full configuration. We reply within two business days with questions and a proposal.",
     q_name="Name", q_email="Email", q_projname="Project or brand", q_projph="Optional",
@@ -775,8 +775,29 @@ def waitlist_form(d):
             f'<script src="/assets/forms.js" defer></script>')
 
 
+# Microtipografía: espacio de no separación tras palabras cortas (evita "y", "de", "a"… sueltas al final de línea)
+# y entre un número y la palabra que sigue ("6 semanas", "250 piezas"). Solo en texto visible, nunca en etiquetas ni scripts.
+SHORT = {"es": "a|e|o|u|y|de|del|el|la|lo|los|las|en|un|una|al|con|por|para|sin|que|se|su|sus|mi|tu|no|ni|es|ya|le",
+         "en": "a|an|the|of|to|in|on|at|by|for|and|or|is|it|we|i|my|no|as"}
+
+
+def microtype(html, lang):
+    short = re.compile(r"(?<![\w&;])(" + SHORT[lang] + r") (?=[^\s<])", re.I)
+    num = re.compile(r"(?<=\d) (?=[A-Za-zÁÉÍÓÚáéíóúñ])")
+    parts = re.split(r"(<script.*?</script>|<style.*?</style>|<textarea.*?</textarea>|<[^>]+>)", html, flags=re.S)
+    head = 0  # dentro de h1–h3 no se pega nada: a tamaño display podría desbordar en celular
+    for i, t in enumerate(parts):
+        if i % 2:
+            if re.match(r"<h[1-3][\s>]", t): head += 1
+            elif re.match(r"</h[1-3]>", t): head = max(0, head - 1)
+        elif t.strip() and not head:
+            parts[i] = num.sub("\u00a0", short.sub(lambda m: m.group(1) + "\u00a0", t))
+    return "".join(parts)
+
+
 def write(path, html):
     lang = "es" if '<html lang="es"' in html else "en"
+    html = microtype(html, lang)
     html = add_loader(html, lang)
     html = html.replace("</body>", f'<script src="/assets/motion.js?v={MOTION_V}" defer></script>\n</body>', 1)
     full = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
