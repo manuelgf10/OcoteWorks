@@ -899,14 +899,15 @@ def main():
             pd_url = "https://ocoteworks.com" + PR.url(p, lang)
             ld = {"@context": "https://schema.org", "@type": "Product", "name": f"{p['code']} {P['name']}", "sku": p["code"],
                   "brand": {"@type": "Brand", "name": "OcoteWorks"}, "description": P["tagline"], "url": pd_url,
-                  "image": [f"https://ocoteworks.com{p['img_dir']}/{n}-{w[-1]}.jpg" for n, w, _ in p["images"]]}
+                  "image": [f"https://ocoteworks.com{p['img_dir']}/{n}-{w[-1]}.jpg"
+                            for n, w, _ in p["images"] + [x for v in p.get("variant_images", {}).values() for x in v]]}
             write(PAGES[key][i], render(T["product"], ctx(key, p_title=f"{p['code']} {P['name']} · {P['fit']} · OcoteWorks",
                                                           p_description=P["tagline"], p_url=pd_url,
                                                           pd_jsonld='<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>",
                                                           pd_back=U["back"], pd_gallery=PR.gallery(p, lang), pd_code=p["code"], pd_name=P["name"],
                                                           pd_fit=P["fit"], pd_tagline=P["tagline"], pd_intent=P["intent"], pd_price=PR.price(p), pd_price_note=U["price_note"],
                                                           pd_status=U["status_batch"], pd_variant_k=U["variant"], pd_variants=PR.variants(p, lang),
-                                                          pd_white_note=U["white_note"], pd_buy=U["buy"], pd_buy_note=U["buy_note"],
+                                                          pd_buy=U["buy"], pd_buy_note=U["buy_note"],
                                                           pd_hl_eyebrow=U["hl_eyebrow"], pd_hl_h2=U["hl_h2"], pd_highlights=PR.highlights(p, lang),
                                                           pd_specs_eyebrow=U["specs_eyebrow"], pd_specs_h2=U["specs_h2"], pd_specs_note=U["specs_note"],
                                                           pd_specs=PR.specs(p, lang), pd_fine=U["fine"], pd_story="".join(f'<a class="pd-story" href="{JO.url(e, lang)}"><span>{JO.UI[lang]["idx_eyebrow"].split(" · ")[0]}</span>{e[lang]["title"]} →</a>' for e in JO.ENTRIES if e["product"] == p["code"]), pd_dialog=PR.buy_dialog(p, lang), pd_jsv=pjsv)))

@@ -18,6 +18,9 @@ PRODUCTS = [
         "images": [("hero", (600, 1000, 1600), (2576, 1449)), ("top", (600, 1000, 1600), (2576, 1449)),
                    ("front", (600, 1000, 1600), (2576, 1449)), ("detail", (500, 900), (1308, 2326))],
         "variants": [("black", "#17171a"), ("white", "#f4f2ee")],
+        # Galería propia por acabado (mismo orden que "images"); el negro usa "images".
+        "variant_images": {"white": [("w-hero", (600, 1000, 1400), (1536, 1024)), ("w-top", (600, 1000, 1400), (1536, 1024)),
+                                     ("w-front", (600, 1000, 1400), (1448, 1086)), ("w-detail", (500, 900), (1024, 1536))]},
         "es": {
             "name": "Tail Rack T7",
             "fit": "Yamaha Ténéré 700 · 2019–2023",
@@ -29,6 +32,10 @@ PRODUCTS = [
                      "Tail rack OW-02 visto desde un costado, con las ranuras de amarre",
                      "Tail rack OW-02 visto de frente",
                      "Detalle de la placa superior del OW-02 con el logo grabado y las ranuras redondeadas"],
+            "variant_alts": {"white": ["Tail rack OW-02 en blanco mate, vista en tres cuartos",
+                                       "Tail rack OW-02 en blanco mate visto desde un costado",
+                                       "Tail rack OW-02 en blanco mate visto de frente",
+                                       "Detalle de la placa superior del OW-02 en blanco mate con el logo grabado"]},
             "highlights": [
                 ("Una sola pieza", "Lámina de aluminio 6061 cortada en láser y doblada. Sin soldaduras ni uniones."),
                 ("Perfil bajo", "Sigue la línea del asiento y de la cola. De lejos, la moto se ve como salió de fábrica."),
@@ -56,6 +63,10 @@ PRODUCTS = [
                      "OW-02 tail rack seen from the side, showing the strap slots",
                      "OW-02 tail rack seen from the front",
                      "Close-up of the OW-02 top plate with the engraved logo and rounded slots"],
+            "variant_alts": {"white": ["OW-02 tail rack in matte white, three-quarter view",
+                                       "OW-02 tail rack in matte white seen from the side",
+                                       "OW-02 tail rack in matte white seen from the front",
+                                       "Close-up of the matte white OW-02 top plate with the engraved logo"]},
             "highlights": [
                 ("One piece", "6061 aluminum sheet, laser cut and folded. No welds, no joints."),
                 ("Low profile", "Follows the line of the seat and tail. From a distance the bike looks stock."),
@@ -94,7 +105,6 @@ UI = {
         buy="Comprar",
         buy_note="Sin cobro: al pulsar, te unes a la lista del primer lote.",
         variant="Acabado",
-        white_note="Las imágenes muestran el acabado negro.",
         hl_eyebrow="01 · Diseño",
         hl_h2="Lo justo, <em>nada más</em>",
         specs_eyebrow="02 · Especificaciones",
@@ -131,7 +141,6 @@ UI = {
         buy="Buy",
         buy_note="No charge: tapping it adds you to the first-batch list.",
         variant="Finish",
-        white_note="Images show the black finish.",
         hl_eyebrow="01 · Design",
         hl_h2="Just enough, <em>nothing more</em>",
         specs_eyebrow="02 · Specifications",
@@ -161,25 +170,42 @@ def price(p):
     return f"${p['price_mxn']:,} MXN"
 
 
-def picture(p, i, lang, sizes, cls="", eager=False):
-    name, widths, (W, H) = p["images"][i]
+def image_set(p, lang, v=None):
+    """Imágenes y textos alternativos de un acabado (None o el primero = las de "images")."""
+    if v and v in p.get("variant_images", {}):
+        return p["variant_images"][v], p[lang]["variant_alts"][v]
+    return p["images"], p[lang]["alts"]
+
+
+def picture(p, i, lang, sizes, cls="", eager=False, v=None):
+    imgs, alts = image_set(p, lang, v)
+    name, widths, (W, H) = imgs[i]
     base = p["img_dir"] + "/" + name
     webp = ", ".join(f"{base}-{w}.webp {w}w" for w in widths)
     jpg = ", ".join(f"{base}-{w}.jpg {w}w" for w in widths)
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
     return (f'<picture{cls}><source srcset="{webp}" sizes="{sizes}" type="image/webp">'
             f'<img src="{base}-{widths[1] if len(widths) > 1 else widths[0]}.jpg" srcset="{jpg}" sizes="{sizes}" '
-            f'alt="{p[lang]["alts"][i]}" width="{W}" height="{H}" {load} decoding="async"></picture>')
+            f'alt="{alts[i]}" width="{W}" height="{H}" {load} decoding="async"></picture>')
 
 
 def gallery(p, lang):
-    main = picture(p, 0, lang, "(max-width:900px) 100vw, 640px", ' class="pd-main"', eager=True)
-    thumbs = "".join(
-        f'<button type="button" class="pd-thumb" data-i="{i}" aria-label="{p[lang]["alts"][i]}"{" aria-current=\"true\"" if i == 0 else ""}>'
-        f'{picture(p, i, lang, "120px")}</button>' for i in range(len(p["images"])))
-    # Fuentes de cada imagen para que el JS cambie la principal sin recargar.
-    data = "|".join(f'{p["img_dir"]}/{n}-{w[-1]}' for n, w, _ in p["images"])
-    return f'<div class="pd-gallery" data-srcs="{data}">{main}<div class="pd-thumbs">{thumbs}</div></div>'
+    """Una galería por acabado; solo la del acabado elegido está visible (las ocultas no descargan nada)."""
+    out = []
+    for vi, (v, _) in enumerate(p["variants"]):
+        imgs, alts = image_set(p, lang, v)
+        tall = ' class="pd-main tall"' if imgs[0][2][1] > imgs[0][2][0] else ' class="pd-main"'
+        main = picture(p, 0, lang, "(max-width:900px) 100vw, 640px", tall, eager=vi == 0, v=v)
+        thumbs = "".join(
+            f'<button type="button" class="pd-thumb" data-i="{i}" aria-label="{alts[i]}"{" aria-current=\"true\"" if i == 0 else ""}>'
+            f'{picture(p, i, lang, "120px", v=v)}</button>' for i in range(len(imgs)))
+        # Fuentes de cada imagen para que el JS cambie la principal sin recargar.
+        data = "|".join(f'{p["img_dir"]}/{n}-{w[-1]}' for n, w, _ in imgs)
+        if vi and v not in p.get("variant_images", {}):
+            continue  # acabado sin fotos propias: se queda la galería principal
+        out.append(f'<div class="pd-gallery" data-variant="{vi}" data-srcs="{data}"{" hidden" if vi else ""}>'
+                   f'{main}<div class="pd-thumbs">{thumbs}</div></div>')
+    return "".join(out)
 
 
 def variants(p, lang):
