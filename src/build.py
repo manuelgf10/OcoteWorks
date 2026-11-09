@@ -683,7 +683,8 @@ def footer(d):
             f'<p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>'
             f'<p class="meta">{d["foot_meta"]}<br><span class="f-nav" aria-label="{d["foot_nav"]}">{links}</span><br>'
             f'<a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · '
-            f'<a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks</p></div></footer>')
+            f'<a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks · '
+            f'<a href="{"/es/privacidad/" if d["lang"] == "es" else "/privacy/"}">{LG.TEXT[d["lang"]]["foot_privacy"]}</a></p></div></footer>')
 
 
 def moto_svg():
@@ -739,9 +740,12 @@ def render(tpl, data):
     return out
 
 
+import privacy as LG
+
 PAGES = {  # clave: (ruta EN, ruta ES)
     "home": ("/", "/es/"), "services": ("/services/", "/es/servicios/"), "products": ("/products/", "/es/productos/"),
     "about": ("/about/", "/es/sobre-mi/"), "journal": ("/journal/", "/es/bitacora/"), "quote": ("/quote/", "/es/cotizar/"),
+    "privacy": ("/privacy/", "/es/privacidad/"),
 }
 
 
@@ -756,7 +760,8 @@ def waitlist_form(d):
             f'<input type="hidden" name="_subject" value="Waitlist · OW-01">'
             f'<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">'
             f'<button class="btn" type="submit">{d["pr_cta1"]}</button>'
-            f'<p class="w-note">{d["pr_form_note"]}</p><p class="w-msg" role="status" aria-live="polite"></p></form>'
+            f'<p class="w-note">{d["pr_form_note"]}</p><p class="w-msg" role="status" aria-live="polite"></p>'
+            f'<p class="f-privacy">{LG.TEXT[d["lang"]]["pr_privacy"]}</p></form>'
             f'<script src="/assets/forms.js" defer></script>')
 
 
@@ -777,7 +782,7 @@ def main():
     open(os.path.join(ROOT, "assets", "quote.js"), "w", encoding="utf-8").write(qjs)
     qversion = hashlib.sha1(qjs.encode()).hexdigest()[:8]
     open(os.path.join(ROOT, "assets", "forms.js"), "w", encoding="utf-8").write(open(os.path.join(SRC, "forms.js"), encoding="utf-8").read())
-    T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about"]}
+    T = {n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read() for n in ["home", "services", "soon", "quote", "about", "legal"]}
 
     for data in (EN, ES):
         i = 0 if data["lang"] == "en" else 1
@@ -791,7 +796,14 @@ def main():
 
         write(PAGES["home"][i], render(T["home"], ctx("home", jsonld=jsonld(data["lang"], data["url"], data["description"]))))
         write(PAGES["services"][i], render(T["services"], ctx("services", p_title=data["s_title"], p_description=data["s_description"], p_url=data["s_url"])))
-        write(PAGES["quote"][i], render(T["quote"], ctx("quote", qversion=qversion)))
+        write(PAGES["quote"][i], render(T["quote"], ctx("quote", qversion=qversion, q_privacy=LG.TEXT[data["lang"]]["q_privacy"])))
+        lt = LG.TEXT[data["lang"]]
+        write(PAGES["privacy"][i], render(T["legal"], ctx("privacy", p_title=lt["lg_title"], p_description=lt["lg_description"],
+                                                         p_url="https://ocoteworks.com" + PAGES["privacy"][i],
+                                                         lg_eyebrow=lt["lg_eyebrow"], lg_h1=lt["lg_h1"], lg_lead=lt["lg_lead"],
+                                                         lg_updated_k=lt["lg_updated_k"], lg_updated=LG.LG_UPDATED[data["lang"]],
+                                                         lg_note=f'<p class="lg-note">{lt["lg_lang_note"]}</p>' if lt["lg_lang_note"] else "",
+                                                         lg_toc=LG.toc(data["lang"]), lg_sections=LG.body(data["lang"]))))
         write(PAGES["about"][i], render(T["about"], ctx("about", a_jsonld=person_jsonld(data), a_photos=about_photos(data["lang"]),
                                                           a_hero_visual=about_hero(data), a_plate_block=about_plate(data))))
         ig = "https://www.instagram.com/ocote.works/"
