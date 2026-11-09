@@ -659,24 +659,16 @@ NAV = [("services", "nav_services", "u_services"), ("products", "nav_products", 
        ("about", "nav_about", "about_href"), ("journal", "nav_journal", "u_journal")]
 
 
-# Franja "estado del taller": ubicación + hora local en vivo (izq.) y consola CNC (der.).
-# Para cambiar lo que "corre" en la máquina, editar PROGRAM (y el link) y volver a generar.
-STATUS = {
-    "program": "OW-01",          # programa en la máquina (p. ej. OW-01, OW-02, RACK-TEST)
-    "href": "u_products",        # a dónde lleva la consola (clave de URL del diccionario EN/ES)
-}
-STATUS_UI = {"es": ("25.68° N · 100.31° O", "Monterrey, N.L."), "en": ("25.68° N · 100.31° W", "Monterrey, Mexico")}
+# Franja superior: coordenadas del taller (izq.) y hora local de Monterrey en vivo (der.).
+STATUS_UI = {"es": ("25.68° N · 100.31° O", "Monterrey, N.L.", "Hora local en Monterrey"),
+             "en": ("25.68° N · 100.31° W", "Monterrey, Mexico", "Local time in Monterrey")}
 
 
 def status_bar(d):
-    coords, city = STATUS_UI[d["lang"]]
-    prg = STATUS["program"]
+    coords, city, lbl = STATUS_UI[d["lang"]]
     return (f'<div class="status" role="note"><div class="wrap">'
-            f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>'
-            f'<span class="st-coord">{coords}</span><span class="st-sep st-coord">·</span><span class="st-city">{city}</span>'
-            f'<span class="st-sep">·</span><time class="st-clock" data-tz="America/Monterrey">--:--</time>&nbsp;CST</span>'
-            f'<a class="st-t" href="{d[STATUS["href"]]}" lang="en"><span class="st-cs">Cycle start · </span>PRG {prg}'
-            f'<span class="st-feed"> · Feed 100%</span> · Spindle on<i class="st-cur" aria-hidden="true"></i></a>'
+            f'<span class="st-k"><i class="st-dot" aria-hidden="true"></i>{coords}<span class="st-sep st-city">·</span><span class="st-city">{city}</span></span>'
+            f'<span class="st-time" aria-label="{lbl}"><time class="st-clock" data-tz="America/Monterrey">--:--</time>&nbsp;CST</span>'
             f'</div></div>')
 
 
