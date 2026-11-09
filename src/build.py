@@ -67,12 +67,12 @@ def levels(groups):
     out = ""
     for i, (h, sub, items) in enumerate(groups):
         lis = "".join(f"<li>{x}</li>" for x in items)
-        out += f'<div class="a-lv a-lv{i + 1}"><h4>{h}<span>{sub}</span></h4><ul>{lis}</ul></div>'
+        out += f'<div class="a-lv a-lv{i + 1}"><h3>{h}<span>{sub}</span></h3><ul>{lis}</ul></div>'
     return out
 
 
 def equip(groups):
-    return "".join(f"<div><h4>{h}</h4><ul>{''.join(f'<li>{x}</li>' for x in items)}</ul></div>" for h, items in groups)
+    return "".join(f"<div><h3>{h}</h3><ul>{''.join(f'<li>{x}</li>' for x in items)}</ul></div>" for h, items in groups)
 
 
 def work(items):
@@ -96,8 +96,8 @@ def about_photos(lang):
     figs = ""
     for b, aen, aes, cen, ces in ABOUT_PHOTOS:
         alt, cap = (aen, cen) if lang == "en" else (aes, ces)
-        figs += (f'<figure><picture><source srcset="/assets/photos/about/{b}-600.webp 600w, /assets/photos/about/{b}-1000.webp 1000w" '
-                 f'sizes="(max-width:760px) 50vw, 290px" type="image/webp">'
+        figs += (f'<figure><picture><source srcset="/assets/photos/about/{b}-400.webp 400w, /assets/photos/about/{b}-600.webp 600w, /assets/photos/about/{b}-1000.webp 1000w" '
+                 f'sizes="(max-width:760px) 46vw, 260px" type="image/webp">'
                  f'<img src="/assets/photos/about/{b}-600.jpg" alt="{alt}" width="600" height="600" loading="lazy" decoding="async"></picture>'
                  f'<figcaption>{cap}</figcaption></figure>')
     return f'<div class="wrap a-photos">{figs}</div>'
@@ -732,7 +732,7 @@ def moto_svg():
 
 
 LOADER = """<div id="ow-loader" aria-hidden="true"><div class="owl-glow"></div><div class="owl-in">
-<img src="/assets/logo-marfil.png" alt="" width="180" height="128">
+<img src="/assets/logo-marfil-360.webp" alt="" width="180" height="128">
 <div class="owl-cnc"><span class="owl-prog">PROGRAM O1001 · OCOTEWORKS</span><span class="owl-btn">Cycle start</span><span class="owl-bar"><i></i></span></div>
 </div></div>
 <noscript><style>#ow-loader{{display:none}}</style></noscript>
@@ -822,11 +822,19 @@ def write(path, html):
     open(full, "w", encoding="utf-8").write(html)
 
 
+def minify_css(css):
+    """Minificado simple: quita comentarios y espacios sobrantes (el archivo editable sigue siendo src/styles.css)."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};,>])\s*", r"\1", css)
+    return css.replace(";}", "}").strip()
+
+
 def main():
     css = open(os.path.join(SRC, "styles.css"), encoding="utf-8").read()
     version = hashlib.sha1(css.encode()).hexdigest()[:8]
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
-    open(os.path.join(ROOT, "assets", "styles.css"), "w", encoding="utf-8").write(css)
+    open(os.path.join(ROOT, "assets", "styles.css"), "w", encoding="utf-8").write(minify_css(css))
     qjs = open(os.path.join(SRC, "quote.js"), encoding="utf-8").read()
     open(os.path.join(ROOT, "assets", "quote.js"), "w", encoding="utf-8").write(qjs)
     qversion = hashlib.sha1(qjs.encode()).hexdigest()[:8]
