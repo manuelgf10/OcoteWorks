@@ -26,6 +26,9 @@ PRODUCTS = [
                      ("mount", "0.1045 0.0106 -0.234", "1 0 0"),
                      ("thick", "0 0.1273 0.2433", "-0.059 0.792 0.608")],
         "bp_stats": [("4.8", "mm"), ("0.5", "kg"), ("1", ""), ("0", "")],
+        # Guía de instalación (preliminar): ilustraciones en src/sheet/<slug>/guide.json + assets guide-*.
+        # Orden de apriete en cruz = índices de los tornillos en guide.json (frente izq., medio der., frente der., medio izq.).
+        "guide_order": [0, 3, 2, 1],
         # (archivo base, anchos disponibles, ancho x alto del original)
         "images": [("hero", (600, 1000, 1600), (2576, 1449)), ("top", (600, 1000, 1600), (2576, 1449)),
                    ("front", (600, 1000, 1600), (2576, 1449)), ("detail", (500, 900), (1308, 2326))],
@@ -44,6 +47,15 @@ PRODUCTS = [
                      "Tail rack OW-02 visto desde un costado, con las ranuras de amarre",
                      "Tail rack OW-02 visto de frente",
                      "Detalle de la placa superior del OW-02 con el logo grabado y las ranuras redondeadas"],
+            "guide": {
+                "kit": "Rack OW-02 + 4 tornillos nuevos", "tool": "Llaves Allen",
+                "steps": [("Prepara la moto", "Sobre una superficie plana, estable, apagada y con el motor frío."),
+                          ("Quita los tornillos de fábrica", "Con una llave Allen, retira los 4 tornillos de los puntos de montaje que Yamaha dejó para un rack: dos en cada costado. Guárdalos por si un día quitas el rack."),
+                          ("Presenta el rack", "Colócalo sobre la cola y alinea sus 4 barrenos con los puntos de montaje."),
+                          ("Coloca los tornillos nuevos", "Pon los 4 tornillos del kit a mano, sin apretar, para que el rack se acomode solo."),
+                          ("Aprieta en cruz", "Sigue el orden 1 → 4 de la figura. Aprieta firme y revisa que no quede juego."),
+                          ("Revisa a los 100 km", "Vuelve a revisar el apriete después de los primeros 100 km y de vez en cuando, sobre todo después de terracería.")],
+            },
             "hs": {"piece": ("Una sola pieza", "Lámina doblada: sin soldaduras ni uniones."),
                    "slots": ("Ranuras de amarre", "Para straps y bolsas pequeñas. Cantos redondeados en CNC para no cortar las cintas."),
                    "mount": ("Puntos de fábrica", "Se atornilla en los puntos de montaje originales de la T7."),
@@ -79,6 +91,15 @@ PRODUCTS = [
                      "OW-02 tail rack seen from the side, showing the strap slots",
                      "OW-02 tail rack seen from the front",
                      "Close-up of the OW-02 top plate with the engraved logo and rounded slots"],
+            "guide": {
+                "kit": "OW-02 rack + 4 new bolts", "tool": "Allen keys",
+                "steps": [("Prep the bike", "On flat, stable ground, switched off, with the engine cold."),
+                          ("Remove the factory bolts", "With an Allen key, remove the 4 bolts from the mounting points Yamaha left for a rack: two on each side. Keep them in case you ever take the rack off."),
+                          ("Offer up the rack", "Set it on the tail and line up its 4 holes with the mounting points."),
+                          ("Fit the new bolts", "Thread the 4 kit bolts in by hand, without tightening, so the rack settles on its own."),
+                          ("Tighten in a cross pattern", "Follow the 1 → 4 order in the drawing. Tighten firmly and check there’s no play."),
+                          ("Check at 100 km", "Re-check the bolts after the first 100 km and every so often, especially after dirt roads.")],
+            },
             "hs": {"piece": ("One piece", "Folded sheet: no welds, no joints."),
                    "slots": ("Tie-down slots", "For straps and small bags. CNC-rounded edges so they won’t cut webbing."),
                    "mount": ("Factory mounts", "Bolts to the T7’s original mounting points."),
@@ -116,6 +137,11 @@ UI = {
         cat_h1="Diseñado <em>en el taller</em>",
         cat_lead="Piezas propias para motos de aventura. Algunas están en preparación: si te interesan, únete a la lista y ayúdanos a decidir qué fabricar primero.",
         cat_view="Ver producto",
+        g_eyebrow="04 · Instalación", g_h2="Cuatro tornillos", g_p="Se monta en los cuatro puntos que Yamaha dejó en la T7 para un rack. No hay que cortar ni perforar nada.",
+        g_kit="Incluye", g_tool="Herramienta", g_pre="Guía preliminar", g_pdf="Descargar guía (PDF)",
+        g_fig1="Despiece: 4 tornillos nuevos, 2 por costado", g_fig2="Orden de apriete · vista superior", g_front="Frente",
+        g_note="Guía preliminar. El par de apriete y los detalles finales se publicarán con el primer lote.",
+        g_alt1="Despiece del OW-02: el rack con sus 4 tornillos separados de los barrenos de montaje", g_alt2="Vista superior del OW-02 con los 4 puntos de montaje numerados en orden de apriete en cruz",
         sheet_k="Ficha técnica", sheet_cta="Descargar PDF", sheet_meta="A3 · vistas, cotas generales y especificaciones",
         sheet_alt="Vista previa de la ficha técnica del OW-02 en estilo plano: vistas superior, lateral, posterior e isométrica con cotas",
         v3d="Ver en 3D", v3d_hint="Arrastra para girar · pellizca o usa la rueda para acercar", v3d_ar="Ver en tu espacio",
@@ -160,6 +186,11 @@ UI = {
         cat_h1="Designed <em>in the workshop</em>",
         cat_lead="Original parts for adventure motorcycles. Some are in pre-production: if one interests you, join the list and help us decide what to make first.",
         cat_view="View product",
+        g_eyebrow="04 · Installation", g_h2="Four bolts", g_p="It mounts on the four points Yamaha left on the T7 for a rack. No cutting, no drilling.",
+        g_kit="Includes", g_tool="Tools", g_pre="Preliminary guide", g_pdf="Download guide (PDF)",
+        g_fig1="Exploded view: 4 new bolts, 2 per side", g_fig2="Tightening order · top view", g_front="Front",
+        g_note="Preliminary guide. Torque values and final details will be published with the first batch.",
+        g_alt1="Exploded view of the OW-02: the rack with its 4 bolts pulled out of the mounting holes", g_alt2="Top view of the OW-02 with the 4 mounting points numbered in cross-pattern tightening order",
         sheet_k="Spec sheet", sheet_cta="Download PDF", sheet_meta="A3 · views, overall dimensions and specifications",
         sheet_alt="Preview of the OW-02 spec sheet in blueprint style: top, side, rear and isometric views with dimensions",
         v3d="View in 3D", v3d_hint="Drag to rotate · pinch or scroll to zoom", v3d_ar="View in your space",
@@ -313,6 +344,58 @@ def blueprint(p, lang):
     return (f'<section class="pd-bp" aria-labelledby="bp-h"><div class="wrap">'
             f'<div class="sec-head"><div><p class="eyebrow">{u["bp_eyebrow"]}</p><h2 id="bp-h">{u["bp_h2"]}</h2></div><p>{u["bp_p"]}</p></div>'
             f'<div class="bp-views">{side}{rear}</div><div class="bp-stats">{stats}</div></div></section>')
+
+
+def _guide_meta(p):
+    import json, os
+    return json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sheet", p["code"].lower(), "guide.json")))
+
+
+def guide_figs(p, lang, src=None):
+    """Las dos figuras de la guía. src(nombre) devuelve la URL de la imagen (para el PDF se pasa base64)."""
+    u, g = UI[lang], _guide_meta(p)
+    base = p["img_dir"]
+    def pic(name, alt):
+        m = g[name]
+        if src:
+            return f'<img src="{src(name)}" alt="{alt}" width="{m["w"]}" height="{m["h"]}">'
+        return (f'<picture><source srcset="{base}/{name}-800.webp 800w, {base}/{name}-1400.webp 1400w" sizes="(max-width:900px) 100vw, 640px" type="image/webp">'
+                f'<img src="{base}/{name}-800.png" srcset="{base}/{name}-800.png 800w, {base}/{name}-1400.png 1400w" sizes="(max-width:900px) 100vw, 640px" '
+                f'alt="{alt}" width="{m["w"]}" height="{m["h"]}" loading="lazy" decoding="async"></picture>')
+    pts = g["guide-top"]["pts"]; order = p["guide_order"]
+    marks, lines = [], []
+    for n, i in enumerate(order):
+        pt = pts[i]; dv = 0.075 if pt["v"] > .5 else -0.075
+        marks.append(f'<span class="gd-n" style="left:{pt["u"] * 100:.2f}%;top:{(pt["v"] + dv) * 100:.2f}%">{n + 1}</span>')
+    for a, b in ((0, 1), (2, 3)):
+        A, B = pts[order[a]], pts[order[b]]
+        lines.append(f'<line x1="{A["u"] * 100:.2f}" y1="{A["v"] * 100:.2f}" x2="{B["u"] * 100:.2f}" y2="{B["v"] * 100:.2f}"/>')
+    fig1 = f'<figure class="gd-fig">{pic("guide-explode", u["g_alt1"])}<figcaption>{u["g_fig1"]}</figcaption></figure>'
+    fig2 = (f'<figure class="gd-fig gd-top"><div class="gd-top-in">{pic("guide-top", u["g_alt2"])}'
+            f'<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{"".join(lines)}</svg>{"".join(marks)}'
+            f'<span class="gd-front">← {u["g_front"]}</span></div><figcaption>{u["g_fig2"]}</figcaption></figure>')
+    return fig1, fig2
+
+
+def guide_steps(p, lang, a, b):
+    return "".join(f'<li><span class="gd-sn">{i + 1:02d}</span><div><h3>{h}</h3><p>{t}</p></div></li>'
+                   for i, (h, t) in enumerate(p[lang]["guide"]["steps"]) if a <= i < b)
+
+
+def install_guide(p, lang):
+    """Sección '04 · Instalación' de la ficha (punto 5)."""
+    if not p.get("guide_order"):
+        return ""
+    u, gd, slug = UI[lang], p[lang]["guide"], p["code"].lower()
+    fig1, fig2 = guide_figs(p, lang)
+    pdf = f'{p["img_dir"]}/{slug}-guia-{lang}.pdf'
+    return (f'<section class="pd-gd" id="instalacion"><div class="wrap">'
+            f'<div class="sec-head"><div><p class="eyebrow">{u["g_eyebrow"]}</p><h2>{u["g_h2"]}</h2></div><p>{u["g_p"]}</p></div>'
+            f'<ul class="gd-chips"><li><b>{u["g_kit"]}</b>{gd["kit"]}</li><li><b>{u["g_tool"]}</b>{gd["tool"]}</li><li class="gd-pre">{u["g_pre"]}</li></ul>'
+            f'<div class="gd-row">{fig1}<ol class="gd-steps">{guide_steps(p, lang, 0, 4)}</ol></div>'
+            f'<div class="gd-row gd-row-b"><ol class="gd-steps" start="5">{guide_steps(p, lang, 4, 6)}</ol>{fig2}</div>'
+            f'<div class="gd-foot"><p>{u["g_note"]}</p><a class="btn ghost" href="{pdf}" download data-goatcounter-click="guia-{slug}-{lang}">{u["g_pdf"]} ↓</a></div>'
+            f'</div></section>')
 
 
 def sheet_card(p, lang):
