@@ -693,8 +693,8 @@ def header(d, active, en_url, es_url):
     menu = (f'<details class="m-menu"><summary aria-label="{d["menu_label"]}"><span></span><span></span><span></span></summary>'
             f'<ul>{lis}</ul></details>')
     en_cur, es_cur = (cur, "") if d["lang"] == "en" else ("", cur)
-    lang = (f'<span class="lang"><a href="{en_url}" hreflang="en" lang="en"{en_cur}>EN</a><span>/</span>'
-            f'<a href="{es_url}" hreflang="es" lang="es"{es_cur}>ES</a></span>')
+    lang = (f'<span class="lang"><a href="{en_url}" hreflang="en" lang="en"{en_cur}>ENG</a><span>/</span>'
+            f'<a href="{es_url}" hreflang="es" lang="es"{es_cur}>ESP</a></span>')
     return (status_bar(d, active) + f'<header class="top"><div class="wrap">'
             f'<a class="brand" href="{d["u_home"]}" aria-label="{d["home_label"]}"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp">'
             f'<img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>'
