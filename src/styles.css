@@ -974,11 +974,3 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 @keyframes vt-in{from{opacity:0;transform:translateY(16px)}}
 @media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 
-/* Cajetín del pie (revisión del sitio) */
-.f-tb{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:8px 0 0;border:1px solid var(--linea-osc);border-radius:var(--r-sm)}
-.f-tb div{padding:9px 12px 10px;border-left:1px solid var(--linea-osc)}
-.f-tb div:first-child{border-left:0}
-.f-tb dt{font:400 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-osc);margin-bottom:6px}
-.f-tb dd{margin:0;font:500 13px/1 var(--mono);letter-spacing:.06em;color:var(--marfil);font-variant-numeric:tabular-nums}
-.f-tb div:nth-child(2) dd{color:var(--cempasuchil)}
-@media (max-width:600px){.f-tb{grid-template-columns:repeat(3,minmax(0,1fr))}.f-tb div:nth-child(4){border-left:0}.f-tb div:nth-child(n+4){border-top:1px solid var(--linea-osc)}}
