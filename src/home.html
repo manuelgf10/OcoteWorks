@@ -63,8 +63,7 @@
       </div>
       <div class="h-hero-side">
         <p class="h-claim">{{h_claim}}</p>
-        <p class="lead">{{h_lead}}</p>
-        <div class="ctas">
+                <div class="ctas">
           <a class="btn" href="{{u_services}}">{{h_cta_services}}</a>
           <a class="btn ghost" href="{{u_products}}">{{h_cta_products}}</a>
         </div>
@@ -75,10 +74,10 @@
 
 <section class="h-paths" aria-labelledby="h-paths-h">
   <div class="wrap">
-    <h2 class="sr" id="h-paths-h">{{h_paths_h}}</h2>
+    <div class="sec-head"><div><p class="eyebrow">{{h_do_eyebrow}}</p><h2 id="h-paths-h">{{h_paths_h}}</h2></div><p>{{h_lead}}</p></div>
     <div class="h-paths-grid">
       <a class="h-path" href="{{u_services}}">
-        <picture><source srcset="/assets/photos/about/engine-teardown-400.webp 400w, /assets/photos/about/engine-teardown-600.webp 600w, /assets/photos/about/engine-teardown-1000.webp 1000w" sizes="(max-width:860px) 90vw, 220px" type="image/webp"><img src="/assets/photos/about/engine-teardown-600.jpg" alt="" width="600" height="600" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="/assets/photos/about/engine-teardown-600.webp 600w, /assets/photos/about/engine-teardown-1000.webp 1000w" sizes="(max-width:1000px) 100vw, 560px" type="image/webp"><img src="/assets/photos/about/engine-teardown-600.jpg" srcset="/assets/photos/about/engine-teardown-600.jpg 600w, /assets/photos/about/engine-teardown-1000.jpg 1000w" sizes="(max-width:1000px) 100vw, 560px" alt="" width="600" height="600" loading="lazy" decoding="async"></picture>
         <div>
           <span class="h-code">01 · {{nav_services}}</span>
           <h3>{{h_p1_h}}</h3>
@@ -86,25 +85,15 @@
           <span class="h-more">{{h_p1_more}} →</span>
         </div>
       </a>
-      <a class="h-path" href="{{u_products}}">
-        <picture class="h-path-render"><source srcset="/assets/products/ow-02/detail-500.webp 500w, /assets/products/ow-02/detail-900.webp 900w" sizes="(max-width:860px) 90vw, 220px" type="image/webp"><img src="/assets/products/ow-02/detail-500.jpg" alt="" width="500" height="889" loading="lazy" decoding="async"></picture>
-        <div>
-          <span class="h-code">02 · {{nav_products}}</span>
-          <h3>{{h_p2_h}}</h3>
-          <p>{{h_p2_p}}</p>
-          <span class="h-more">{{h_p2_more}} →</span>
-        </div>
-      </a>
+      {{h_product}}
     </div>
   </div>
 </section>
 
-{{h_shop}}
-
 <section class="h-film" aria-labelledby="h-film-h">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="eyebrow">{{h_film_eyebrow}}</p><h2 id="h-film-h">{{h_film_h2}}</h2></div>
+      <div><p class="eyebrow">{{h_film_eyebrow}}</p><h2 id="h-film-h">{{man_quote}}</h2></div>
       <p>{{h_film_p}}</p>
     </div>
     <figure class="h-film-box">
@@ -117,36 +106,20 @@
   </div>
 </section>
 
-<section class="manifiesto h-man">
-  <div class="wrap">
-    <p class="eyebrow">{{man_eyebrow}}</p>
-    <p class="quote">{{man_quote}}</p>
-    <div class="body"><p>{{h_man}}</p></div>
-  </div>
-</section>
-
-<figure class="foto foto-b" aria-label="{{hero_photo_alt}}">
-  <picture>
-    <source srcset="/assets/photos/salinas-800.webp 800w, /assets/photos/salinas-1200.webp 1200w, /assets/photos/salinas-1600.webp 1600w, /assets/photos/salinas-2400.webp 2400w" sizes="100vw" type="image/webp">
-    <img src="/assets/photos/salinas-1600.jpg" alt="{{hero_photo_alt}}" width="1600" height="1200" loading="lazy" decoding="async">
-  </picture>
-  <figcaption><span>OW · Field log 001</span><span>{{hero_photo_cap}}</span></figcaption>
-</figure>
-
-<section class="a-work h-work">
+<section class="h-work h-j">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="eyebrow">{{a_work_eyebrow}}</p><h2>{{h_work_h2}}</h2></div>
+      <div><p class="eyebrow">{{h_j_eyebrow}}</p><h2>{{h_work_h2}}</h2></div>
       <p>{{h_work_p}} <a href="{{u_journal}}">{{h_work_link}} →</a></p>
     </div>
-    <div class="a-work-grid">{{a_work}}</div>
+    {{h_journal}}
   </div>
 </section>
 
 <section class="h-maker">
   <div class="wrap h-maker-grid">
     <figure>
-      <picture><source srcset="/assets/photos/about/bike-rebuild-600.webp 600w, /assets/photos/about/bike-rebuild-1000.webp 1000w" sizes="(max-width:860px) 100vw, 460px" type="image/webp"><img src="/assets/photos/about/bike-rebuild-600.jpg" alt="{{h_maker_alt}}" width="600" height="600" loading="lazy" decoding="async"></picture>
+      <picture><source srcset="/assets/photos/about/portrait-360.webp 360w, /assets/photos/about/portrait-720.webp 720w" sizes="(max-width:860px) 100vw, 440px" type="image/webp"><img src="/assets/photos/about/portrait-720.jpg" srcset="/assets/photos/about/portrait-360.jpg 360w, /assets/photos/about/portrait-720.jpg 720w" sizes="(max-width:860px) 100vw, 440px" alt="{{a_portrait_alt}}" width="720" height="960" loading="lazy" decoding="async"></picture>
     </figure>
     <div>
       <p class="eyebrow">{{h_maker_eyebrow}}</p>

@@ -990,3 +990,21 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 @keyframes vt-in{from{opacity:0;transform:translateY(16px)}}
 @media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 
+
+/* Portada reordenada (9 nov 2026): qué hacemos · corto + manifiesto · bitácora · quién */
+.h-paths .sec-head{margin-bottom:clamp(28px,4vw,44px)}
+.h-paths-grid{gap:clamp(18px,2.4vw,28px)}
+.h-path{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+.h-path picture,.h-path-img{aspect-ratio:16/10;border-bottom:3px solid var(--carbon);overflow:hidden}
+.h-path-img{position:relative;background:#d2d2d2}
+.h-path-img picture{aspect-ratio:auto;border:0;height:100%}
+.h-path-img .pc-code{position:absolute;left:14px;top:14px}
+.h-path-price{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;flex:0 !important;color:var(--carbon) !important}
+.h-path-price b{font:700 26px/1 var(--display)}
+.h-film h2 span{background:linear-gradient(transparent 60%,var(--ocote) 60%,var(--ocote) 90%,transparent 90%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.h-film h2{max-width:16ch}
+.h-j{padding:clamp(64px,8vw,104px) 0}
+.h-j .sec-head h2,.h-paths .sec-head h2{hyphens:manual;-webkit-hyphens:manual;overflow-wrap:normal}
+.h-j .j-card h2{font-size:clamp(40px,4.4vw,64px)}
+.h-maker img{aspect-ratio:3/4;object-position:center 20%}
+@media (max-width:860px){.h-j .j-card{grid-template-columns:minmax(0,1fr)}.h-j .j-card-img{border-right:0;border-bottom:3px solid var(--carbon);min-height:0;aspect-ratio:16/10}}

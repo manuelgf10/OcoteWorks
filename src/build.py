@@ -447,7 +447,7 @@ EN_NEW = dict(
     h_claim="Independent design, engineering and fabrication workshop in Monterrey, Mexico.",
     h_lead="We develop products for other creators and build our own, starting with gear for adventure motorcycles.",
     h_cta_services="Engineering services", h_cta_products="Our products",
-    h_paths_h="Two ways to work with us",
+    h_paths_h="Two ways to work with us", h_do_eyebrow="What we do", h_j_eyebrow="From the Journal",
     h_film_eyebrow="OW · Film 001", h_film_h2="From sketch to the road.",
     h_film_p="Twenty seconds of what we do: we draw it, we cut it, we bend it, we ride it.",
     h_film_play="Play", h_film_alt="OcoteWorks short film: desert riding, machining, welding and the logo sketched by hand",
@@ -527,7 +527,7 @@ ES_NEW = dict(
     h_claim="Taller independiente de diseño, ingeniería y fabricación en Monterrey, México.",
     h_lead="Desarrollamos productos para otros creadores y fabricamos los nuestros, empezando por equipo para motos de aventura.",
     h_cta_services="Servicios de ingeniería", h_cta_products="Nuestros productos",
-    h_paths_h="Dos formas de trabajar con nosotros",
+    h_paths_h="Dos formas de trabajar con nosotros", h_do_eyebrow="Qué hacemos", h_j_eyebrow="De la Bitácora",
     h_film_eyebrow="OW · Film 001", h_film_h2="Del boceto a la ruta.",
     h_film_p="Veinte segundos de lo que hacemos: lo dibujamos, lo cortamos, lo doblamos, lo rodamos.",
     h_film_play="Reproducir", h_film_alt="Cortometraje de OcoteWorks: rodadas en el desierto, maquinado, soldadura y el logo dibujado a mano",
@@ -894,7 +894,7 @@ def main():
             base.update(extra)
             return base
 
-        write(PAGES["home"][i], render(T["home"], ctx("home", h_shop=PR.home_feature(PR.PRODUCTS[0], data["lang"], data["u_products"]), jsonld=jsonld(data["lang"], data["url"], data["description"]))))
+        write(PAGES["home"][i], render(T["home"], ctx("home", h_product=PR.home_card(PR.PRODUCTS[0], data["lang"]), h_journal=JO.card(sorted(JO.ENTRIES, key=lambda x: x["date"], reverse=True)[0], data["lang"]), jsonld=jsonld(data["lang"], data["url"], data["description"]))))
         write(PAGES["services"][i], render(T["services"], ctx("services", p_title=data["s_title"], p_description=data["s_description"], p_url=data["s_url"])))
         write(PAGES["quote"][i], render(T["quote"], ctx("quote", qversion=qversion, q_privacy=LG.TEXT[data["lang"]]["q_privacy"])))
         lt = LG.TEXT[data["lang"]]
