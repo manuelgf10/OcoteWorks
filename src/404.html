@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>404 · OcoteWorks</title>
+<title>404 · Fuera de tolerancia · OcoteWorks</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#17171a">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -13,40 +13,101 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;700&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/styles.css?v={{version}}">
 <style>
-.e404{min-height:100vh;display:flex;flex-direction:column}
-.e404 .hero{flex:1;display:flex;align-items:center;padding:clamp(48px,8vw,96px) 0}
-.e404 .hero>.wrap{width:100%}
-.e404 .num{font:700 clamp(140px,22vw,300px)/.8 var(--display);margin:0;color:var(--carbon)}
-.e404 .num span{background:linear-gradient(transparent 58%,var(--cempasuchil) 58%,var(--cempasuchil) 90%,transparent 90%)}
-.e404 .tag{display:inline-flex;gap:14px;margin:28px 0 30px;border:3px solid var(--carbon);border-radius:var(--r-sm);padding:8px 12px;font:400 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--papel)}
-.e404 .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:820px}
-.e404 h1{font-size:clamp(34px,4vw,52px)}
-.e404 p.t{margin-top:12px;color:var(--grafito)}
-.e404 .btn{margin-top:22px}
-@media (max-width:640px){.e404 .cols{grid-template-columns:1fr}}
+.e404{min-height:100vh;display:flex;flex-direction:column;background:var(--carbon);color:var(--marfil)}
+.e404 .top{background:rgba(23,23,26,.92);border-bottom-color:var(--linea-osc)}
+.e404 .lang a{color:var(--tinta-osc)}
+.e404 main{flex:1;padding:clamp(40px,6vw,80px) 0 clamp(56px,8vw,96px);background-image:linear-gradient(rgba(244,234,215,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(244,234,215,.06) 1px,transparent 1px),linear-gradient(rgba(244,234,215,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(244,234,215,.025) 1px,transparent 1px);background-size:100px 100px,100px 100px,20px 20px,20px 20px;background-position:-1px -1px}
+.e-eyebrow{font:400 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-osc);margin:0 0 18px}
+.e-eyebrow b{color:var(--cempasuchil);font-weight:400}
+/* Dibujo: vista lateral del OW-02 con un tramo faltante */
+.e-draw{position:relative;margin:clamp(24px,5vw,64px) 0 clamp(36px,5vw,56px)}
+.e-draw img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(90deg,#000 0 41%,transparent 41% 59%,#000 59%);mask-image:linear-gradient(90deg,#000 0 41%,transparent 41% 59%,#000 59%)}
+.e-gap{position:absolute;left:41%;width:18%;top:6%;bottom:-2%;border:2px dashed var(--ocote);border-radius:4px;animation:e-blink 1.6s steps(2,start) infinite}
+.e-gap::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;font:700 clamp(40px,7vw,96px)/1 var(--display);color:var(--ocote)}
+.e-lead{position:absolute;left:59%;top:6%;width:14%;border-top:1.5px solid var(--cempasuchil);transform-origin:left;transform:rotate(-22deg)}
+.e-lead span{position:absolute;right:-6px;top:-30px;transform:rotate(22deg);transform-origin:right bottom;white-space:nowrap;font:500 clamp(11px,1.1vw,14px)/1 var(--mono);letter-spacing:.08em;color:var(--cempasuchil);background:var(--carbon);padding:4px 8px}
+.e-dim{position:absolute;left:0;right:0;bottom:-34px;height:0;border-top:1.5px solid var(--cempasuchil)}
+.e-dim::before,.e-dim::after{content:"";position:absolute;top:-6px;border:5px solid transparent}
+.e-dim::before{left:0;border-right-color:var(--cempasuchil);border-left:0;top:-5.5px}
+.e-dim::after{right:0;border-left-color:var(--cempasuchil);border-right:0;top:-5.5px}
+.e-dim span{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);background:var(--carbon);padding:0 10px;font:500 clamp(12px,1.3vw,16px)/1 var(--mono);color:var(--cempasuchil);letter-spacing:.06em}
+@keyframes e-blink{to{border-color:transparent}}
+/* Texto + etiqueta de inspección */
+.e-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,72px);align-items:start;margin-top:56px}
+.e404 .num{font:700 clamp(96px,14vw,200px)/.8 var(--display);margin:0;color:transparent;-webkit-text-stroke:2px var(--marfil)}
+.e404 h1{font-size:clamp(36px,4.4vw,60px);margin-top:18px;color:var(--marfil)}
+.e404 p.t{margin-top:14px;color:var(--tinta-osc);max-width:46ch}
+.e-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.e404 .btn.ghost{background:transparent;color:var(--marfil);border-color:var(--marfil)}
+.e404 .btn.ghost:hover{background:var(--marfil);color:var(--carbon)}
+.e-tag{position:relative;background:var(--marfil);color:var(--carbon);border-radius:var(--r-md);padding:22px 22px 30px;transform:rotate(1.5deg);box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.e-tag::before{content:"";position:absolute;top:16px;right:18px;width:14px;height:14px;border-radius:50%;background:var(--carbon);box-shadow:0 0 0 4px var(--piedra)}
+.e-tag h2{font-size:28px;letter-spacing:.02em}
+.e-tag dl{margin:14px 0 0;border-top:2px solid var(--carbon)}
+.e-tag dl div{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--piedra)}
+.e-tag dt{font:400 10px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--grafito)}
+.e-tag dd{margin:0;font:500 13px/1.45 var(--mono);word-break:break-all}
+.e-stamp{position:absolute;right:18px;bottom:-22px;transform:rotate(-8deg);background:var(--marfil);border:3px solid var(--ocote);color:var(--ocote);border-radius:6px;padding:6px 10px;font:700 22px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;opacity:.92;box-shadow:0 0 0 3px var(--marfil)}
+[data-l][hidden]{display:none}
+@media (max-width:760px){.e-grid{grid-template-columns:1fr}.e-lead{display:none}.e-tag{transform:none}}
+@media (prefers-reduced-motion:reduce){.e-gap{animation:none}}
 </style>
 </head>
 <body class="e404">
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="OcoteWorks"><picture><source srcset="/assets/logo-carbon-176.webp" type="image/webp"><img src="/assets/logo-carbon-176.png" alt="OcoteWorks" width="88" height="63"></picture></a>
+    <a class="brand" href="/" aria-label="OcoteWorks"><picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="88" height="63"></picture></a>
     <nav class="nav" aria-label="Language"><span class="lang"><a href="/" lang="en">ENG</a><span>/</span><a href="/es/" lang="es">ESP</a></span></nav>
   </div>
 </header>
-<main class="hero">
+<main>
   <div class="wrap">
-    <p class="num">4<span>0</span>4</p>
-    <p class="tag"><span>OW-ERR-404</span><span>·</span><span>REV A</span><span>·</span><span>Not found</span></p>
-    <div class="cols">
-      <div lang="en">
-        <h1>This part isn’t in our drawings.</h1>
-        <p class="t">The page you’re looking for doesn’t exist or has moved.</p>
-        <a class="btn" href="/">Back to home</a>
+    <p class="e-eyebrow"><b>OW-ERR-404</b> · <span data-l="es">Reporte de inspección</span><span data-l="en" lang="en">Inspection report</span></p>
+    <figure class="e-draw" aria-hidden="true">
+      <picture><source srcset="/assets/products/ow-02/bp-side-900.webp 900w, /assets/products/ow-02/bp-side-1600.webp 1600w" sizes="(max-width:1200px) 100vw, 1140px" type="image/webp"><img src="/assets/products/ow-02/bp-side-900.png" srcset="/assets/products/ow-02/bp-side-900.png 900w, /assets/products/ow-02/bp-side-1600.png 1600w" sizes="(max-width:1200px) 100vw, 1140px" alt="" width="1600" height="432"></picture>
+      <i class="e-gap"></i>
+      <i class="e-lead"><span data-l="es">DETALLE 404 · NO ENCONTRADO</span><span data-l="en">DETAIL 404 · NOT FOUND</span></i>
+      <i class="e-dim"><span>404 ±0.0</span></i>
+    </figure>
+
+    <div class="e-grid">
+      <div>
+        <p class="num">404</p>
+        <div data-l="es">
+          <h1>Fuera de tolerancia.</h1>
+          <p class="t">Esta página no está en nuestros planos: no existe o cambió de lugar. La mandamos a retrabajo.</p>
+          <div class="e-ctas"><a class="btn" href="/es/">Volver al inicio</a><a class="btn ghost" href="/es/productos/">Ver productos</a></div>
+        </div>
+        <div data-l="en" lang="en">
+          <h1>Out of tolerance.</h1>
+          <p class="t">This page isn’t in our drawings: it doesn’t exist or it has moved. We’ve sent it back for rework.</p>
+          <div class="e-ctas"><a class="btn" href="/">Back to home</a><a class="btn ghost" href="/products/">See products</a></div>
+        </div>
       </div>
-      <div lang="es">
-        <h1>Esta pieza no está en nuestros planos.</h1>
-        <p class="t">La página que buscas no existe o cambió de lugar.</p>
-        <a class="btn ghost" href="/es/">Volver al inicio</a>
+
+      <div class="e-tag" role="note">
+        <div data-l="es">
+          <h2>Etiqueta de inspección</h2>
+          <dl>
+            <div><dt>Pieza</dt><dd class="e-path">—</dd></div>
+            <div><dt>Resultado</dt><dd>No conforme</dd></div>
+            <div><dt>Motivo</dt><dd>Ruta inexistente o movida</dd></div>
+            <div><dt>Disposición</dt><dd>Retrabajo → inicio</dd></div>
+            <div><dt>Inspector</dt><dd>OW-QC · <span class="e-time">—</span></dd></div>
+          </dl>
+          <p class="e-stamp">Rechazado</p>
+        </div>
+        <div data-l="en" lang="en">
+          <h2>Inspection tag</h2>
+          <dl>
+            <div><dt>Part</dt><dd class="e-path">—</dd></div>
+            <div><dt>Result</dt><dd>Non-conforming</dd></div>
+            <div><dt>Cause</dt><dd>Route missing or moved</dd></div>
+            <div><dt>Disposition</dt><dd>Rework → home</dd></div>
+            <div><dt>Inspector</dt><dd>OW-QC · <span class="e-time">—</span></dd></div>
+          </dl>
+          <p class="e-stamp">Rejected</p>
+        </div>
       </div>
     </div>
   </div>
@@ -56,7 +117,22 @@
     <picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91"></picture>
     <p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>
     <p class="meta">hola@ocoteworks.com<br>© 2026 OcoteWorks</p>
+    {{title_block}}
   </div>
 </footer>
+<script>
+/* Idioma: /es/… o navegador en español → español; si no, inglés. Sin JS se ven los dos. */
+(function () {
+  var es = /^\/es(\/|$)/.test(location.pathname) || (!/^\/(products|journal|services|about|quote|privacy)/.test(location.pathname) && /^es/i.test(navigator.language || ""));
+  var lang = es ? "es" : "en";
+  document.documentElement.lang = lang;
+  document.title = es ? "404 · Fuera de tolerancia · OcoteWorks" : "404 · Out of tolerance · OcoteWorks";
+  document.querySelectorAll("[data-l]").forEach(function (el) { el.hidden = el.dataset.l !== lang; });
+  var path = decodeURIComponent(location.pathname);
+  document.querySelectorAll(".e-path").forEach(function (el) { el.textContent = path.length > 48 ? path.slice(0, 46) + "…" : path; });
+  var t = new Date().toLocaleString(es ? "es-MX" : "en-US", { timeZone: "America/Monterrey", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false });
+  document.querySelectorAll(".e-time").forEach(function (el) { el.textContent = t; });
+})();
+</script>
 </body>
 </html>

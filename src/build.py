@@ -972,7 +972,7 @@ def main():
                                                                 j_product_url=purl, j_cta_product=JU["cta_product"], j_cta_ig=JU["cta_ig"])))
 
     # Página 404 (bilingüe, una sola)
-    p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version)
+    p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version).replace("{{title_block}}", title_block("es"))
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(p404)
 
     def alt(en, es):
