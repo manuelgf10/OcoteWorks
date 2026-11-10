@@ -106,7 +106,9 @@ def about_photos(lang):
 
 def about_plate(d):
     return (f'<aside class="a-plate" aria-label="{d["a_plate_label"]}"><div class="a-plate-top"><span>OW · ID-001</span><span>{d["a_plate_tag"]}</span></div>'
-            f'<p class="a-plate-name">Manuel García<span>Flores</span></p><dl>{d["a_plate"]}</dl>'
+            '<div class="a-plate-id"><picture><source srcset="/assets/photos/about/portrait-360.webp 360w, /assets/photos/about/portrait-720.webp 720w" sizes="(max-width:900px) 40vw, 180px" type="image/webp">'
+            f'<img src="/assets/photos/about/portrait-360.jpg" srcset="/assets/photos/about/portrait-360.jpg 360w, /assets/photos/about/portrait-720.jpg 720w" sizes="(max-width:900px) 40vw, 180px" alt="{d["a_portrait_alt"]}" width="360" height="480" loading="lazy" decoding="async"></picture>'
+            f'<p class="a-plate-name">Manuel García<span>Flores</span></p></div><dl>{d["a_plate"]}</dl>'
             '<div class="a-plate-foot"><span>REV 2026</span><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></div></aside>')
 
 
@@ -204,7 +206,7 @@ EN = dict(
     a_url="https://ocoteworks.com/about/",
     a_title="About Manuel García Flores · Industrial designer & product development engineer · OcoteWorks",
     a_description="Manuel García Flores is an industrial designer and product development engineer in Monterrey, Mexico, and the founder of OcoteWorks. Design, engineering, prototyping, manufacturing and testing.",
-    a_eyebrow="About", a_plate_label="Profile summary", a_plate_tag="Founder",
+    a_eyebrow="About", a_plate_label="Profile summary", a_plate_tag="Founder", a_portrait_alt="Portrait of Manuel García Flores, founder of OcoteWorks",
     a_hero_alt="The OcoteWorks workshop at night: Manuel at the workbench with sparks flying, next to a motorcycle and a classic Mini",
     a_hero_cap="The workshop after dark",
     a_off_alt="Manuel crossing a river on his Yamaha Ténéré 700, with green hills behind",
@@ -362,7 +364,7 @@ ES = dict(
     a_url="https://ocoteworks.com/es/sobre-mi/",
     a_title="Sobre Manuel García Flores · Diseñador industrial e ingeniero de producto · OcoteWorks",
     a_description="Manuel García Flores es diseñador industrial e ingeniero de desarrollo de producto en Monterrey y fundador de OcoteWorks. Diseño, ingeniería, prototipos, manufactura y pruebas.",
-    a_eyebrow="Sobre mí", a_plate_label="Resumen de perfil", a_plate_tag="Fundador",
+    a_eyebrow="Sobre mí", a_plate_label="Resumen de perfil", a_plate_tag="Fundador", a_portrait_alt="Retrato de Manuel García Flores, fundador de OcoteWorks",
     a_hero_alt="El taller de OcoteWorks de noche: Manuel en el banco de trabajo entre chispas, junto a una moto y un Mini clásico",
     a_hero_cap="El taller de noche",
     a_off_alt="Manuel cruzando un río en su Yamaha Ténéré 700, con cerros verdes al fondo",

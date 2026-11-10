@@ -343,6 +343,10 @@ legend{font:700 15px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase
 .a-plate-top{display:flex;justify-content:space-between;background:var(--carbon);color:var(--marfil);padding:10px 16px;font:400 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .a-plate-top span:last-child{color:var(--cempasuchil)}
 .a-plate-name{font:700 clamp(44px,4.6vw,64px)/.86 var(--display);text-transform:uppercase;padding:20px 18px 14px;border-bottom:2px solid var(--carbon)}
+.a-plate-id{display:grid;grid-template-columns:40% 1fr;border-bottom:2px solid var(--carbon)}
+.a-plate-id picture{display:block;border-right:2px solid var(--carbon);background:#1d2a2a}
+.a-plate-id img{display:block;width:100%;height:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 20%}
+.a-plate-id .a-plate-name{border-bottom:0;align-self:end;font-size:clamp(36px,3.6vw,52px);padding:16px 16px 14px}
 .a-plate-name span{display:block;color:var(--grafito)}
 .a-plate dl{margin:0;display:grid;grid-template-columns:auto 1fr}
 .a-plate dt,.a-plate dd{margin:0;padding:9px 0;border-bottom:1px solid var(--piedra)}
