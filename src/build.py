@@ -702,6 +702,20 @@ def header(d, active, en_url, es_url):
             f'</div></header>')
 
 
+def build_rev():
+    """Revisión del sitio = número de commits + 1 (la que se va a publicar) y fecha de Monterrey."""
+    import subprocess, datetime, zoneinfo
+    try:
+        n = int(subprocess.run(["git", "rev-list", "--count", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()) + 1
+    except Exception:
+        n = 0
+    hoy = datetime.datetime.now(zoneinfo.ZoneInfo("America/Monterrey")).strftime("%d.%m.%Y")
+    return f"{n:03d}", hoy
+
+
+REV_N, REV_DATE = build_rev()
+
+
 def footer(d):
     links = " · ".join(f'<a href="{d[u]}">{d[t]}</a>' for k, t, u in NAV)
     return (f'<footer><div class="wrap">'
@@ -710,7 +724,17 @@ def footer(d):
             f'<p class="meta">{d["foot_meta"]}<br><span class="f-nav" aria-label="{d["foot_nav"]}">{links}</span><br>'
             f'<a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · '
             f'<a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks · '
-            f'<a href="{"/es/privacidad/" if d["lang"] == "es" else "/privacy/"}">{LG.TEXT[d["lang"]]["foot_privacy"]}</a></p></div></footer>')
+            f'<a href="{"/es/privacidad/" if d["lang"] == "es" else "/privacy/"}">{LG.TEXT[d["lang"]]["foot_privacy"]}</a></p>'
+            + title_block(d["lang"]) + '</div></footer>')
+
+
+def title_block(lang):
+    """Cajetín de plano al pie: la revisión sube sola en cada publicación."""
+    k = {"es": ("Plano", "Rev.", "Fecha", "Escala", "Unidades", "Revisión del sitio"),
+         "en": ("Drawing", "Rev.", "Date", "Scale", "Units", "Site revision")}[lang]
+    cells = [(k[0], "OW-WEB"), (k[1], REV_N), (k[2], REV_DATE), (k[3], "1:1"), (k[4], "px")]
+    return (f'<dl class="f-tb" aria-label="{k[5]}">' +
+            "".join(f'<div><dt>{a}</dt><dd>{b}</dd></div>' for a, b in cells) + '</dl>')
 
 
 def moto_svg():
