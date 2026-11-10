@@ -1264,3 +1264,46 @@ footer{position:relative}
 @media (max-width:860px){.ig-head{grid-template-columns:minmax(0,1fr)}.ig-head>p{justify-self:start}.ig-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (hover:none){.ig-cap{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.ig-tile img,.ig-cap{transition:none}}
+
+/* Sobre mí · versión corta: línea de tiempo plegable, chips, pliegue de equipo */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.a-tl{list-style:none;margin:clamp(32px,4vw,48px) 0 0;padding:0;border-top:3px solid var(--carbon)}
+.a-tl>li{border-bottom:1px solid var(--piedra)}
+.a-tl summary,.a-tl .a-row{display:grid;grid-template-columns:96px minmax(0,1fr) 20px;grid-template-areas:"yr org more" "yr role more";column-gap:16px;row-gap:2px;align-items:baseline;padding:14px 0;list-style:none}
+.a-tl summary{cursor:pointer}
+.a-tl summary::-webkit-details-marker{display:none}
+.a-tl .a-yr{grid-area:yr;font:400 12px/1.5 var(--mono);letter-spacing:.06em;color:var(--grafito)}
+.a-tl .a-org{grid-area:org;font:700 22px/1 var(--display);text-transform:uppercase;letter-spacing:.01em}
+.a-tl .a-role{grid-area:role;font-size:15px;color:var(--grafito)}
+.a-tl li.now .a-yr{color:var(--carbon)}
+.a-tl li.now .a-yr::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--cempasuchil);margin-right:7px;vertical-align:1px}
+.a-tl details p{margin:0 0 16px 112px;max-width:60ch;font-size:15px;line-height:1.6;color:var(--grafito)}
+.a-more{grid-area:more;align-self:center;position:relative;width:14px;height:14px}
+.a-more::before,.a-more::after{content:"";position:absolute;left:0;top:6px;width:14px;height:2px;background:currentColor;transition:transform .25s}
+.a-more::after{transform:rotate(90deg)}
+details[open]>summary .a-more::after{transform:rotate(0)}
+.a-tl summary:hover .a-org{color:var(--ocote)}
+.a-tl summary:focus-visible{outline:2px solid var(--cempasuchil);outline-offset:2px}
+.a-story .a-award{grid-template-columns:200px minmax(0,1fr);margin-top:28px;padding:14px;border-color:var(--carbon);gap:20px}
+.a-story .a-award h3{font-size:clamp(24px,2.2vw,30px)}
+.a-story .a-award-t{font-size:14px;color:var(--grafito);margin-top:8px}
+.a-story .a-award .a-k{font:400 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.a-story .a-award-mark{width:40px;height:40px;font-size:15px}
+.a-chips{border-top:2px solid var(--linea-osc)}
+.a-chiprow{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--linea-osc);align-items:baseline}
+.a-chiprow h3{font:400 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-osc)}
+.a-chiprow ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.a-chiprow li{font:400 13px/1 var(--mono);letter-spacing:.04em;padding:8px 10px 7px;border:1px solid var(--linea-osc);border-radius:var(--r-sm);color:var(--marfil)}
+.a-chiprow:last-child li{border-color:var(--cempasuchil)}
+.a-fold{margin-top:20px}
+.a-fold>summary{display:inline-flex;align-items:center;gap:12px;cursor:pointer;list-style:none;font:400 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-osc);padding:8px 0}
+.a-fold>summary::-webkit-details-marker{display:none}
+.a-fold>summary:hover{color:var(--marfil)}
+.a-fold .a-equip{grid-template-columns:repeat(5,minmax(0,1fr))}
+.a-tools.on-dark{background:var(--carbon);color:var(--marfil)}
+.a-tools.on-dark .sec-head p,.a-tools.on-dark .a-equip h3,.a-tools.on-dark .a-note{color:var(--tinta-osc)}
+.a-tools.on-dark .a-equip li{border-color:var(--linea-osc)}
+@media (max-width:900px){.a-fold .a-equip{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.a-tl summary,.a-tl .a-row{grid-template-columns:minmax(0,1fr) 20px;grid-template-areas:"yr more" "org more" "role more"}.a-tl details p{margin-left:0}
+  .a-story .a-award{grid-template-columns:1fr}.a-chiprow{grid-template-columns:1fr;gap:10px}}
+@media (prefers-reduced-motion:reduce){.a-more::before,.a-more::after{transition:none}}

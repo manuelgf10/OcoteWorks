@@ -60,6 +60,23 @@ def tl(org, roles, now=False):
     return f"<li{cls}><h3>{org}</h3><div>{rs}</div></li>"
 
 
+def tl_rows(items, more):
+    """Línea de tiempo compacta: una fila por puesto; el detalle queda plegado en <details>."""
+    out = ""
+    for yr, org, role, desc, now in items:
+        cls = ' class="now"' if now else ""
+        head = f'<span class="a-yr">{yr}</span><span class="a-org">{org}</span><span class="a-role">{role}</span>'
+        if desc:
+            out += f'<li{cls}><details><summary>{head}<i class="a-more" aria-hidden="true"></i><span class="sr-only">{more}</span></summary><p>{desc}</p></details></li>'
+        else:
+            out += f'<li{cls}><div class="a-row">{head}</div></li>'
+    return out
+
+
+def chips(groups):
+    return "".join(f'<div class="a-chiprow"><h3>{h}</h3><ul>{"".join(f"<li>{x}</li>" for x in items)}</ul></div>' for h, items in groups)
+
+
 def tools(groups):
     return "".join(f"<div><h3>{h}</h3><p>{' · '.join(items)}</p></div>" for h, items in groups)
 
@@ -262,25 +279,19 @@ EN = dict(
                    ("2 roles", "Design engineering and lab management, in parallel"), ("CAD → CNC", "From the model to the machine")]),
     a_story_eyebrow="Professional background", a_story_h2="From design to how things are made",
     a_story="<p>I studied Industrial Design at Universidad Iberoamericana, but my curiosity has always gone beyond what a product looks like. I’ve always wanted to understand how things work, how they’re built, and how they can be made better.</p>"
-            "<p>My professional journey began in 2015 at Mosaicos Venecianos, where I first worked alongside lathes, milling machines, and industrial equipment. Later, at IKTA, I explored the relationship between design and manufacturing through CAD, CAM, and metal fabrication. At Nova Pack, designing plastic packaging and pharmaceutical containers, I learned to program CNC machining and to speak the language of mechanical drawings, while working hands-on with injection and blow molds.</p>"
-            "<p>Since 2020, I’ve worked in medical device development at Bioana, where engineering, quality, and precision are essential. Managing the prototyping lab has given me the opportunity to work on both sides of product development: designing components and operating the equipment that brings them to life.</p>"
             "<p>OcoteWorks brings those experiences together with my personal interests in motorcycles, mechanical systems, and the outdoors.</p>"
             "<p>It’s my independent workshop. A place to explore ideas, solve problems, and turn curiosity into things you can actually build, use, and take further.</p>",
     a_cv_eyebrow="Experience", a_cv_h2="Experience",
-    a_cv_p="A compact timeline. Client work at Bioana is confidential, so it’s described by type of work, not by project.",
-    a_timeline="".join([
-        tl("OcoteWorks", [("Now", "Founder · Independent design &amp; fabrication",
-                           "Original products, motorcycle components and custom hardware, from prototype to small batch. Product development for other creators.")], True),
-        tl("Bioana", [("2020 – now", "Product Development Engineer",
-                       "Medical device development: requirements turned into engineering solutions, mechanical components, assemblies, fixtures and tooling, CAD models, production drawings and BOMs, functional prototypes, DFM/DFA and support for verification testing. Also packaging, labeling and internal development processes."),
-                      ("2022 – now", "Laboratory Manager",
-                       "Technical operation of the prototyping lab: equipment documentation and operating instructions, preventive maintenance and calibration, installation and troubleshooting, new fabrication capabilities and hands-on support for R&amp;D.")], True),
-        tl("Nova Pack", [("2021 – 2022", "Product Developer",
-                          "Plastic packaging and pharmaceutical containers: mechanical drawings, CNC machining programs, renders and injection mold modifications. Hands-on work with injection and blow molding.")]),
-        tl("IKTA", [("2019 – 2020", "Industrial design", "Steel structures and decorative architectural elements. CAD/CAM and visualization.")]),
-        tl("Universidad Iberoamericana", [("2015 – 2020", "B.A. Industrial Design", "")]),
-        tl("Mosaicos Venecianos", [("2015", "Early industrial experience", "Industrial equipment maintenance and conventional machining on lathes and mills.")]),
-    ]),
+    a_cv_more="Details",
+    a_timeline=tl_rows([
+        ("Now", "OcoteWorks", "Founder · Independent design &amp; fabrication", "Original products, motorcycle components and custom hardware, from prototype to small batch. Product development for other creators.", True),
+        ("2022 – now", "Bioana", "Laboratory Manager", "Technical operation of the prototyping lab: equipment documentation and operating instructions, preventive maintenance and calibration, installation and troubleshooting, new fabrication capabilities and hands-on support for R&amp;D.", True),
+        ("2020 – now", "Bioana", "Product Development Engineer", "Medical device development: requirements turned into engineering solutions, mechanical components, assemblies, fixtures and tooling, CAD models, production drawings and BOMs, functional prototypes, DFM/DFA and support for verification testing. Also packaging, labeling and internal development processes. Client work is confidential, so it’s described by type of work, not by project.", True),
+        ("2021 – 2022", "Nova Pack", "Product Developer", "Plastic packaging and pharmaceutical containers: mechanical drawings, CNC machining programs, renders and injection mold modifications. Hands-on work with injection and blow molding.", False),
+        ("2019 – 2020", "IKTA", "Industrial design", "Steel structures and decorative architectural elements. CAD/CAM and visualization.", False),
+        ("2015 – 2020", "Universidad Iberoamericana", "B.A. Industrial Design", "", False),
+        ("2015", "Mosaicos Venecianos", "Early industrial experience", "Industrial equipment maintenance and conventional machining on lathes and mills.", False),
+    ], "Details"),
     a_award_k="Recognition",
     a_award="<b>Best project in the Medical Equipment category</b> and <b>overall winner</b> across all categories at the fifth edition of Mexico’s national design award, which covers product, digital, spatial, visual communication and fashion design.",
     a_award_alt="Manuel holding the Diseña México 2020 trophy and diploma in front of the award’s exhibition wall",
@@ -296,14 +307,13 @@ EN = dict(
                      ["Process selection", "Drawings &amp; BOMs", "Small-batch fabrication"])
            + service("i-prueba", "05", "Testing", "Evidence before production: verification, measurement and real use.",
                      ["Verification support", "Force &amp; dimensional checks", "Field testing"]),
-    a_tools_eyebrow="Tools &amp; technologies", a_tools_h2="Tools &amp; technologies",
-    a_tools_p="Grouped by what they’re for. Levels separate what I do with my own hands from what I know from working alongside it.",
-    a_tools=tools([("Design &amp; engineering", ["Industrial design", "Mechanical design", "3D CAD", "Assemblies &amp; drawings", "GD&amp;T", "DFM / DFA", "Material selection", "Engineering documentation"]),
-                   ("CAD · CAM", ["SolidWorks", "Fusion 360", "Fusion 360 CAM"]),
-                   ("Graphics &amp; documentation", ["Illustrator", "Photoshop", "InDesign"])]),
-    a_methods_h="Fabrication methods",
-    a_methods=levels([("Hands-on", "I run these myself", ["SLA printing", "FDM printing", "CNC routing", "CNC milling", "Laser cutting", "Silicone molding", "Prototype assembly", "Fixtures &amp; tooling"]),
-                      ("Process knowledge", "Worked alongside, designed for", ["Conventional machining", "Injection molding", "Thermoforming", "Ultrasonic welding", "Laser welding", "Packaging &amp; sealing"])]),
+    a_tools_eyebrow="Tools &amp; technologies", a_tools_h2="Tools",
+    a_tools_p="What I use to design, and what I run with my own hands.",
+    a_tools=chips([("Design &amp; engineering", ["Industrial design", "Mechanical design", "3D CAD", "GD&amp;T", "DFM / DFA", "Material selection"]),
+                   ("Software", ["SolidWorks", "Fusion 360", "Fusion 360 CAM", "Illustrator", "Photoshop", "InDesign"]),
+                   ("I run these myself", ["SLA printing", "FDM printing", "CNC routing", "CNC milling", "Laser cutting", "Silicone molding", "Fixtures &amp; tooling"])]),
+    a_more_h="Processes and equipment I’ve worked with",
+    a_methods=equip([("Process knowledge · designed for", ["Conventional machining", "Injection molding", "Thermoforming", "Ultrasonic welding", "Laser welding", "Packaging &amp; sealing"])]),
     a_equip_h="Equipment experience",
     a_equip=equip([("CNC · Machining", ["Tormach 1100MX", "Avid CNC Benchtop Pro", "Conventional mills &amp; lathes"]),
                    ("Additive", ["Formlabs Form 3B+", "Formlabs Form 2", "Creality FDM"]),
@@ -316,7 +326,7 @@ EN = dict(
                  ("OW-02", "Workshop fixtures &amp; tooling", "Jigs and fixtures built to make the workshop work better.", "In preparation"),
                  ("OW-03", "Prototypes &amp; mechanisms", "Functional prototypes and mechanical studies.", "In preparation")]),
     a_off_eyebrow="Beyond the workshop", a_off_h2="Prove it in use",
-    a_off_p="Motorcycles, travel, photography and mechanical restoration are where most of my ideas start. A few days on a Yamaha Ténéré 700 in northern Mexico show quickly what breaks, what’s missing and what’s worth making. OcoteWorks builds on that: products designed by someone who uses them.",
+    a_off_p="A few days on the Ténéré in northern Mexico show quickly what breaks, what’s missing and what’s worth making. That’s where OcoteWorks starts: products designed by someone who uses them.",
     a_con_h2="Let’s build something",
     a_con_p="For product development, collaborations or technical questions, write to me. For a ballpark on a project, use the quote builder.",
 )
@@ -422,25 +432,19 @@ ES = dict(
                    ("2 roles", "Ingeniería de diseño y gestión de laboratorio, en paralelo"), ("CAD → CNC", "Del modelo a la máquina")]),
     a_story_eyebrow="Trayectoria profesional", a_story_h2="Del diseño a cómo se fabrican las cosas",
     a_story="<p>Estudié Diseño Industrial en la Universidad Iberoamericana, pero mi curiosidad siempre fue más allá de cómo se ve un producto. Siempre he querido entender cómo funcionan las cosas, cómo se construyen y cómo pueden hacerse mejor.</p>"
-            "<p>Mi camino profesional empezó en 2015 en Mosaicos Venecianos, donde trabajé por primera vez junto a tornos, fresadoras y equipo industrial. Después, en IKTA, exploré la relación entre diseño y manufactura a través del CAD, el CAM y la fabricación en metal. En Nova Pack, diseñando empaques plásticos y envases farmacéuticos, aprendí a programar maquinado CNC y a hablar el idioma de los dibujos mecánicos, mientras trabajaba directamente con moldes de inyección y de soplado.</p>"
-            "<p>Desde 2020 trabajo en el desarrollo de dispositivos médicos en Bioana, donde la ingeniería, la calidad y la precisión son esenciales. Estar a cargo del laboratorio de prototipos me ha dado la oportunidad de trabajar en los dos lados del desarrollo de producto: diseñar componentes y operar el equipo que les da vida.</p>"
             "<p>OcoteWorks reúne esas experiencias con mis intereses personales: las motos, los sistemas mecánicos y la vida al aire libre.</p>"
             "<p>Es mi taller independiente. Un lugar para explorar ideas, resolver problemas y convertir la curiosidad en cosas que de verdad se pueden construir, usar y llevar más lejos.</p>",
     a_cv_eyebrow="Experiencia", a_cv_h2="Experiencia",
-    a_cv_p="Una línea de tiempo breve. El trabajo para clientes en Bioana es confidencial, así que lo describo por tipo de trabajo, no por proyecto.",
-    a_timeline="".join([
-        tl("OcoteWorks", [("Hoy", "Fundador · Diseño y fabricación independiente",
-                           "Productos propios, componentes para moto y herrajes a la medida, del prototipo a la serie corta. Desarrollo de producto para otros creadores.")], True),
-        tl("Bioana", [("2020 – hoy", "Ingeniero de Desarrollo de Producto",
-                       "Desarrollo de dispositivos médicos: requisitos convertidos en soluciones de ingeniería, componentes mecánicos, ensambles, fixtures y herramentales, modelos CAD, planos de producción y BOMs, prototipos funcionales, DFM/DFA y apoyo a pruebas de verificación. También empaque, etiquetado y procesos internos de desarrollo."),
-                      ("2022 – hoy", "Responsable de Laboratorio",
-                       "Operación técnica del laboratorio de prototipos: documentación e instructivos de equipo, mantenimiento preventivo y calibración, instalación y solución de fallas, nuevas capacidades de fabricación y apoyo directo a I+D.")], True),
-        tl("Nova Pack", [("2021 – 2022", "Desarrollador de producto",
-                          "Empaques plásticos y envases farmacéuticos: dibujos mecánicos, programación de maquinado CNC, renders y modificaciones a moldes de inyección. Experiencia directa con moldeo por inyección y por soplado.")]),
-        tl("IKTA", [("2019 – 2020", "Diseño industrial", "Estructuras de acero y elementos arquitectónicos decorativos. CAD/CAM y visualización.")]),
-        tl("Universidad Iberoamericana", [("2015 – 2020", "Licenciatura en Diseño Industrial", "")]),
-        tl("Mosaicos Venecianos", [("2015", "Primera experiencia industrial", "Mantenimiento de equipo industrial y maquinado convencional en torno y fresadora.")]),
-    ]),
+    a_cv_more="Detalle",
+    a_timeline=tl_rows([
+        ("Hoy", "OcoteWorks", "Fundador · Diseño y fabricación independiente", "Productos propios, componentes para moto y herrajes a la medida, del prototipo a la serie corta. Desarrollo de producto para otros creadores.", True),
+        ("2022 – hoy", "Bioana", "Responsable de Laboratorio", "Operación técnica del laboratorio de prototipos: documentación e instructivos de equipo, mantenimiento preventivo y calibración, instalación y solución de fallas, nuevas capacidades de fabricación y apoyo directo a I+D.", True),
+        ("2020 – hoy", "Bioana", "Ingeniero de Desarrollo de Producto", "Desarrollo de dispositivos médicos: requisitos convertidos en soluciones de ingeniería, componentes mecánicos, ensambles, fixtures y herramentales, modelos CAD, planos de producción y BOMs, prototipos funcionales, DFM/DFA y apoyo a pruebas de verificación. También empaque, etiquetado y procesos internos de desarrollo. El trabajo para clientes es confidencial, así que lo describo por tipo de trabajo, no por proyecto.", True),
+        ("2021 – 2022", "Nova Pack", "Desarrollador de producto", "Empaques plásticos y envases farmacéuticos: dibujos mecánicos, programación de maquinado CNC, renders y modificaciones a moldes de inyección. Experiencia directa con moldeo por inyección y por soplado.", False),
+        ("2019 – 2020", "IKTA", "Diseño industrial", "Estructuras de acero y elementos arquitectónicos decorativos. CAD/CAM y visualización.", False),
+        ("2015 – 2020", "Universidad Iberoamericana", "Licenciatura en Diseño Industrial", "", False),
+        ("2015", "Mosaicos Venecianos", "Primera experiencia industrial", "Mantenimiento de equipo industrial y maquinado convencional en torno y fresadora.", False),
+    ], "Detalle"),
     a_award_k="Reconocimiento",
     a_award="<b>Mejor proyecto en la categoría de Equipo Médico</b> y <b>ganador absoluto</b> entre todas las categorías en la quinta edición del premio nacional de diseño, que abarca diseño de producto, digital, de espacios, comunicación visual y moda.",
     a_award_alt="Manuel con el trofeo y el diploma de Diseña México 2020 frente al muro de la exposición del premio",
@@ -456,14 +460,13 @@ ES = dict(
                      ["Selección de procesos", "Planos y BOMs", "Fabricación en serie corta"])
            + service("i-prueba", "05", "Pruebas", "Evidencia antes de producir: verificación, medición y uso real.",
                      ["Apoyo a verificación", "Fuerza y dimensional", "Pruebas en campo"]),
-    a_tools_eyebrow="Herramientas y tecnologías", a_tools_h2="Herramientas y tecnologías",
-    a_tools_p="Agrupadas por para qué sirven. Los niveles separan lo que hago con mis propias manos de lo que conozco por trabajar junto a ello.",
-    a_tools=tools([("Diseño e ingeniería", ["Diseño industrial", "Diseño mecánico", "CAD 3D", "Ensambles y planos", "GD&amp;T", "DFM / DFA", "Selección de materiales", "Documentación de ingeniería"]),
-                   ("CAD · CAM", ["SolidWorks", "Fusion 360", "Fusion 360 CAM"]),
-                   ("Gráficos y documentación", ["Illustrator", "Photoshop", "InDesign"])]),
-    a_methods_h="Métodos de fabricación",
-    a_methods=levels([("Práctica directa", "Los opero yo", ["Impresión SLA", "Impresión FDM", "Ruteo CNC", "Fresado CNC", "Corte láser", "Moldeo en silicón", "Ensamble de prototipos", "Fixtures y herramentales"]),
-                      ("Conocimiento de proceso", "He trabajado junto a ellos y diseñado para ellos", ["Maquinado convencional", "Moldeo por inyección", "Termoformado", "Soldadura ultrasónica", "Soldadura láser", "Empaque y sellado"])]),
+    a_tools_eyebrow="Herramientas y tecnologías", a_tools_h2="Herramientas",
+    a_tools_p="Con qué diseño y qué opero con mis propias manos.",
+    a_tools=chips([("Diseño e ingeniería", ["Diseño industrial", "Diseño mecánico", "CAD 3D", "GD&amp;T", "DFM / DFA", "Selección de materiales"]),
+                   ("Software", ["SolidWorks", "Fusion 360", "Fusion 360 CAM", "Illustrator", "Photoshop", "InDesign"]),
+                   ("Lo opero yo", ["Impresión SLA", "Impresión FDM", "Ruteo CNC", "Fresado CNC", "Corte láser", "Moldeo en silicón", "Fixtures y herramentales"])]),
+    a_more_h="Procesos y equipo con los que he trabajado",
+    a_methods=equip([("Procesos · he diseñado para ellos", ["Maquinado convencional", "Moldeo por inyección", "Termoformado", "Soldadura ultrasónica", "Soldadura láser", "Empaque y sellado"])]),
     a_equip_h="Experiencia con equipo",
     a_equip=equip([("CNC · Maquinado", ["Tormach 1100MX", "Avid CNC Benchtop Pro", "Fresadoras y tornos convencionales"]),
                    ("Aditiva", ["Formlabs Form 3B+", "Formlabs Form 2", "Creality FDM"]),
@@ -476,7 +479,7 @@ ES = dict(
                  ("OW-02", "Fixtures y herramentales de taller", "Plantillas y dispositivos hechos para que el taller trabaje mejor.", "En preparación"),
                  ("OW-03", "Prototipos y mecanismos", "Prototipos funcionales y estudios mecánicos.", "En preparación")]),
     a_off_eyebrow="Más allá del taller", a_off_h2="Prove it in use",
-    a_off_p="Las motos, los viajes, la fotografía y la restauración mecánica son donde empiezan casi todas mis ideas. Unos días en una Yamaha Ténéré 700 por el norte de México enseñan rápido qué se rompe, qué falta y qué vale la pena hacer. OcoteWorks parte de ahí: productos diseñados por alguien que los usa.",
+    a_off_p="Unos días en la Ténéré por el norte de México enseñan rápido qué se rompe, qué falta y qué vale la pena hacer. De ahí parte OcoteWorks: productos diseñados por alguien que los usa.",
     a_con_h2="Construyamos algo",
     a_con_p="Para desarrollo de producto, colaboraciones o preguntas técnicas, escríbeme. Para una estimación de tu proyecto, usa el cotizador.",
 )

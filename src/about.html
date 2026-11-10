@@ -72,50 +72,42 @@
 <!-- 02 · El nombre -->
 {{a_name}}
 
-<!-- 03 · Trayectoria profesional -->
-<section class="a-story">
+<!-- 03 · Trayectoria (historia + línea de tiempo compacta) -->
+<section class="a-story" id="experience">
   <div class="wrap a-story-grid">
     <div><p class="eyebrow">03 · {{a_story_eyebrow}}</p><h2>{{a_story_h2}}</h2>{{a_plate_block}}</div>
-    <div class="a-story-body">{{a_story}}</div>
+    <div>
+      <div class="a-story-body">{{a_story}}</div>
+      <ol class="a-tl">{{a_timeline}}</ol>
+      <div class="a-award">
+        <figure><picture>
+          <source srcset="/assets/photos/about/award-2020-700.webp 700w, /assets/photos/about/award-2020-1200.webp 1200w" sizes="(max-width:760px) 40vw, 220px" type="image/webp">
+          <img src="/assets/photos/about/award-2020-700.jpg" alt="{{a_award_alt}}" width="700" height="525" loading="lazy" decoding="async">
+        </picture></figure>
+        <div>
+          <p class="a-k"><span class="a-award-mark" aria-hidden="true">2020</span>{{a_award_k}}</p>
+          <h3>Premio Nacional de Diseño: Diseña México 2020</h3>
+          <p class="a-award-t">{{a_award}}</p>
+        </div>
+      </div>
+    </div>
   </div>
   {{a_photos}}
 </section>
 
-<!-- 03 · Experiencia -->
-<section class="a-cv on-dark" id="experience">
+<!-- 04 · Herramientas -->
+<section class="a-tools on-dark">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="eyebrow">04 · {{a_cv_eyebrow}}</p><h2>{{a_cv_h2}}</h2></div>
-      <p>{{a_cv_p}}</p>
-    </div>
-    <ol class="a-timeline">{{a_timeline}}</ol>
-    <div class="a-award">
-      <figure><picture>
-        <source srcset="/assets/photos/about/award-2020-700.webp 700w, /assets/photos/about/award-2020-1200.webp 1200w" sizes="(max-width:760px) 100vw, 560px" type="image/webp">
-        <img src="/assets/photos/about/award-2020-700.jpg" alt="{{a_award_alt}}" width="700" height="525" loading="lazy" decoding="async">
-      </picture></figure>
-      <div>
-        <p class="a-k"><span class="a-award-mark" aria-hidden="true">2020</span>{{a_award_k}}</p>
-        <h3>Premio Nacional de Diseño: Diseña México 2020</h3>
-        <p class="a-award-t">{{a_award}}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 04 · Herramientas y tecnologías -->
-<section class="a-tools">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><p class="eyebrow">05 · {{a_tools_eyebrow}}</p><h2>{{a_tools_h2}}</h2></div>
+      <div><p class="eyebrow">04 · {{a_tools_eyebrow}}</p><h2>{{a_tools_h2}}</h2></div>
       <p>{{a_tools_p}}</p>
     </div>
-    <div class="a-tools-grid">{{a_tools}}</div>
-    <h3 class="a-sub">{{a_methods_h}}</h3>
-    <div class="a-levels">{{a_methods}}</div>
-    <h3 class="a-sub">{{a_equip_h}}</h3>
-    <div class="a-equip">{{a_equip}}</div>
-    <p class="a-note">{{a_equip_note}}</p>
+    <div class="a-chips">{{a_tools}}</div>
+    <details class="a-fold">
+      <summary>{{a_more_h}}<i class="a-more" aria-hidden="true"></i></summary>
+      <div class="a-equip">{{a_methods}}{{a_equip}}</div>
+      <p class="a-note">{{a_equip_note}}</p>
+    </details>
   </div>
 </section>
 
@@ -123,7 +115,7 @@
 <section class="a-off">
   <div class="wrap a-off-grid">
     <div>
-      <p class="eyebrow">06 · {{a_off_eyebrow}}</p>
+      <p class="eyebrow">05 · {{a_off_eyebrow}}</p>
       <h2>{{a_off_h2}}</h2>
       <p>{{a_off_p}}</p>
       <p class="a-sign">— Manuel</p>
@@ -142,7 +134,7 @@
 <section class="contacto" id="contact">
   <div class="wrap">
     <div>
-      <p class="eyebrow">07 · {{con_eyebrow}}</p>
+      <p class="eyebrow">06 · {{con_eyebrow}}</p>
       <h2>{{a_con_h2}}</h2>
       <p>{{a_con_p}}</p>
       <a class="btn" href="{{quote_href}}">{{con_quote}}</a>
