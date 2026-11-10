@@ -72,6 +72,35 @@
     hLogo.addEventListener("click", function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: still ? "auto" : "smooth" }); onLogo(hLogo.querySelector("img") || hLogo); });
   }
 
+  // Un beso: 5 toques a la foto de Manuel en "Quién lo hace". (Provisional: corazones; luego, su video guiñando.)
+  var face = document.querySelector("[data-kiss]");
+  if (face) {
+    var kc = 0, kl = 0;
+    face.addEventListener("click", function () {
+      var now = Date.now(); kc = now - kl < 1200 ? kc + 1 : 1; kl = now;
+      if (kc < 5) return; kc = 0;
+      var vid = face.querySelector("video[data-kiss-video]");
+      if (vid) {  // cuando exista el video: la foto cobra vida y vuelve a la foto
+        face.classList.add("kissing"); vid.currentTime = 0;
+        var pr = vid.play(); if (pr && pr.catch) pr.catch(function () {});
+        vid.onended = function () { face.classList.remove("kissing"); };
+      }
+      var r = face.getBoundingClientRect(), cols = ["#edb544", "#e48233", "#f4ead7"];
+      if (!still && document.body.animate) {
+        for (var i = 0; i < 16; i++) {
+          var hrt = document.createElement("i"); hrt.className = "ow-heart"; hrt.textContent = "♥";
+          hrt.style.cssText = "left:" + (r.left + r.width * (.25 + Math.random() * .5)) + "px;top:" + (r.top + r.height * (.35 + Math.random() * .2)) + "px;color:" + cols[i % 3] + ";font-size:" + (14 + Math.random() * 18) + "px";
+          document.body.appendChild(hrt);
+          var a = hrt.animate([{ transform: "translate(0,0) scale(.6)", opacity: 0 }, { opacity: 1, offset: .15 }, { transform: "translate(" + ((Math.random() - .5) * 140) + "px," + (-(120 + Math.random() * 160)) + "px) scale(1.1) rotate(" + ((Math.random() - .5) * 40) + "deg)", opacity: 0 }],
+            { duration: 1500 + Math.random() * 1000, delay: Math.random() * 400, easing: "cubic-bezier(.2,.6,.3,1)", fill: "both" });
+          a.onfinish = (function (n) { return function () { n.remove(); }; })(hrt);
+        }
+      }
+      toast("😘 <b>— M.</b>", r.left + r.width / 2, r.top + r.height * .55);
+      secretEv("beso");
+    });
+  }
+
   // Código Konami: vuelve a encender el tubo con un programa secreto.
   var seq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65], pos = 0;
   document.addEventListener("keydown", function (e) {

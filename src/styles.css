@@ -1066,3 +1066,7 @@ footer .wrap.f-bottom::before{content:"";position:absolute;left:var(--pad);right
 .ow-ember{position:fixed;z-index:9999;width:6px;height:6px;border-radius:50%;pointer-events:none;will-change:transform,opacity}
 .ow-toast{position:fixed;z-index:9999;max-width:320px;padding:10px 14px;background:var(--carbon);color:var(--marfil);border-left:4px solid var(--ocote);border-radius:var(--r-sm);font:400 13px/1.5 var(--mono);box-shadow:0 8px 24px rgba(0,0,0,.25);pointer-events:none;transition:opacity .4s}
 .ow-toast b{color:var(--cempasuchil);font-weight:500}
+.ow-heart{position:fixed;z-index:9999;pointer-events:none;font-style:normal;line-height:1;text-shadow:0 0 10px rgba(228,130,51,.6)}
+.h-maker-face{position:relative}
+.h-maker-face video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .15s;border-radius:var(--r-md)}
+.h-maker-face.kissing video{opacity:1}
