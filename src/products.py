@@ -20,6 +20,11 @@ PRODUCTS = [
         "sheet": True,
         # Cotas generales del CAD (largo, ancho, alto) en mm y datos para la banda de plano animada.
         "dims": (489, 243, 128),
+        # Puntos de información del visor 3D: posición y normal en metros (coordenadas del GLB).
+        "hotspots": [("piece", "0.0821 0.1027 0.15", "0.512 0.859 0"),
+                     ("slots", "0.1008 0.0599 -0.072", "0.94 0.342 0"),
+                     ("mount", "0.1045 0.0106 -0.234", "1 0 0"),
+                     ("thick", "0 0.1273 0.2433", "-0.059 0.792 0.608")],
         "bp_stats": [("4.8", "mm"), ("0.5", "kg"), ("1", ""), ("0", "")],
         # (archivo base, anchos disponibles, ancho x alto del original)
         "images": [("hero", (600, 1000, 1600), (2576, 1449)), ("top", (600, 1000, 1600), (2576, 1449)),
@@ -39,6 +44,10 @@ PRODUCTS = [
                      "Tail rack OW-02 visto desde un costado, con las ranuras de amarre",
                      "Tail rack OW-02 visto de frente",
                      "Detalle de la placa superior del OW-02 con el logo grabado y las ranuras redondeadas"],
+            "hs": {"piece": ("Una sola pieza", "Lámina doblada: sin soldaduras ni uniones."),
+                   "slots": ("Ranuras de amarre", "Para straps y bolsas pequeñas. Cantos redondeados en CNC para no cortar las cintas."),
+                   "mount": ("Puntos de fábrica", "Se atornilla en los puntos de montaje originales de la T7."),
+                   "thick": ("4.8 mm", "Aluminio 6061 de 3/16″. Todo el rack pesa cerca de 0.5 kg.")},
             "variant_alts": {"white": ["Tail rack OW-02 en blanco mate, vista en tres cuartos",
                                        "Tail rack OW-02 en blanco mate visto desde un costado",
                                        "Tail rack OW-02 en blanco mate visto de frente",
@@ -70,6 +79,10 @@ PRODUCTS = [
                      "OW-02 tail rack seen from the side, showing the strap slots",
                      "OW-02 tail rack seen from the front",
                      "Close-up of the OW-02 top plate with the engraved logo and rounded slots"],
+            "hs": {"piece": ("One piece", "Folded sheet: no welds, no joints."),
+                   "slots": ("Tie-down slots", "For straps and small bags. CNC-rounded edges so they won’t cut webbing."),
+                   "mount": ("Factory mounts", "Bolts to the T7’s original mounting points."),
+                   "thick": ("4.8 mm", "3/16″ 6061 aluminum. The whole rack weighs about 0.5 kg.")},
             "variant_alts": {"white": ["OW-02 tail rack in matte white, three-quarter view",
                                        "OW-02 tail rack in matte white seen from the side",
                                        "OW-02 tail rack in matte white seen from the front",
@@ -212,6 +225,12 @@ def picture(p, i, lang, sizes, cls="", eager=False, v=None):
             f'alt="{alts[i]}" width="{W}" height="{H}" {load} decoding="async"></picture>')
 
 
+def hotspots_json(p, lang):
+    import json, html
+    hs = [{"k": k, "p": pos, "n": nrm, "t": p[lang]["hs"][k][0], "d": p[lang]["hs"][k][1]} for k, pos, nrm in p.get("hotspots", [])]
+    return html.escape(json.dumps(hs, ensure_ascii=False), quote=True)
+
+
 def gallery(p, lang):
     """Una galería por acabado; solo la del acabado elegido está visible (las ocultas no descargan nada)."""
     out = []
@@ -232,6 +251,7 @@ def gallery(p, lang):
             u = UI[lang]
             thumbs += (f'<button type="button" class="pd-thumb pd-thumb-3d" data-3d="{p["model"]}" data-lib="/assets/vendor/model-viewer-4.4.0.min.js" '
                        f'data-alt="{u["v3d_alt"]}" data-hint="{u["v3d_hint"]}" data-ar="{u["v3d_ar"]}" data-load="{u["v3d_load"]}" data-err="{u["v3d_err"]}" '
+                       f"data-hs='{hotspots_json(p, lang)}' "
                        f'aria-label="{u["v3d"]}">'
                        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z M3.5 7 12 11.5 20.5 7 M12 11.5v10"/></svg>'
                        '<span>3D</span></button>')

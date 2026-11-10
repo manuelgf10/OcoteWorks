@@ -776,6 +776,18 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .pd-3d-hint{position:absolute;left:12px;bottom:10px;margin:0;font:400 11px/1.2 var(--mono);color:var(--grafito);pointer-events:none}
 .pd-3d-load{position:absolute;inset:0;display:grid;place-items:center;font:400 12px/1.2 var(--mono);color:var(--grafito)}
 .pd-3d-load[hidden]{display:none}
+.pd-hs{display:grid;place-items:center;width:28px;height:28px;padding:0;border:2px solid var(--carbon);border-radius:50%;background:var(--cempasuchil);color:var(--carbon);font:700 12px/1 var(--mono);cursor:pointer;box-shadow:0 0 0 0 rgba(237,181,68,.6);animation:hs-pulse 2.4s ease-out 3;transition:opacity .2s,transform .15s,background .15s}
+.pd-hs:hover,.pd-hs.on{background:var(--carbon);color:var(--cempasuchil);border-color:var(--cempasuchil);transform:scale(1.12)}
+.pd-hs:not([data-visible]){opacity:.28}
+@keyframes hs-pulse{0%{box-shadow:0 0 0 0 rgba(237,181,68,.6)}100%{box-shadow:0 0 0 14px rgba(237,181,68,0)}}
+.pd-3d-info{position:absolute;left:10px;right:10px;bottom:10px;margin:0;display:flex;gap:12px;align-items:baseline;padding:10px 14px;background:var(--carbon);color:var(--marfil);border-radius:var(--r-sm);font:400 13px/1.4 var(--sans,inherit)}
+.pd-3d-info[hidden]{display:none}
+.pd-3d-info b{font:700 12px/1 var(--mono);color:var(--cempasuchil);letter-spacing:.08em}
+.pd-3d-info strong{font-weight:700}
+.pd-3d-info em{font-style:normal;color:var(--tinta-osc)}
+.pd-3d-info:not([hidden])~.pd-3d-hint,.pd-3d-hint:has(~.pd-3d-info:not([hidden])){visibility:hidden}
+@media (max-width:600px){.pd-3d-info{left:6px;right:6px;bottom:6px;padding:7px 10px;font-size:12px;gap:8px}.pd-hs{width:24px;height:24px;font-size:11px}}
+@media (prefers-reduced-motion:reduce){.pd-hs{animation:none}}
 .pd-ar{position:absolute;top:10px;right:10px;padding:8px 12px;border:2px solid var(--carbon);border-radius:var(--r-sm);background:var(--cempasuchil);color:var(--carbon);font:700 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 @media (max-width:600px){.pd-3d-hint{font-size:10px;right:12px}.has-3d .pd-thumbs{gap:6px}.pd-thumb-3d span{font-size:11px}}
 .pd-code{font:400 13px/1 var(--mono);letter-spacing:.14em;color:var(--grafito)}

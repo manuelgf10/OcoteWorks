@@ -38,6 +38,30 @@
     Object.keys(attrs).forEach(function (k) { mv.setAttribute(k, attrs[k]); });
     mv.innerHTML = '<button slot="ar-button" class="pd-ar" type="button">' + d.ar + '</button>' +
       '<div slot="progress-bar" class="pd-3d-load">' + d.load + '</div>';
+    // Puntos de información: número sobre el modelo + barra inferior con el texto.
+    var hs = []; try { hs = JSON.parse(d.hs || "[]"); } catch (e) {}
+    hs.forEach(function (h, i) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pd-hs"; b.slot = "hotspot-" + h.k;
+      b.setAttribute("data-position", h.p); b.setAttribute("data-normal", h.n);
+      b.setAttribute("data-visibility-attribute", "visible");
+      b.setAttribute("aria-label", h.t + ". " + h.d);
+      b.textContent = String(i + 1);
+      b.addEventListener("click", function (e) { e.stopPropagation(); showInfo(i); });
+      mv.appendChild(b);
+    });
+    var active = -1;
+    var showInfo = function (i) {
+      var bar = mv.parentNode && mv.parentNode.querySelector(".pd-3d-info");
+      if (!bar) return;
+      active = (active === i) ? -1 : i;
+      mv.querySelectorAll(".pd-hs").forEach(function (b, j) { b.classList.toggle("on", j === active); });
+      if (active < 0) { bar.hidden = true; return; }
+      var h = hs[active];
+      bar.innerHTML = "<b>" + String(active + 1).padStart(2, "0") + "</b><span><strong></strong> <em></em></span>";
+      bar.querySelector("strong").textContent = h.t; bar.querySelector("em").textContent = h.d;
+      bar.hidden = false;
+    };
     mv.addEventListener("load", function () { mv.querySelector(".pd-3d-load").hidden = true; paint(); });
     mv.addEventListener("error", function () { mv.querySelector(".pd-3d-load").textContent = d.err; });
     return mv;
@@ -49,7 +73,7 @@
       if (!viewer) viewer = buildViewer(t3);
       if (viewer.parentNode !== stage) {
         stage.innerHTML = ""; stage.appendChild(viewer);
-        stage.insertAdjacentHTML("beforeend", '<p class="pd-3d-hint">' + t3.dataset.hint + '</p>');
+        stage.insertAdjacentHTML("beforeend", '<p class="pd-3d-hint">' + t3.dataset.hint + '</p><p class="pd-3d-info" hidden></p>');
       }
       loadLib(t3.dataset.lib).catch(function () { viewer.querySelector(".pd-3d-load").textContent = t3.dataset.err; });
       paint();
