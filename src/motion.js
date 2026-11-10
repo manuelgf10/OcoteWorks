@@ -159,8 +159,18 @@
   document.querySelectorAll(".cat-kit").forEach(function (kit) {
     var tabs = kit.querySelectorAll(".km-tab"), panels = kit.querySelectorAll(".km-panel");
     var ey = kit.querySelector(".km-ey"), sh = kit.querySelector(".km-short"), te = kit.querySelector(".km-tested");
+    var bar = kit.querySelector(".km-tabs");
+    var edge = function () { bar.classList.toggle("at-end", bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 4); };
+    bar.addEventListener("scroll", edge, { passive: true }); edge();
+    // flechas del teclado entre motos (patrón de pestañas)
+    bar.addEventListener("keydown", function (e) {
+      var l = [].slice.call(tabs), i = l.indexOf(document.activeElement);
+      if (i < 0 || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+      e.preventDefault(); var n = l[(i + (e.key === "ArrowRight" ? 1 : l.length - 1)) % l.length]; n.focus(); n.click();
+    });
     tabs.forEach(function (t) {
       t.addEventListener("click", function () {
+        t.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest", inline: "center" });
         var k = t.dataset.bike, p;
         tabs.forEach(function (x) { var on = x === t; x.classList.toggle("is-on", on); x.setAttribute("aria-selected", on ? "true" : "false"); });
         panels.forEach(function (x) { x.hidden = x.dataset.bike !== k; if (!x.hidden) p = x; });

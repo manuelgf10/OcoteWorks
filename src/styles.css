@@ -1228,8 +1228,9 @@ footer{position:relative}
 
 /* Equipa tu moto · pestañas */
 .km-head h2 b{font-weight:inherit}
-.km-tabs{display:inline-flex;gap:6px;margin-top:24px;padding:5px;border:2px solid var(--carbon);border-radius:999px;background:var(--marfil)}
-.km-tab{display:grid;gap:3px;text-align:center;padding:9px 20px 8px;border:0;border-radius:999px;background:none;color:var(--carbon);font:700 clamp(18px,1.6vw,22px)/1 var(--display);letter-spacing:.03em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.km-tabs{display:inline-flex;gap:6px;margin-top:24px;padding:5px;border:2px solid var(--carbon);border-radius:999px;background:var(--marfil);max-width:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:5px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.km-tabs::-webkit-scrollbar{display:none}
+.km-tab{flex:0 0 auto;scroll-snap-align:start;white-space:nowrap;display:grid;gap:3px;text-align:center;padding:9px 20px 8px;border:0;border-radius:999px;background:none;color:var(--carbon);font:700 clamp(18px,1.6vw,22px)/1 var(--display);letter-spacing:.03em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
 .km-tab small{font:400 9px/1 var(--mono);letter-spacing:.12em;opacity:.7}
 .km-tab:hover{background:rgba(23,23,26,.07)}
 .km-tab.is-on{background:var(--carbon);color:var(--cempasuchil)}
@@ -1237,4 +1238,4 @@ footer{position:relative}
 .km-panel[hidden]{display:none}
 .km-panel{animation:km-in .35s ease-out}
 .km-off span{opacity:.6}
-@media (max-width:480px){.km-tab{padding:8px 14px 7px}}
+@media (max-width:640px){.km-tabs{display:flex;border-radius:22px;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}.km-tabs.at-end{-webkit-mask-image:none;mask-image:none}.km-tab{padding:8px 16px 7px}}
