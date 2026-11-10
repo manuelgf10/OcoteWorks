@@ -192,18 +192,18 @@ def card(e, lang):
 # Tira de Instagram (fotos fijas que llevan al perfil; no es feed en vivo).
 # (webp, jpg, alt es, alt en, pie es, pie en) · cambiar aquí cuando Manuel elija las suyas.
 IG_URL = "https://www.instagram.com/ocote.works/"
-def _ig(b):
+def _ig(b, big=900):
     d = "/assets/photos/ig/"
-    return (f"{d}{b}-480.webp 480w, {d}{b}-900.webp 900w", f"{d}{b}-480.jpg")
+    return (f"{d}{b}-480.webp 480w, {d}{b}-{big}.webp {big}w", f"{d}{b}-480.jpg")
 
 
 IG_PHOTOS = [
     (*_ig("sofa"), "Manuel sentado en un sillón abandonado junto a su Ténéré 700 en un cañón", "Manuel sitting on an abandoned couch next to his Ténéré 700 in a canyon", "Sala con vista", "Living room with a view"),
     ("/assets/photos/about/workshop-night-800.webp", "/assets/photos/about/workshop-night-800.jpg", "El taller de noche", "The workshop at night", "Después de las 11", "After 11 p.m."),
     (*_ig("mar-de-nubes"), "Ténéré 700 en un mirador sobre un mar de nubes", "Ténéré 700 at a lookout above a sea of clouds", "Arriba de las nubes", "Above the clouds"),
-    ("/assets/photos/about/tenere-maintenance-600.webp", "/assets/photos/about/tenere-maintenance-600.jpg", "Mantenimiento de la Ténéré 700", "Ténéré 700 maintenance", "Servicio en casa", "Home service"),
+    (*_ig("polvo"), "Manuel derrapando la Ténéré 700 en tierra suelta", "Manuel sliding the Ténéré 700 through loose dirt", "Tierra suelta", "Loose dirt"),
     (*_ig("dron"), "Toma aérea de la Ténéré 700 en un camino de terracería entre sembradíos", "Aerial shot of the Ténéré 700 on a dirt road between fields", "Terracería", "Dirt road"),
-    ("/assets/photos/about/bike-rebuild-600.webp", "/assets/photos/about/bike-rebuild-600.jpg", "Reconstrucción de una moto", "Rebuilding a motorcycle", "Desarmar para entender", "Take it apart to get it"),
+    (*_ig("salar", 702), "Manuel sobre su Ténéré 700 en un salar seco", "Manuel on his Ténéré 700 on a dry salt flat", "Hasta el horizonte", "To the horizon"),
 ]
 IG_UI = {
     "es": dict(k="Entre entradas", h="La bitácora <em>corta</em>",
