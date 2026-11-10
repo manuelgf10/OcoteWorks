@@ -1055,7 +1055,7 @@ def main():
         JU = JO.UI[lang]
         write(PAGES["journal"][i], render(T["journal_index"], ctx("journal", p_title=JU["idx_title"], p_description=JU["idx_description"], p_url=data["jo_url"],
                                                                  j_eyebrow=JU["idx_eyebrow"], j_h1=JU["idx_h1"], j_lead=JU["idx_lead"],
-                                                                 j_cards="".join(JO.card(e, lang) for e in sorted(JO.ENTRIES, key=lambda x: x["date"], reverse=True)))))
+                                                                 j_cards="".join(JO.card(e, lang) for e in sorted(JO.ENTRIES, key=lambda x: x["date"], reverse=True)), j_ig=JO.ig_strip(lang))))
         for e in JO.ENTRIES:
             key = "j-" + e["slug"]
             E = e[lang]

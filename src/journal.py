@@ -188,3 +188,39 @@ def card(e, lang):
             f'<div class="j-card-body"><p class="j-meta"><span class="j-cat">{e["category"][lang]}</span>'
             f'<time datetime="{e["date"]}">{date_txt(e, lang)}</time><span>{minutes(e, lang)} {u["read"]}</span></p>'
             f'<h2>{e[lang]["title"]}</h2><p>{e[lang]["dek"]}</p><span class="pc-go">{u["read_more"]} →</span></div></a>')
+
+# Tira de Instagram (fotos fijas que llevan al perfil; no es feed en vivo).
+# (webp, jpg, alt es, alt en, pie es, pie en) · cambiar aquí cuando Manuel elija las suyas.
+IG_URL = "https://www.instagram.com/ocote.works/"
+IG_PHOTOS = [
+    ("/assets/photos/about/river-crossing-900.webp", "/assets/photos/about/river-crossing-900.jpg", "Cruce de río en moto de aventura", "Crossing a river on an adventure bike", "Agua hasta el cárter", "Water to the sump"),
+    ("/assets/photos/about/workshop-night-800.webp", "/assets/photos/about/workshop-night-800.jpg", "El taller de noche", "The workshop at night", "Después de las 11", "After 11 p.m."),
+    ("/assets/photos/salinas-800.webp", "/assets/photos/salinas-1600.jpg", "Moto en una salina", "Motorcycle on a salt flat", "Salinas", "Salt flats"),
+    ("/assets/photos/about/tenere-maintenance-600.webp", "/assets/photos/about/tenere-maintenance-600.jpg", "Mantenimiento de la Ténéré 700", "Ténéré 700 maintenance", "Servicio en casa", "Home service"),
+    ("/assets/photos/field-test-m-600.webp", "/assets/photos/field-test-1600.jpg", "Prueba de campo del OW-02", "OW-02 field test", "Prueba de campo", "Field test"),
+    ("/assets/photos/about/bike-rebuild-600.webp", "/assets/photos/about/bike-rebuild-600.jpg", "Reconstrucción de una moto", "Rebuilding a motorcycle", "Desarmar para entender", "Take it apart to get it"),
+]
+IG_UI = {
+    "es": dict(k="Entre entradas", h="La bitácora <em>corta</em>",
+               p="Aquí van las notas largas. Lo del día a día —rodadas, rebabas y pruebas que no llegan a entrada— vive en Instagram.",
+               go="Ver en Instagram", frame="Ver en Instagram: "),
+    "en": dict(k="Between entries", h="The <em>short</em> log",
+               p="The long notes live here. The day to day —rides, burrs and tests that never become an entry— lives on Instagram.",
+               go="See on Instagram", frame="See on Instagram: "),
+}
+
+
+def ig_strip(lang):
+    u = IG_UI[lang]
+    tiles = ""
+    for n, (webp, jpg, aes, aen, ces, cen) in enumerate(IG_PHOTOS, 1):
+        alt, cap = (aen, cen) if lang == "en" else (aes, ces)
+        tiles += (f'<a class="ig-tile" href="{IG_URL}" target="_blank" rel="noopener me" aria-label="{u["frame"]}{alt}" data-goatcounter-click="ig-foto-{n}">'
+                  f'<picture><source srcset="{webp}" type="image/webp"><img src="{jpg}" alt="" width="600" height="750" loading="lazy" decoding="async"></picture>'
+                  f'<span class="ig-n" aria-hidden="true">{n:02d}<i>▸</i>{n:02d}A</span><span class="ig-cap" aria-hidden="true">{cap}</span></a>')
+    return (f'<section class="j-ig" aria-labelledby="ig-h"><div class="wrap">'
+            f'<div class="ig-head"><div><p class="eyebrow">{u["k"]} · @ocote.works</p><h2 id="ig-h">{u["h"]}</h2></div>'
+            f'<p>{u["p"]}</p></div>'
+            f'<div class="ig-grid">{tiles}</div>'
+            f'<a class="ig-go" href="{IG_URL}" target="_blank" rel="noopener me" data-goatcounter-click="ig-boton">{u["go"]} <span aria-hidden="true">↗</span></a>'
+            f'</div></section>')

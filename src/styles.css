@@ -1242,3 +1242,25 @@ footer{position:relative}
 .km-panel{animation:km-in .35s ease-out}
 .km-off span{opacity:.6}
 @media (max-width:640px){.km-tabs{display:flex;border-radius:22px;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}.km-tabs.at-end{-webkit-mask-image:none;mask-image:none}.km-tab{padding:8px 16px 7px}}
+
+/* Bitácora · tira de Instagram (hoja de contactos) */
+.j-ig{background:var(--carbon);color:var(--marfil);padding:clamp(48px,7vw,88px) 0}
+.j-ig .eyebrow{color:var(--tinta-osc)}
+.ig-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:28px}
+.ig-head h2{font-size:clamp(40px,5.4vw,72px)}
+.ig-head h2 em{font-style:normal;color:var(--cempasuchil)}
+.ig-head>p{margin:0;max-width:44ch;color:var(--tinta-osc);justify-self:end}
+.ig-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.ig-tile{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#222;border-radius:2px;color:var(--marfil);text-decoration:none}
+.ig-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .4s}
+.ig-n{position:absolute;left:6px;top:6px;padding:4px 5px 3px;border-radius:2px;background:rgba(23,23,26,.72);font:400 10px/1 var(--mono);letter-spacing:.1em;color:var(--cempasuchil)}
+.ig-n i{font-style:normal;margin:0 3px;opacity:.7}
+.ig-cap{position:absolute;left:0;right:0;bottom:0;padding:22px 9px 8px;background:linear-gradient(transparent,rgba(23,23,26,.8));font:400 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
+.ig-tile:hover img,.ig-tile:focus-visible img{transform:scale(1.05)}
+.ig-tile:hover .ig-cap,.ig-tile:focus-visible .ig-cap{opacity:1;transform:none}
+.ig-tile:focus-visible{outline:2px solid var(--cempasuchil);outline-offset:3px}
+.ig-go{display:inline-flex;align-items:center;gap:10px;margin-top:24px;padding:13px 18px;border:2px solid var(--marfil);border-radius:var(--r-sm);color:var(--marfil);font:400 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s}
+.ig-go:hover,.ig-go:focus-visible{background:var(--marfil);color:var(--carbon)}
+@media (max-width:860px){.ig-head{grid-template-columns:minmax(0,1fr)}.ig-head>p{justify-self:start}.ig-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (hover:none){.ig-cap{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ig-tile img,.ig-cap{transition:none}}
