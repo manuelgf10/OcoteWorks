@@ -59,8 +59,9 @@ If you like building things, say hi: hola@ocoteworks.com
 var sec=null;try{sec=sessionStorage.getItem("ow-secret");if(sec)sessionStorage.removeItem("ow-secret");if(sessionStorage.getItem("ow-lit")&&!sec){l.remove();return}sessionStorage.setItem("ow-lit","1")}catch(e){}
 if(sec){var es=document.documentElement.lang==="es",p=l.querySelector(".owl-prog"),bt=l.querySelector(".owl-btn");if(p)p.textContent=es?"PRG SECRETO · ↑↑↓↓←→←→BA":"SECRET PRG · ↑↑↓↓←→←→BA";if(bt)bt.textContent="Cycle start";l.classList.add("owl-secret")}
 document.documentElement.classList.add("owl-on");
+var top=function(){if(!location.hash)window.scrollTo(0,0)};try{if(!location.hash&&"scrollRestoration" in history)history.scrollRestoration="manual"}catch(e){}top();addEventListener("pageshow",top,{once:true});
 var t0=Date.now(),gone=false,min=matchMedia("(prefers-reduced-motion: reduce)").matches?0:(sec?3200:1900);
-function done(){if(gone)return;gone=true;setTimeout(function(){l.classList.add("out");document.documentElement.classList.remove("owl-on");setTimeout(function(){l.remove()},600)},Math.max(0,min-(Date.now()-t0)))}
+function done(){if(gone)return;gone=true;setTimeout(function(){top();l.classList.add("out");document.documentElement.classList.remove("owl-on");try{history.scrollRestoration="auto"}catch(e){}setTimeout(function(){l.remove()},600)},Math.max(0,min-(Date.now()-t0)))}
 if(document.readyState==="complete")done();else addEventListener("load",done);setTimeout(done,4500)})();</script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <!-- Íconos de línea · retícula 48 u · línea 3 u -->
