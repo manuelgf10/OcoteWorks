@@ -192,12 +192,17 @@ def card(e, lang):
 # Tira de Instagram (fotos fijas que llevan al perfil; no es feed en vivo).
 # (webp, jpg, alt es, alt en, pie es, pie en) · cambiar aquí cuando Manuel elija las suyas.
 IG_URL = "https://www.instagram.com/ocote.works/"
+def _ig(b):
+    d = "/assets/photos/ig/"
+    return (f"{d}{b}-480.webp 480w, {d}{b}-900.webp 900w", f"{d}{b}-480.jpg")
+
+
 IG_PHOTOS = [
-    ("/assets/photos/about/river-crossing-900.webp", "/assets/photos/about/river-crossing-900.jpg", "Cruce de río en moto de aventura", "Crossing a river on an adventure bike", "Agua hasta el cárter", "Water to the sump"),
+    (*_ig("sofa"), "Manuel sentado en un sillón abandonado junto a su Ténéré 700 en un cañón", "Manuel sitting on an abandoned couch next to his Ténéré 700 in a canyon", "Sala con vista", "Living room with a view"),
     ("/assets/photos/about/workshop-night-800.webp", "/assets/photos/about/workshop-night-800.jpg", "El taller de noche", "The workshop at night", "Después de las 11", "After 11 p.m."),
-    ("/assets/photos/salinas-800.webp", "/assets/photos/salinas-1600.jpg", "Moto en una salina", "Motorcycle on a salt flat", "Salinas", "Salt flats"),
+    (*_ig("mar-de-nubes"), "Ténéré 700 en un mirador sobre un mar de nubes", "Ténéré 700 at a lookout above a sea of clouds", "Arriba de las nubes", "Above the clouds"),
     ("/assets/photos/about/tenere-maintenance-600.webp", "/assets/photos/about/tenere-maintenance-600.jpg", "Mantenimiento de la Ténéré 700", "Ténéré 700 maintenance", "Servicio en casa", "Home service"),
-    ("/assets/photos/field-test-m-600.webp", "/assets/photos/field-test-1600.jpg", "Prueba de campo del OW-02", "OW-02 field test", "Prueba de campo", "Field test"),
+    (*_ig("dron"), "Toma aérea de la Ténéré 700 en un camino de terracería entre sembradíos", "Aerial shot of the Ténéré 700 on a dirt road between fields", "Terracería", "Dirt road"),
     ("/assets/photos/about/bike-rebuild-600.webp", "/assets/photos/about/bike-rebuild-600.jpg", "Reconstrucción de una moto", "Rebuilding a motorcycle", "Desarmar para entender", "Take it apart to get it"),
 ]
 IG_UI = {
@@ -216,7 +221,7 @@ def ig_strip(lang):
     for n, (webp, jpg, aes, aen, ces, cen) in enumerate(IG_PHOTOS, 1):
         alt, cap = (aen, cen) if lang == "en" else (aes, ces)
         tiles += (f'<a class="ig-tile" href="{IG_URL}" target="_blank" rel="noopener me" aria-label="{u["frame"]}{alt}" data-goatcounter-click="ig-foto-{n}">'
-                  f'<picture><source srcset="{webp}" type="image/webp"><img src="{jpg}" alt="" width="600" height="750" loading="lazy" decoding="async"></picture>'
+                  f'<picture><source srcset="{webp}" sizes="(max-width:860px) 31vw, 180px" type="image/webp"><img src="{jpg}" alt="" width="600" height="750" loading="lazy" decoding="async"></picture>'
                   f'<span class="ig-n" aria-hidden="true">{n:02d}<i>▸</i>{n:02d}A</span><span class="ig-cap" aria-hidden="true">{cap}</span></a>')
     return (f'<section class="j-ig" aria-labelledby="ig-h"><div class="wrap">'
             f'<div class="ig-head"><div><p class="eyebrow">{u["k"]} · @ocote.works</p><h2 id="ig-h">{u["h"]}</h2></div>'
