@@ -72,7 +72,7 @@
     hLogo.addEventListener("click", function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: still ? "auto" : "smooth" }); onLogo(hLogo.querySelector("img") || hLogo); });
   }
 
-  // Un beso: 5 toques a la foto de Manuel en "Quién lo hace". (Provisional: corazones; luego, su video guiñando.)
+  // Un beso: 5 toques a la foto de Manuel en "Quién lo hace": corazones y una nota de Clau, su novia. (Luego, su video guiñando.)
   var face = document.querySelector("[data-kiss]");
   if (face) {
     var kc = 0, kl = 0;
@@ -96,7 +96,7 @@
           a.onfinish = (function (n) { return function () { n.remove(); }; })(hrt);
         }
       }
-      toast("😘 <b>— M.</b>", r.left + r.width / 2, r.top + r.height * .55);
+      toast("<span class=\"ow-note\">He’s taken.</span><br><b>Atte. Clau</b> ♥", r.left + r.width / 2, r.top + r.height * .55);
       secretEv("beso");
     });
   }
