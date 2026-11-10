@@ -592,20 +592,20 @@ def roadlog(lang):
 
 
 # ---------- Equipa tu T7: mapa de piezas sobre la ilustración de la moto ----------
-import t7_drawing as T7
-
 # (código, x, y en coordenadas del dibujo). OW-03 (Lucero) no va en la moto: aparece aparte.
-KIT_POINTS = [("OW-02", 214, 186), ("OW-07", 262, 214), ("OW-01", 412, 258), ("OW-08", 468, 386),
-              ("OW-04", 664, 104), ("OW-09", 726, 128), ("OW-05", 760, 70), ("OW-06", 792, 236)]
+# Coordenadas sobre assets/brand/tenere-700.svg (dibujo de Manuel, viewBox 20 115 985 700).
+KIT_VIEW = (20, 115, 985, 700)
+KIT_POINTS = [("OW-02", 168, 366), ("OW-07", 276, 440), ("OW-01", 345, 401), ("OW-08", 404, 578),
+              ("OW-04", 586, 263), ("OW-09", 690, 300), ("OW-05", 744, 233), ("OW-06", 714, 371)]
 KIT_UI = {
     "es": {"k": "Por moto", "h1": "Equipa", "h2": "tu T7",
            "lead": "Toca un punto para ver la pieza que va ahí. Todo lo diseñamos y probamos sobre una Yamaha Ténéré 700.",
-           "title": "Ilustración de una Yamaha Ténéré 700 con los puntos donde se montan las piezas de OcoteWorks",
+           "title": "Ilustración de una Yamaha Ténéré 700 dibujada por OcoteWorks, con los puntos donde se montan sus piezas",
            "off": "Y para ti, fuera de la moto:", "see": "Ver ficha", "soon_go": "Ver en el banco", "ow01_go": "Lista de espera",
            "batch": "Primer lote en preparación", "dev": "En desarrollo", "pick": "Pieza"},
     "en": {"k": "By bike", "h1": "Kit out", "h2": "your T7",
            "lead": "Tap a point to see the part that goes there. Everything is designed and tested on a Yamaha Ténéré 700.",
-           "title": "Illustration of a Yamaha Ténéré 700 with the points where OcoteWorks parts mount",
+           "title": "Yamaha Ténéré 700 illustration drawn by OcoteWorks, with the points where its parts mount",
            "off": "And for you, off the bike:", "see": "View product", "soon_go": "See it on the bench", "ow01_go": "Waitlist",
            "batch": "First batch in preparation", "dev": "In development", "pick": "Part"},
 }
@@ -629,7 +629,7 @@ def _kit_item(code, lang):
 
 def kit_map(lang):
     u = KIT_UI[lang]
-    vx, vy, vw, vh = 40, 10, 1000, 580
+    vx, vy, vw, vh = KIT_VIEW
     pts, cards = "", ""
     for i, (code, x, y) in enumerate(KIT_POINTS, 1):
         nick, name, line, st, href, go, kind = _kit_item(code, lang)
@@ -642,7 +642,7 @@ def kit_map(lang):
                   f'<div class="km-foot">{stc}<a href="{href}" class="km-go">{go} →</a></div></article>')
     b03 = next(b for b in BENCH if b["code"] == "OW-03")
     off = f'<p class="km-off">{u["off"]} <a href="#{b03["slug"]}"><b>{b03["nick"]}</b> · {b03[lang]["name"]}</a></p>'
-    draw = T7.svg().replace("{title}", u["title"]).replace("{hotspots}", "")
+    draw = f'<img class="km-bike" src="/assets/brand/tenere-700.svg" alt="{u["title"]}" width="985" height="700" loading="lazy" decoding="async">'
     return (f'<section class="cat-kit" id="{"equipa-tu-t7" if lang == "es" else "kit-out-your-t7"}" aria-labelledby="km-h"><div class="wrap">'
             f'<div class="km-head"><p class="eyebrow">{u["k"]} · Yamaha Ténéré 700</p><h2 id="km-h"><span>{u["h1"]}</span> {u["h2"]}</h2><p class="lead">{u["lead"]}</p></div>'
             f'<div class="km-grid"><div class="km-fig"><div class="km-draw">{draw}{pts}</div>{off}</div><div class="km-cards" aria-live="polite">{cards}</div></div>'
