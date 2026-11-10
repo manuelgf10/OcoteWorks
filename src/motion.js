@@ -56,7 +56,8 @@
       }
       el.animate([{ filter: "drop-shadow(0 0 0 rgba(228,130,51,0))" }, { filter: "drop-shadow(0 0 14px rgba(228,130,51,.9))" }, { filter: "drop-shadow(0 0 0 rgba(228,130,51,0))" }], { duration: 1600, easing: "ease-out" });
     }
-    toast(lang === "es" ? "<b>Ocote:</b> la astilla de pino que prende el fuego." : "<b>Ocote:</b> the pine splinter that starts the fire.",
+    toast(lang === "es" ? "<span class=\"ow-note\">Chill, chill… ya está prendiendo.</span><br><small><b>Ocote:</b> la astilla de pino que prende el fuego.</small>"
+                        : "<span class=\"ow-note\">Chill, chill… it’s catching fire.</span><br><small><b>Ocote:</b> the pine splinter that starts the fire.</small>",
           r.left + r.width / 2, r.top < innerHeight / 2 ? r.bottom + 12 : r.top - 70);
     secretEv("ocote");
   };
