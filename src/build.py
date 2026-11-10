@@ -704,16 +704,29 @@ def header(d, active, en_url, es_url):
             f'</div></header>')
 
 
-def footer(d):
-    links = " · ".join(f'<a href="{d[u]}">{d[t]}</a>' for k, t, u in NAV)
-    return (f'<footer><div class="wrap">'
-            f'<picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>'
-            f'<p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>'
-            f'<p class="meta">{d["foot_meta"]}<br><span class="f-nav" aria-label="{d["foot_nav"]}">{links}</span><br>'
-            f'<a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · '
-            f'<a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a><br>© 2026 OcoteWorks · '
-            f'<a href="{"/es/privacidad/" if d["lang"] == "es" else "/privacy/"}">{LG.TEXT[d["lang"]]["foot_privacy"]}</a></p></div></footer>')
+FOOT_UI = {"es": dict(site="Sitio", product="Producto", legal="Legal", guide="Guía de instalación OW-02", sheet="Ficha técnica OW-02 (PDF)",
+                      quote="Cotizar proyecto", place="Monterrey, N.L., México"),
+           "en": dict(site="Site", product="Product", legal="Legal", guide="OW-02 installation guide", sheet="OW-02 spec sheet (PDF)",
+                      quote="Start a project", place="Monterrey, N.L., Mexico")}
 
+
+def footer(d):
+    """Pie en columnas: marca · sitio · producto (guía y ficha) · legal; abajo © y redes."""
+    lang = d["lang"]; f = FOOT_UI[lang]; p = PR.PRODUCTS[0]; slug = p["code"].lower()
+    site = "".join(f'<li><a href="{d[u]}">{d[t]}</a></li>' for k, t, u in NAV) + f'<li><a href="{d["quote_href"]}">{f["quote"]}</a></li>'
+    prod = (f'<li><a href="{PR.url(p, lang)}#instalacion">{f["guide"]}</a></li>'
+            f'<li><a href="{p["img_dir"]}/{slug}-ficha-{lang}.pdf" download data-goatcounter-click="ficha-{slug}-{lang}-pie">{f["sheet"]}</a></li>')
+    priv = "/es/privacidad/" if lang == "es" else "/privacy/"
+    return (f'<footer><div class="wrap f-grid">'
+            f'<div class="f-brand"><picture><source srcset="/assets/logo-marfil-256.webp" type="image/webp"><img src="/assets/logo-marfil-256.png" alt="OcoteWorks" width="128" height="91" loading="lazy"></picture>'
+            f'<p class="lema" lang="en">Rooted in Mexico.<br><span>Made to go further.</span></p>'
+            f'<p class="f-contact">{f["place"]}<br><a href="mailto:hola@ocoteworks.com">hola@ocoteworks.com</a></p></div>'
+            f'<nav class="f-col" aria-label="{f["site"]}"><h2>{f["site"]}</h2><ul>{site}</ul></nav>'
+            f'<nav class="f-col" aria-label="{f["product"]}"><h2>{f["product"]}</h2><ul>{prod}</ul></nav>'
+            f'<nav class="f-col" aria-label="{f["legal"]}"><h2>{f["legal"]}</h2><ul><li><a href="{priv}">{LG.TEXT[lang]["foot_privacy"]}</a></li></ul></nav>'
+            f'</div><div class="wrap f-bottom"><span>© 2026 OcoteWorks · {d["foot_meta"]}</span>'
+            f'<span><a href="https://www.instagram.com/ocote.works/" rel="me">Instagram</a> · <a href="https://www.behance.net/manuelgf" rel="me">Behance</a> · '
+            f'<a href="https://www.linkedin.com/in/manuelgarflo" rel="me">LinkedIn</a></span></div></footer>')
 
 
 def moto_svg():
