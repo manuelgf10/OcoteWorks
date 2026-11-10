@@ -10,26 +10,79 @@
   var key = function () { var r = document.querySelector('.pd-var input[name="variant"]:checked'); return r ? r.dataset.key : "base"; };
   var seenVariant = {};
 
-  // Galerías (una por acabado): las miniaturas cambian la imagen principal.
+  // Galerías (una por acabado): las miniaturas cambian la imagen principal; la miniatura 3D abre el visor.
   var gals = document.querySelectorAll(".pd-gallery");
+  var color = function () { var r = document.querySelector('.pd-var input[name="variant"]:checked'); return r ? r.dataset.color : null; };
+  var viewer = null, libLoading = null, in3D = false;
+  var loadLib = function (src) {
+    if (window.customElements && customElements.get("model-viewer")) return Promise.resolve();
+    if (!libLoading) libLoading = new Promise(function (ok, ko) {
+      var s = document.createElement("script"); s.type = "module"; s.src = src;
+      s.onerror = ko; document.head.appendChild(s);
+      customElements.whenDefined("model-viewer").then(ok);
+    });
+    return libLoading;
+  };
+  var paint = function () {
+    if (!viewer || !viewer.model) return;
+    var c = color(); if (!c) return;
+    viewer.model.materials[0].pbrMetallicRoughness.setBaseColorFactor(c);
+    viewer.exposure = c.toLowerCase() === "#17171a" ? 1.1 : 0.85;  // el blanco se quema con la misma luz
+  };
+  var buildViewer = function (t) {
+    var d = t.dataset, mv = document.createElement("model-viewer");
+    var attrs = { src: d["3d"], alt: d.alt, "camera-controls": "", "touch-action": "pan-y", ar: "", "ar-modes": "webxr scene-viewer quick-look",
+      "ar-scale": "fixed", "camera-orbit": "35deg 68deg 0.68m", "min-camera-orbit": "auto auto 0.35m", "max-camera-orbit": "auto auto 1.3m",
+      "field-of-view": "28deg", "tone-mapping": "neutral", exposure: "1.1", "shadow-intensity": "0.9", "shadow-softness": "0.8",
+      "environment-image": "neutral", "interaction-prompt": "none" };
+    Object.keys(attrs).forEach(function (k) { mv.setAttribute(k, attrs[k]); });
+    mv.innerHTML = '<button slot="ar-button" class="pd-ar" type="button">' + d.ar + '</button>' +
+      '<div slot="progress-bar" class="pd-3d-load">' + d.load + '</div>';
+    mv.addEventListener("load", function () { mv.querySelector(".pd-3d-load").hidden = true; paint(); });
+    mv.addEventListener("error", function () { mv.querySelector(".pd-3d-load").textContent = d.err; });
+    return mv;
+  };
+  var show3D = function (gal, on) {
+    var stage = gal.querySelector(".pd-3d"), pic = gal.querySelector(".pd-main"), t3 = gal.querySelector("[data-3d]");
+    if (!stage) return;
+    if (on) {
+      if (!viewer) viewer = buildViewer(t3);
+      if (viewer.parentNode !== stage) {
+        stage.innerHTML = ""; stage.appendChild(viewer);
+        stage.insertAdjacentHTML("beforeend", '<p class="pd-3d-hint">' + t3.dataset.hint + '</p>');
+      }
+      loadLib(t3.dataset.lib).catch(function () { viewer.querySelector(".pd-3d-load").textContent = t3.dataset.err; });
+      paint();
+    }
+    stage.hidden = !on; pic.hidden = on;
+    gal.querySelectorAll(".pd-thumb").forEach(function (x) { x.removeAttribute("aria-current"); });
+  };
   gals.forEach(function (gal) {
     var srcs = gal.dataset.srcs.split("|"), main = gal.querySelector(".pd-main"), thumbs = gal.querySelectorAll(".pd-thumb");
     thumbs.forEach(function (t) {
       t.addEventListener("click", function () {
+        if (t.hasAttribute("data-3d")) {
+          if (!in3D) ev("3d-" + slug, "Abre 3D · " + code);
+          in3D = true; show3D(gal, true); t.setAttribute("aria-current", "true"); return;
+        }
+        in3D = false; show3D(gal, false);
         var i = +t.dataset.i, img = main.querySelector("img"), src = main.querySelector("source");
         var timg = t.querySelector("img");
         src.srcset = srcs[i] + ".webp"; img.removeAttribute("srcset"); src.removeAttribute("sizes");
         img.src = srcs[i] + ".jpg"; img.alt = timg.alt;
         img.width = timg.width; img.height = timg.height;
         main.classList.toggle("tall", +timg.getAttribute("height") > +timg.getAttribute("width"));
-        thumbs.forEach(function (x) { x.removeAttribute("aria-current"); });
         t.setAttribute("aria-current", "true");
       });
     });
   });
   var showGallery = function (i) {
     var hit = document.querySelector('.pd-gallery[data-variant="' + i + '"]') ? String(i) : "0";
-    gals.forEach(function (g) { g.hidden = g.dataset.variant !== hit; });
+    gals.forEach(function (g) {
+      g.hidden = g.dataset.variant !== hit;
+      if (!g.hidden && in3D) { show3D(g, true); g.querySelector("[data-3d]").setAttribute("aria-current", "true"); }
+    });
+    paint();
   };
 
   // Acabado elegido → se refleja en el panel y en el formulario.

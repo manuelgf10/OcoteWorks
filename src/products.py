@@ -14,6 +14,8 @@ PRODUCTS = [
         "status": "batch",
         "price_mxn": 1532,
         "img_dir": "/assets/products/ow-02",
+        # Modelo 3D (GLB en metros, desde el STEP de SolidWorks; material 0 = "rack", se pinta según el acabado).
+        "model": "/assets/products/ow-02/ow-02.glb",
         # (archivo base, anchos disponibles, ancho x alto del original)
         "images": [("hero", (600, 1000, 1600), (2576, 1449)), ("top", (600, 1000, 1600), (2576, 1449)),
                    ("front", (600, 1000, 1600), (2576, 1449)), ("detail", (500, 900), (1308, 2326))],
@@ -46,8 +48,8 @@ PRODUCTS = [
                 ("Material", "Aluminio 6061, espesor aprox. 4.8 mm (3/16″)"),
                 ("Proceso", "Corte láser · doblado · cantos redondeados en CNC"),
                 ("Acabado", "Pintura electrostática en polvo, negro o blanco mate"),
-                ("Medidas aprox.", "520 × 235 × 95 mm"),
-                ("Peso aprox.", "1.3 kg"),
+                ("Medidas aprox.", "489 × 243 × 128 mm (largo × ancho × alto)"),
+                ("Peso aprox.", "0.5 kg sin tornillería"),
                 ("Incluye", "Tornillería de montaje"),
                 ("Uso", "Cargas ligeras: bolsas pequeñas y straps"),
             ],
@@ -77,8 +79,8 @@ PRODUCTS = [
                 ("Material", "6061 aluminum, approx. 4.8 mm (3/16″) thick"),
                 ("Process", "Laser cut · folded · CNC-rounded edges"),
                 ("Finish", "Powder coat, matte black or matte white"),
-                ("Approx. size", "520 × 235 × 95 mm"),
-                ("Approx. weight", "1.3 kg"),
+                ("Approx. size", "489 × 243 × 128 mm (length × width × height)"),
+                ("Approx. weight", "0.5 kg without hardware"),
                 ("Includes", "Mounting hardware"),
                 ("Use", "Light loads: small bags and straps"),
             ],
@@ -96,6 +98,9 @@ UI = {
         cat_h1="Diseñado <em>en el taller</em>",
         cat_lead="Piezas propias para motos de aventura. Algunas están en preparación: si te interesan, únete a la lista y ayúdanos a decidir qué fabricar primero.",
         cat_view="Ver producto",
+        v3d="Ver en 3D", v3d_hint="Arrastra para girar · pellizca o usa la rueda para acercar", v3d_ar="Ver en tu espacio",
+        v3d_load="Cargando modelo 3D…", v3d_err="No se pudo cargar el modelo 3D.",
+        v3d_alt="Modelo 3D del tail rack OW-02",
         status_batch="Primer lote en preparación",
         status_dev="En desarrollo",
         ow01_name="Equipaje rackless",
@@ -110,7 +115,7 @@ UI = {
         specs_eyebrow="02 · Especificaciones",
         specs_h2="Ficha técnica",
         specs_note="Especificaciones preliminares; pueden cambiar en producción.",
-        fine=("Imágenes: renders del modelo CAD. Ténéré 700 es una marca registrada de Yamaha Motor Co., Ltd. "
+        fine=("Imágenes y modelo 3D: tomados del modelo CAD. Ténéré 700 es una marca registrada de Yamaha Motor Co., Ltd. "
               "OcoteWorks no está afiliado a Yamaha; el nombre se usa solo para indicar compatibilidad."),
         back="← Todos los productos",
         dlg_k="Primer lote",
@@ -132,6 +137,9 @@ UI = {
         cat_h1="Designed <em>in the workshop</em>",
         cat_lead="Original parts for adventure motorcycles. Some are in pre-production: if one interests you, join the list and help us decide what to make first.",
         cat_view="View product",
+        v3d="View in 3D", v3d_hint="Drag to rotate · pinch or scroll to zoom", v3d_ar="View in your space",
+        v3d_load="Loading 3D model…", v3d_err="The 3D model couldn’t load.",
+        v3d_alt="3D model of the OW-02 tail rack",
         status_batch="First batch in pre-production",
         status_dev="In development",
         ow01_name="Rackless luggage",
@@ -146,7 +154,7 @@ UI = {
         specs_eyebrow="02 · Specifications",
         specs_h2="Spec sheet",
         specs_note="Preliminary specifications; may change in production.",
-        fine=("Images: renders of the CAD model. Ténéré 700 is a registered trademark of Yamaha Motor Co., Ltd. "
+        fine=("Images and 3D model: from the CAD model. Ténéré 700 is a registered trademark of Yamaha Motor Co., Ltd. "
               "OcoteWorks is not affiliated with Yamaha; the name is used only to indicate fitment."),
         back="← All products",
         dlg_k="First batch",
@@ -203,15 +211,23 @@ def gallery(p, lang):
         data = "|".join(f'{p["img_dir"]}/{n}-{w[-1]}' for n, w, _ in imgs)
         if vi and v not in p.get("variant_images", {}):
             continue  # acabado sin fotos propias: se queda la galería principal
-        out.append(f'<div class="pd-gallery" data-variant="{vi}" data-srcs="{data}"{" hidden" if vi else ""}>'
-                   f'{main}<div class="pd-thumbs">{thumbs}</div></div>')
+        if p.get("model"):
+            u = UI[lang]
+            thumbs += (f'<button type="button" class="pd-thumb pd-thumb-3d" data-3d="{p["model"]}" data-lib="/assets/vendor/model-viewer-4.4.0.min.js" '
+                       f'data-alt="{u["v3d_alt"]}" data-hint="{u["v3d_hint"]}" data-ar="{u["v3d_ar"]}" data-load="{u["v3d_load"]}" data-err="{u["v3d_err"]}" '
+                       f'aria-label="{u["v3d"]}">'
+                       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z M3.5 7 12 11.5 20.5 7 M12 11.5v10"/></svg>'
+                       '<span>3D</span></button>')
+            main += '<div class="pd-3d" hidden></div>'
+        out.append(f'<div class="pd-gallery{" has-3d" if p.get("model") else ""}" data-variant="{vi}" data-srcs="{data}"{" hidden" if vi else ""}>'
+                   f'<div class="pd-stage">{main}</div><div class="pd-thumbs">{thumbs}</div></div>')
     return "".join(out)
 
 
 def variants(p, lang):
     names = p[lang]["variants"]
     return "".join(
-        f'<label class="pd-sw"><input type="radio" name="variant" value="{names[k]}" data-key="{k}"{" checked" if i == 0 else ""}>'
+        f'<label class="pd-sw"><input type="radio" name="variant" value="{names[k]}" data-key="{k}" data-color="{c}"{" checked" if i == 0 else ""}>'
         f'<i style="--sw:{c}"></i><span>{names[k]}</span></label>'
         for i, (k, c) in enumerate(p["variants"]))
 
