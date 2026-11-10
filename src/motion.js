@@ -3,6 +3,13 @@
    2. Las secciones aparecen al entrar en pantalla (solo lo que está debajo del primer pantallazo).
    Respeta "reducir movimiento" y no toca el cotizador. */
 (function () {
+  // Para los curiosos que abren la consola: el logo en texto y una nota del taller.
+  /*OW_HIDDEN*/
+  try {
+    var es = document.documentElement.lang === "es";
+    console.log("%c" + OW_ASCII, "font:12px/1.15 ui-monospace,Menlo,monospace;color:#edb544;background:#17171a;padding:14px 18px;border-radius:6px");
+    console.log("%c" + (es ? OW_NOTE.es : OW_NOTE.en), "font:13px/1.6 ui-monospace,Menlo,monospace;color:#17171a;background:#f4ead7;padding:10px 14px;border-left:4px solid #edb544");
+  } catch (e) {}
   // Navegación instantánea en navegadores sin Speculation Rules (Safari, Firefox):
   // al pasar el cursor ~80 ms o tocar un enlace interno, se pide la página para que quede en caché.
   var hasSpec = window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules");

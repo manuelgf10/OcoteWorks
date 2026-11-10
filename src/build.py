@@ -811,6 +811,16 @@ for _e in JO.ENTRIES:
 
 
 MOTION_V = ""
+# Para los curiosos: logo en ASCII + mensaje escondido en la consola del navegador y en el código fuente.
+ASCII_LOGO = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "ascii_logo.txt"), encoding="utf-8").read().rstrip("\n")
+HIDDEN = {
+    "es": ("¿Revisando el código? Nosotros también revisamos cada tornillo.",
+           "Diseñado y hecho a mano en Monterrey, México · 25° 41′ N, 100° 19′ O",
+           "Si te gusta construir cosas, escríbenos: hola@ocoteworks.com"),
+    "en": ("Reading the code? We check every bolt too.",
+           "Designed and handmade in Monterrey, Mexico · 25° 41′ N, 100° 19′ W",
+           "If you like building things, say hi: hola@ocoteworks.com"),
+}
 # Analítica sin cookies (GoatCounter). Panel: https://manuelgf10.goatcounter.com · vacío = desactivada.
 GC_CODE = "manuelgf10"
 FORMSPREE = "https://formspree.io/f/mwllgewa"
@@ -857,6 +867,9 @@ SPECULATION = ('<script type="speculationrules">{"prefetch":[{"source":"document
 
 def write(path, html):
     lang = "es" if '<html lang="es"' in html else "en"
+    # Comentario escondido al inicio del código fuente (Ver código fuente).
+    note = "\n".join(HIDDEN[lang])
+    html = html.replace("<html", f"<!--\n{ASCII_LOGO}\n\n{note}\n-->\n<html", 1)
     html = microtype(html, lang)
     html = add_loader(html, lang)
     html = html.replace("</body>", f'<script src="/assets/motion.js?v={MOTION_V}" defer></script>\n</body>', 1)
@@ -886,6 +899,8 @@ def main():
     qversion = hashlib.sha1(qjs.encode()).hexdigest()[:8]
     open(os.path.join(ROOT, "assets", "forms.js"), "w", encoding="utf-8").write(open(os.path.join(SRC, "forms.js"), encoding="utf-8").read())
     mjs = open(os.path.join(SRC, "motion.js"), encoding="utf-8").read()
+    import json as _json
+    mjs = mjs.replace("/*OW_HIDDEN*/", "var OW_ASCII = " + _json.dumps(ASCII_LOGO) + ", OW_NOTE = " + _json.dumps({k: "\n".join(v) for k, v in HIDDEN.items()}, ensure_ascii=False) + ";")
     open(os.path.join(ROOT, "assets", "motion.js"), "w", encoding="utf-8").write(mjs)
     global MOTION_V
     MOTION_V = hashlib.sha1(mjs.encode()).hexdigest()[:8]
@@ -971,7 +986,7 @@ def main():
                                                                 j_product_url=purl, j_cta_product=JU["cta_product"], j_cta_ig=JU["cta_ig"])))
 
     # Página 404 (bilingüe, una sola)
-    p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version).replace("{{speculation}}", SPECULATION)
+    p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version).replace("{{speculation}}", SPECULATION).replace("<html", "<!--\n" + ASCII_LOGO + "\n\n" + "\n".join(HIDDEN["es"]) + "\n\n" + "\n".join(HIDDEN["en"]) + "\n-->\n<html", 1).replace("</body>", '<script src="/assets/motion.js?v=' + MOTION_V + '" defer></script>\n</body>', 1)
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(p404)
 
     def alt(en, es):
