@@ -692,9 +692,9 @@ blockquote,.manifiesto p{hanging-punctuation:first}
 /* subrayados de links finos y separados de la línea base */
 a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .lg-txt a,.f-privacy a,.q-msg a,.mail{text-decoration-color:var(--cempasuchil);text-decoration-thickness:2px}
-/* celular: guionado suave en párrafos de columnas angostas */
+/* celular: sin guionado (decisión de Manuel, 9 nov 2026) */
 @media (max-width:520px){
-  html[lang=es] p,html[lang=es] li{hyphens:auto;-webkit-hyphens:auto;hyphenate-limit-chars:7 3 3}
+  html[lang=es] p,html[lang=es] li{hyphens:manual;-webkit-hyphens:manual}
   .lead{font-size:18px}
 }
 /* selección con color de marca */
