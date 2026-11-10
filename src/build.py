@@ -118,17 +118,21 @@ BACK_NOTE = {"es": ("El taller, de noche. Aquí pasan las cosas que no caben en 
 
 NAME_BLOCK = {
     "es": dict(k="El nombre", h="¿Por qué Ocote?",
-               defs=[("ocote", "o·có·te", "Del náhuatl <i>ocotl</i>. Nombre que se le da a los pinos de México y a su madera resinosa, la que prende el fuego."),
-                     ("Ocotepec", "o·co·te·pec", "Del náhuatl: <i>en el cerro de los ocotes</i>. El pueblo de donde soy y donde crecí.")],
-               body=["Crecí en Ocotepec, entre pinos. Desde niño me encantaba explorar su bosque. Ahí me fascinó la naturaleza y ahí nacieron las ganas de explorar, de salir a la aventura y de llegar siempre un poco más lejos.",
-                     "Esas son las raíces de OcoteWorks."],
-               quote="Trabajos con raíces fuertes, como el ocote. Y que <em>arden</em> por dentro, como el ocote."),
+               defs=[("ocote", "o·có·te", "Del náhuatl <i>ocotl</i>. Nombre del pino mexicano resinoso y de su madera, usada tradicionalmente para encender el fuego."),
+                     ("Ocotepec", "o·co·te·pec", "Del náhuatl, significa «en el cerro de los ocotes». El pueblo donde nací y crecí.")],
+               body=["Crecí en Ocotepec, rodeado de bosques de pino.",
+                     "De niño me encantaba andar por el bosque, descubrir caminos nuevos y preguntarme qué habría detrás del siguiente cerro. Ahí empezó mi curiosidad por la naturaleza, la exploración y la aventura.",
+                     "Con los años, esa misma curiosidad se convirtió en una pasión por diseñar, construir y crear cosas.",
+                     "OcoteWorks es el reflejo de esas raíces. Una conexión entre de dónde vengo, lo que me encanta hacer y las ganas de seguir llegando más lejos."],
+               quote="Raíces profundas.<br><em>Fuego por dentro.</em>"),
     "en": dict(k="The name", h="Why Ocote?",
-               defs=[("ocote", "o·KO·teh", "From Nahuatl <i>ocotl</i>. The name for Mexico’s pines and their resin-rich wood, the kind that starts a fire."),
-                     ("Ocotepec", "o·ko·teh·PEK", "Nahuatl for <i>on the hill of the ocotes</i>. The town I’m from, where I grew up.")],
-               body=["I grew up in Ocotepec, among the pines. As a kid I loved exploring its forest. That’s where nature got hold of me, and where the urge to explore, to go looking for adventure and to always get a little further was born.",
-                     "Those are the roots of OcoteWorks."],
-               quote="Work with strong roots, like ocote. And a fire <em>burning</em> inside, like ocote."),
+               defs=[("ocote", "o·KO·teh", "From Nahuatl <i>ocotl</i>. A name for resin-rich Mexican pine and its wood, traditionally used to start fires."),
+                     ("Ocotepec", "o·ko·teh·PEK", "From Nahuatl, meaning “on the hill of the ocotes.” The town where I was born and raised.")],
+               body=["I grew up in Ocotepec, surrounded by pine forests.",
+                     "As a kid, I loved wandering through the woods, discovering new paths, and wondering what lay beyond the next hill. That’s where my curiosity for nature, exploration, and adventure began.",
+                     "Over the years, that same curiosity grew into a passion for designing, building, and creating things.",
+                     "OcoteWorks is a reflection of those roots. A connection between where I come from, what I love doing, and the desire to keep going further."],
+               quote="Deep roots.<br><em>An inner fire.</em>"),
 }
 
 

@@ -1126,7 +1126,7 @@ footer .wrap.f-bottom::before{content:"";position:absolute;left:var(--pad);right
 .an-body{font-size:clamp(18px,1.5vw,21px);line-height:1.55}
 .an-body > p{max-width:44ch}
 .an-body > p + p{margin-top:18px}
-.an-body > p:nth-of-type(2){font-weight:700;color:var(--marfil)}
+.an-body > p:first-child{font-weight:700}
 .an-quote{margin:clamp(32px,4vw,48px) 0 0;padding-left:22px;border-left:6px solid var(--ocote)}
 .an-quote p{font:700 clamp(30px,3.2vw,44px)/1.04 var(--display);text-transform:uppercase;letter-spacing:.01em;max-width:none}
 .an-quote em{font-style:normal;color:var(--ocote)}
