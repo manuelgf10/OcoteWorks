@@ -779,6 +779,8 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .pd-hs{display:grid;place-items:center;width:28px;height:28px;padding:0;border:2px solid var(--carbon);border-radius:50%;background:var(--cempasuchil);color:var(--carbon);font:700 12px/1 var(--mono);cursor:pointer;box-shadow:0 0 0 0 rgba(237,181,68,.6);animation:hs-pulse 2.4s ease-out 3;transition:opacity .2s,transform .15s,background .15s}
 .pd-hs:hover,.pd-hs.on{background:var(--carbon);color:var(--cempasuchil);border-color:var(--cempasuchil);transform:scale(1.12)}
 .pd-hs:not([data-visible]){opacity:.28}
+.pd-hs-sign{background:var(--marfil);font:italic 700 12px/1 var(--display);animation:none}
+.pd-hs-sign:not([data-visible]){opacity:0;pointer-events:none}
 @keyframes hs-pulse{0%{box-shadow:0 0 0 0 rgba(237,181,68,.6)}100%{box-shadow:0 0 0 14px rgba(237,181,68,0)}}
 .pd-3d-info{position:absolute;left:10px;right:10px;bottom:10px;margin:0;display:flex;gap:12px;align-items:baseline;padding:10px 14px;background:var(--carbon);color:var(--marfil);border-radius:var(--r-sm);font:400 13px/1.4 var(--sans,inherit)}
 .pd-3d-info[hidden]{display:none}
@@ -1059,3 +1061,8 @@ footer .wrap.f-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;
 @media (max-width:560px){footer .wrap.f-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.f-col:last-child{grid-column:1/-1}}
 footer .wrap.f-bottom::before{content:"";position:absolute;left:var(--pad);right:var(--pad);top:0;border-top:1px solid var(--linea-osc)}
 .h-path-name{color:var(--carbon);font-weight:700}
+
+/* Secreto: el ocote prende (5 clics al logo) */
+.ow-ember{position:fixed;z-index:9999;width:6px;height:6px;border-radius:50%;pointer-events:none;will-change:transform,opacity}
+.ow-toast{position:fixed;z-index:9999;max-width:320px;padding:10px 14px;background:var(--carbon);color:var(--marfil);border-left:4px solid var(--ocote);border-radius:var(--r-sm);font:400 13px/1.5 var(--mono);box-shadow:0 8px 24px rgba(0,0,0,.25);pointer-events:none;transition:opacity .4s}
+.ow-toast b{color:var(--cempasuchil);font-weight:500}

@@ -24,7 +24,8 @@ PRODUCTS = [
         "hotspots": [("piece", "0.0821 0.1027 0.15", "0.512 0.859 0"),
                      ("slots", "0.1008 0.0599 -0.072", "0.94 0.342 0"),
                      ("mount", "0.1045 0.0106 -0.234", "1 0 0"),
-                     ("thick", "0 0.1273 0.2433", "-0.059 0.792 0.608")],
+                     ("thick", "0 0.1273 0.2433", "-0.059 0.792 0.608"),
+                     ("sign", "0 0.1229 0.185", "0 -1 0")],  # secreto: la firma debajo de la pieza
         "bp_stats": [("4.8", "mm"), ("0.5", "kg"), ("1", ""), ("0", "")],
         # Guía de instalación (preliminar): ilustraciones en src/sheet/<slug>/guide.json + assets guide-*.
         # Orden de apriete en cruz = índices de los tornillos en guide.json (frente izq., medio der., frente der., medio izq.).
@@ -59,7 +60,8 @@ PRODUCTS = [
             "hs": {"piece": ("Una sola pieza", "Lámina doblada: sin soldaduras ni uniones."),
                    "slots": ("Ranuras de amarre", "Para straps y bolsas pequeñas. Cantos redondeados en CNC para no cortar las cintas."),
                    "mount": ("Puntos de fábrica", "Se atornilla en los puntos de montaje originales de la T7."),
-                   "thick": ("4.8 mm", "Aluminio 6061 de 3/16″. Todo el rack pesa cerca de 0.5 kg.")},
+                   "thick": ("4.8 mm", "Aluminio 6061 de 3/16″. Todo el rack pesa cerca de 0.5 kg."),
+                   "sign": ("Firma", "Si llegaste hasta aquí, eres de los nuestros. — M.")},
             "variant_alts": {"white": ["Tail rack OW-02 en blanco mate, vista en tres cuartos",
                                        "Tail rack OW-02 en blanco mate visto desde un costado",
                                        "Tail rack OW-02 en blanco mate visto de frente",
@@ -103,7 +105,8 @@ PRODUCTS = [
             "hs": {"piece": ("One piece", "Folded sheet: no welds, no joints."),
                    "slots": ("Tie-down slots", "For straps and small bags. CNC-rounded edges so they won’t cut webbing."),
                    "mount": ("Factory mounts", "Bolts to the T7’s original mounting points."),
-                   "thick": ("4.8 mm", "3/16″ 6061 aluminum. The whole rack weighs about 0.5 kg.")},
+                   "thick": ("4.8 mm", "3/16″ 6061 aluminum. The whole rack weighs about 0.5 kg."),
+                   "sign": ("Signature", "If you made it down here, you’re one of us. — M.")},
             "variant_alts": {"white": ["OW-02 tail rack in matte white, three-quarter view",
                                        "OW-02 tail rack in matte white seen from the side",
                                        "OW-02 tail rack in matte white seen from the front",

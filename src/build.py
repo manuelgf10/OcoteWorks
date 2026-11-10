@@ -762,9 +762,10 @@ LOADER = """<div id="ow-loader" aria-hidden="true"><div class="owl-glow"></div><
 </div></div>
 <noscript><style>#ow-loader{{display:none}}</style></noscript>
 <script>(function(){{var l=document.getElementById("ow-loader");if(!l)return;
-try{{if(sessionStorage.getItem("ow-lit")){{l.remove();return}}sessionStorage.setItem("ow-lit","1")}}catch(e){{}}
+var sec=null;try{{sec=sessionStorage.getItem("ow-secret");if(sec)sessionStorage.removeItem("ow-secret");if(sessionStorage.getItem("ow-lit")&&!sec){{l.remove();return}}sessionStorage.setItem("ow-lit","1")}}catch(e){{}}
+if(sec){{var es=document.documentElement.lang==="es",p=l.querySelector(".owl-prog"),bt=l.querySelector(".owl-btn");if(p)p.textContent=es?"PRG SECRETO · ↑↑↓↓←→←→BA":"SECRET PRG · ↑↑↓↓←→←→BA";if(bt)bt.textContent="Cycle start";l.classList.add("owl-secret")}}
 document.documentElement.classList.add("owl-on");
-var t0=Date.now(),gone=false,min=matchMedia("(prefers-reduced-motion: reduce)").matches?0:1900;
+var t0=Date.now(),gone=false,min=matchMedia("(prefers-reduced-motion: reduce)").matches?0:(sec?3200:1900);
 function done(){{if(gone)return;gone=true;setTimeout(function(){{l.classList.add("out");document.documentElement.classList.remove("owl-on");setTimeout(function(){{l.remove()}},600)}},Math.max(0,min-(Date.now()-t0)))}}
 if(document.readyState==="complete")done();else addEventListener("load",done);setTimeout(done,4500)}})();</script>"""
 

@@ -27,11 +27,68 @@
     document.addEventListener("mouseout", function () { clearTimeout(timer); }, { passive: true });
     document.addEventListener("touchstart", function (e) { var u = target(e); if (u) warm(u); }, { passive: true });
   }
+  // ── Secretos ─────────────────────────────────────────────
+  var lang = document.documentElement.lang === "es" ? "es" : "en";
+  var secretEv = function (k) { try { window.goatcounter.count({ path: "secreto-" + k, title: "Secreto · " + k, event: true }); } catch (e) {} };
+  var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // El ocote prende: 5 clics al logo (pie en cualquier página; cabecera en la portada).
+  var toast = function (html, x, y) {
+    var t = document.createElement("div"); t.className = "ow-toast"; t.innerHTML = html;
+    document.body.appendChild(t);
+    var w = t.offsetWidth, h = t.offsetHeight;
+    t.style.left = Math.max(12, Math.min(innerWidth - w - 12, x - w / 2)) + "px";
+    t.style.top = Math.max(12, Math.min(innerHeight - h - 12, y)) + "px";
+    setTimeout(function () { t.style.opacity = "0"; setTimeout(function () { t.remove(); }, 450); }, 3600);
+  };
+  var ignite = function (el) {
+    var r = el.getBoundingClientRect(), cols = ["#edb544", "#e48233", "#f4ead7", "#e48233"];
+    if (!still && document.body.animate) {
+      for (var i = 0; i < 34; i++) {
+        var e = document.createElement("i"); e.className = "ow-ember";
+        var c = cols[i % cols.length], s = 3 + Math.random() * 5;
+        e.style.cssText = "left:" + (r.left + Math.random() * r.width) + "px;top:" + (r.top + r.height * (.4 + Math.random() * .6)) + "px;width:" + s + "px;height:" + s + "px;background:" + c + ";box-shadow:0 0 " + (s * 2) + "px " + c;
+        document.body.appendChild(e);
+        var dx = (Math.random() - .5) * 120, dy = 90 + Math.random() * 180;
+        var a = e.animate([{ transform: "translate(0,0) scale(1)", opacity: 1 }, { transform: "translate(" + dx + "px," + (-dy) + "px) scale(.2)", opacity: 0 }],
+          { duration: 1100 + Math.random() * 1300, delay: Math.random() * 350, easing: "cubic-bezier(.2,.6,.3,1)", fill: "both" });
+        a.onfinish = (function (n) { return function () { n.remove(); }; })(e);
+      }
+      el.animate([{ filter: "drop-shadow(0 0 0 rgba(228,130,51,0))" }, { filter: "drop-shadow(0 0 14px rgba(228,130,51,.9))" }, { filter: "drop-shadow(0 0 0 rgba(228,130,51,0))" }], { duration: 1600, easing: "ease-out" });
+    }
+    toast(lang === "es" ? "<b>Ocote:</b> la astilla de pino que prende el fuego." : "<b>Ocote:</b> the pine splinter that starts the fire.",
+          r.left + r.width / 2, r.top < innerHeight / 2 ? r.bottom + 12 : r.top - 70);
+    secretEv("ocote");
+  };
+  var clicks = 0, last = 0;
+  var onLogo = function (el) {
+    var now = Date.now(); clicks = now - last < 1200 ? clicks + 1 : 1; last = now;
+    if (clicks >= 5) { clicks = 0; ignite(el); }
+  };
+  var fLogo = document.querySelector(".f-brand picture");
+  if (fLogo) { fLogo.style.cursor = "pointer"; fLogo.addEventListener("click", function () { onLogo(fLogo); }); }
+  var hLogo = document.querySelector(".top .brand");
+  if (hLogo && hLogo.pathname === location.pathname) {
+    hLogo.addEventListener("click", function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: still ? "auto" : "smooth" }); onLogo(hLogo.querySelector("img") || hLogo); });
+  }
+
+  // Código Konami: vuelve a encender el tubo con un programa secreto.
+  var seq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65], pos = 0;
+  document.addEventListener("keydown", function (e) {
+    var k = e.keyCode || 0;
+    pos = (k === seq[pos]) ? pos + 1 : (k === seq[0] ? 1 : 0);
+    if (pos === seq.length) {
+      pos = 0; secretEv("konami");
+      try { sessionStorage.setItem("ow-secret", "1"); } catch (er) {}
+      setTimeout(function () { location.reload(); }, 150);
+    }
+  });
+
   // Reloj de la franja del taller (hora de Monterrey)
   var clock = document.querySelector(".st-clock");
   if (clock && window.Intl) {
     var fmt = new Intl.DateTimeFormat("es-MX", { timeZone: clock.dataset.tz, hour: "2-digit", minute: "2-digit", hour12: false });
-    var tick = function () { var t = fmt.format(new Date()); clock.textContent = t; clock.setAttribute("datetime", t); };
+    var tick = function () { var t = fmt.format(new Date()); clock.textContent = t === "07:00" ? "T7:00" : t; clock.setAttribute("datetime", t); };  // a las 7:00, por la Ténéré 700
     tick(); setInterval(tick, 15000);
   }
   // Video de portada: se carga después de la página; no en "reducir movimiento" ni con ahorro de datos.

@@ -32,7 +32,7 @@
   var buildViewer = function (t) {
     var d = t.dataset, mv = document.createElement("model-viewer");
     var attrs = { src: d["3d"], alt: d.alt, "camera-controls": "", "touch-action": "pan-y", ar: "", "ar-modes": "webxr scene-viewer quick-look",
-      "ar-scale": "fixed", "camera-orbit": "35deg 68deg 0.68m", "min-camera-orbit": "auto auto 0.35m", "max-camera-orbit": "auto auto 1.3m",
+      "ar-scale": "fixed", "camera-orbit": "35deg 68deg 0.68m", "min-camera-orbit": "auto 0deg 0.35m", "max-camera-orbit": "auto 172deg 1.3m",
       "field-of-view": "28deg", "tone-mapping": "neutral", exposure: "1.1", "shadow-intensity": "0.9", "shadow-softness": "0.8",
       "environment-image": "neutral", "interaction-prompt": "none" };
     Object.keys(attrs).forEach(function (k) { mv.setAttribute(k, attrs[k]); });
@@ -46,8 +46,9 @@
       b.setAttribute("data-position", h.p); b.setAttribute("data-normal", h.n);
       b.setAttribute("data-visibility-attribute", "visible");
       b.setAttribute("aria-label", h.t + ". " + h.d);
-      b.textContent = String(i + 1);
-      b.addEventListener("click", function (e) { e.stopPropagation(); showInfo(i); });
+      var secret = h.k === "sign";
+      if (secret) { b.className = "pd-hs pd-hs-sign"; b.textContent = "M."; b.tabIndex = -1; } else b.textContent = String(i + 1);
+      b.addEventListener("click", function (e) { e.stopPropagation(); showInfo(i); if (secret) ev("secreto-firma-" + slug, "Encontró la firma · " + code); });
       mv.appendChild(b);
     });
     var active = -1;
@@ -58,7 +59,7 @@
       mv.querySelectorAll(".pd-hs").forEach(function (b, j) { b.classList.toggle("on", j === active); });
       if (active < 0) { bar.hidden = true; return; }
       var h = hs[active];
-      bar.innerHTML = "<b>" + String(active + 1).padStart(2, "0") + "</b><span><strong></strong> <em></em></span>";
+      bar.innerHTML = "<b>" + (h.k === "sign" ? "✦" : String(active + 1).padStart(2, "0")) + "</b><span><strong></strong> <em></em></span>";
       bar.querySelector("strong").textContent = h.t; bar.querySelector("em").textContent = h.d;
       bar.hidden = false;
     };
