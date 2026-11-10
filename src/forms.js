@@ -7,7 +7,9 @@ document.querySelectorAll("form.w-form").forEach(function (f) {
     if (!f.email.checkValidity()) { f.email.reportValidity(); return; }
     btn.disabled = true;
     fetch(f.action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(f) })
-      .then(function (r) { if (!r.ok) throw 0; f.classList.add("done"); msg.textContent = f.dataset.ok; f.email.value = ""; })
+      .then(function (r) {
+        if (!r.ok) throw 0; f.classList.add("done");
+        try { window.goatcounter.count({ path: "lista-espera-" + ((f._subject && f._subject.value.split("·").pop().trim()) || "general").toLowerCase().replace(/[^a-z0-9]+/g, "-"), title: "Lista de espera", event: true }); } catch (e) {} msg.textContent = f.dataset.ok; f.email.value = ""; })
       .catch(function () { btn.disabled = false; msg.textContent = f.dataset.err; msg.classList.add("err"); });
   });
 });

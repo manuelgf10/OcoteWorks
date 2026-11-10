@@ -211,7 +211,7 @@ def gallery(p, lang):
 def variants(p, lang):
     names = p[lang]["variants"]
     return "".join(
-        f'<label class="pd-sw"><input type="radio" name="variant" value="{names[k]}"{" checked" if i == 0 else ""}>'
+        f'<label class="pd-sw"><input type="radio" name="variant" value="{names[k]}" data-key="{k}"{" checked" if i == 0 else ""}>'
         f'<i style="--sw:{c}"></i><span>{names[k]}</span></label>'
         for i, (k, c) in enumerate(p["variants"]))
 
@@ -272,5 +272,5 @@ def home_feature(p, lang, products_url):
             f'<div class="h-shop-info"><p class="eyebrow">{u["home_eyebrow"]}</p><h2 id="h-shop-h">{P["name"]}</h2>'
             f'<p class="h-shop-fit">{P["fit"]}</p><p class="h-shop-tag">{P["tagline"]}</p>'
             f'<div class="h-shop-price"><span>{price(p)}</span><span class="pc-st">{u["status_batch"]}</span></div>'
-            f'<div class="ctas"><a class="btn" href="{url(p, lang)}">{u["cat_view"]}</a>'
+            f'<div class="ctas"><a class="btn" href="{url(p, lang)}" data-goatcounter-click="inicio-tienda-{p["code"].lower()}">{u["cat_view"]}</a>'
             f'<a class="btn ghost" href="{products_url}">{u["home_all"]}</a></div></div></div></section>')

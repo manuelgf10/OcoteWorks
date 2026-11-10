@@ -516,6 +516,7 @@ const T = {
       if (!res.ok) throw new Error(res.status);
       const box = document.getElementById("q-send");
       box.classList.add("q-sent");
+      try { window.goatcounter.count({ path: "cotizador-enviado", title: "Cotizador enviado · " + data.complexity, event: true }); } catch (e) {}
       fm.outerHTML = `<div class="q-ok" role="status" tabindex="-1"><p class="q-ok-h">${t.send.okH}</p><p>${t.send.okP(ref, esc(f.email))}</p>` +
         `<button type="button" class="btn ghost" onclick="location.reload()">${t.send.okNew}</button></div>`;
       const ok = box.querySelector(".q-ok"); ok.focus({ preventScroll: true }); box.scrollIntoView({ behavior: "smooth", block: "center" });

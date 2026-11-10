@@ -795,6 +795,8 @@ for _e in JO.ENTRIES:
 
 
 MOTION_V = ""
+# Analítica sin cookies (GoatCounter). Panel: https://manuelgf10.goatcounter.com · vacío = desactivada.
+GC_CODE = "manuelgf10"
 FORMSPREE = "https://formspree.io/f/mwllgewa"
 
 
@@ -836,6 +838,8 @@ def write(path, html):
     html = microtype(html, lang)
     html = add_loader(html, lang)
     html = html.replace("</body>", f'<script src="/assets/motion.js?v={MOTION_V}" defer></script>\n</body>', 1)
+    if GC_CODE:
+        html = html.replace("</body>", f'<script data-goatcounter="https://{GC_CODE}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>\n</body>', 1)
     full = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
     os.makedirs(os.path.dirname(full), exist_ok=True)
     open(full, "w", encoding="utf-8").write(html)

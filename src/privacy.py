@@ -1,7 +1,7 @@
 """Aviso de privacidad integral (LFPDPPP, vigente desde el 21 de marzo de 2025) y avisos simplificados de los formularios.
 
 El texto en español es el que rige; el inglés es una traducción de cortesía.
-Si cambia algo (p. ej. se agrega analítica en el paso 8), actualizar el texto y LG_UPDATED.
+Si cambia algo (otro proveedor, otra finalidad), actualizar el texto y LG_UPDATED. Analítica GoatCounter agregada el 9 nov 2026.
 """
 
 LG_UPDATED = {"es": "9 de noviembre de 2026", "en": "November 9, 2026"}
@@ -44,11 +44,12 @@ SECTIONS = {
 <ul>
 <li><b>Formspree</b> (Estados Unidos): recibe los formularios del sitio y nos los reenvía por correo.</li>
 <li><b>Google / Gmail</b>: buzón donde recibimos y respondemos los mensajes.</li>
+<li><b>GoatCounter</b>: estadísticas de visitas sin cookies. Registra la página visitada, de dónde llegaste, el tipo de navegador, el tamaño de pantalla y el país y la región aproximados; no guarda tu dirección IP ni te identifica.</li>
 <li><b>GitHub Pages</b> (hospedaje), <b>Adobe Fonts</b> y <b>Google Fonts</b> (tipografías): al cargar las páginas pueden recibir datos técnicos de tu navegador, como la dirección IP, conforme a sus propios avisos de privacidad.</li>
 </ul>
 <p>No realizamos transferencias de tus datos a terceros.</p>"""),
         ("Cookies y tecnologías similares", f"""
-<p>El sitio no usa cookies propias ni herramientas de analítica o publicidad. Solo guarda en tu navegador, durante la visita, una marca para mostrar la animación de carga una sola vez; no te identifica y se borra al cerrar la pestaña.</p>"""),
+<p>El sitio no usa cookies ni herramientas de publicidad. Para saber cuántas personas lo visitan usamos GoatCounter, que cuenta visitas y algunas acciones (por ejemplo, pulsar «Comprar» o enviar un formulario) de forma agregada y sin cookies. Además, el sitio guarda en tu navegador, durante la visita, una marca para mostrar la animación de carga una sola vez; no te identifica y se borra al cerrar la pestaña.</p>"""),
         ("Conservación", f"""
 <p>Conservamos tus datos solo el tiempo necesario para atender tu solicitud y dar seguimiento al proyecto. Los correos de la lista de espera se conservan hasta que el producto esté disponible o hasta que pidas salir.</p>"""),
         ("Cambios a este aviso", f"""
@@ -89,11 +90,12 @@ SECTIONS = {
 <ul>
 <li><b>Formspree</b> (United States): receives the site’s forms and forwards them to us by email.</li>
 <li><b>Google / Gmail</b>: the inbox where we receive and answer messages.</li>
+<li><b>GoatCounter</b>: cookie-free visit statistics. It records the page visited, where you came from, browser type, screen size and approximate country and region; it doesn’t store your IP address or identify you.</li>
 <li><b>GitHub Pages</b> (hosting), <b>Adobe Fonts</b> and <b>Google Fonts</b> (typefaces): when pages load they may receive technical data from your browser, such as your IP address, under their own privacy notices.</li>
 </ul>
 <p>We do not transfer your data to third parties.</p>"""),
         ("Cookies and similar technologies", f"""
-<p>The site uses no cookies of its own and no analytics or advertising tools. It only stores a flag in your browser during your visit so the loading animation plays once; it doesn’t identify you and is cleared when you close the tab.</p>"""),
+<p>The site uses no cookies and no advertising tools. To know how many people visit, we use GoatCounter, which counts visits and a few actions (such as pressing “Buy” or sending a form) in aggregate and without cookies. The site also stores a flag in your browser during your visit so the loading animation plays once; it doesn’t identify you and is cleared when you close the tab.</p>"""),
         ("Retention", f"""
 <p>We keep your data only as long as needed to handle your request and follow up on the project. Waitlist emails are kept until the product is available or until you ask to be removed.</p>"""),
         ("Changes to this notice", f"""

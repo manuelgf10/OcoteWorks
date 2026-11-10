@@ -1,6 +1,15 @@
 /* OcoteWorks · ficha de producto
    Galería, selector de acabado y botón Comprar → panel honesto de lista del primer lote (Formspree, sin cobro). */
 (function () {
+  // Eventos para GoatCounter (si está bloqueado, no pasa nada).
+  var ev = function (path, title) {
+    try { window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
+  };
+  var code = (document.querySelector("#pd-dlg form") || { dataset: {} }).dataset.code || "producto";
+  var slug = code.toLowerCase();
+  var key = function () { var r = document.querySelector('.pd-var input[name="variant"]:checked'); return r ? r.dataset.key : "base"; };
+  var seenVariant = {};
+
   // Galerías (una por acabado): las miniaturas cambian la imagen principal.
   var gals = document.querySelectorAll(".pd-gallery");
   gals.forEach(function (gal) {
@@ -27,6 +36,8 @@
   var dlg = document.getElementById("pd-dlg"), form = dlg && dlg.querySelector("form");
   var setVariant = function (v, i) {
     showGallery(i);
+    var k = document.querySelectorAll('.pd-var input[name="variant"]')[i].dataset.key;
+    if (i && !seenVariant[k]) { seenVariant[k] = 1; ev("acabado-" + slug + "-" + k, "Ve acabado · " + code + " · " + v); }
     if (!form) return;
     form.variant.value = v; form._subject.value = "Interés · " + form.dataset.code + " · " + v;
     dlg.querySelector("[data-variant-out]").textContent = v;
@@ -39,6 +50,7 @@
   var open = document.querySelector("[data-open]");
   if (open && dlg) {
     open.addEventListener("click", function () {
+      ev("comprar-" + slug + "-" + key(), "Comprar · " + code + " · " + form.variant.value);
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
       setTimeout(function () { form.email.focus(); }, 50);
     });
@@ -58,6 +70,7 @@
         .then(function (r) {
           if (!r.ok) throw 0;
           form.classList.add("done");
+          ev("lista-" + slug + "-" + key(), "Se anota · " + code + " · " + form.variant.value + " · " + form.quantity.value);
           msg.textContent = form.dataset.ok.replace("{code}", form.dataset.code).replace("{variant}", form.variant.value);
         })
         .catch(function () { btn.disabled = false; msg.textContent = form.dataset.err; msg.classList.add("err"); });
