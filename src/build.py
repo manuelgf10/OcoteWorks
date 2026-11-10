@@ -262,7 +262,7 @@ EN = dict(
                    ("2 roles", "Design engineering and lab management, in parallel"), ("CAD → CNC", "From the model to the machine")]),
     a_story_eyebrow="Professional background", a_story_h2="From design to how things are made",
     a_story="<p>I studied Industrial Design at Universidad Iberoamericana, but my curiosity has always gone beyond what a product looks like. I’ve always wanted to understand how things work, how they’re built, and how they can be made better.</p>"
-            "<p>My professional journey began in 2015 at Mosaicos Venecianos, where I first worked alongside lathes, milling machines, and industrial equipment. Later, at IKTA, I explored the relationship between design and manufacturing through CAD, CAM, and metal fabrication.</p>"
+            "<p>My professional journey began in 2015 at Mosaicos Venecianos, where I first worked alongside lathes, milling machines, and industrial equipment. Later, at IKTA, I explored the relationship between design and manufacturing through CAD, CAM, and metal fabrication. At Nova Pack, designing plastic packaging and pharmaceutical containers, I learned to program CNC machining and to speak the language of mechanical drawings, while working hands-on with injection and blow molds.</p>"
             "<p>Since 2020, I’ve worked in medical device development at Bioana, where engineering, quality, and precision are essential. Managing the prototyping lab has given me the opportunity to work on both sides of product development: designing components and operating the equipment that brings them to life.</p>"
             "<p>OcoteWorks brings those experiences together with my personal interests in motorcycles, mechanical systems, and the outdoors.</p>"
             "<p>It’s my independent workshop. A place to explore ideas, solve problems, and turn curiosity into things you can actually build, use, and take further.</p>",
@@ -275,6 +275,8 @@ EN = dict(
                        "Medical device development: requirements turned into engineering solutions, mechanical components, assemblies, fixtures and tooling, CAD models, production drawings and BOMs, functional prototypes, DFM/DFA and support for verification testing. Also packaging, labeling and internal development processes."),
                       ("2022 – now", "Laboratory Manager",
                        "Technical operation of the prototyping lab: equipment documentation and operating instructions, preventive maintenance and calibration, installation and troubleshooting, new fabrication capabilities and hands-on support for R&amp;D.")], True),
+        tl("Nova Pack", [("2021 – 2022", "Product Developer",
+                          "Plastic packaging and pharmaceutical containers: mechanical drawings, CNC machining programs, renders and injection mold modifications. Hands-on work with injection and blow molding.")]),
         tl("IKTA", [("2019 – 2020", "Industrial design", "Steel structures and decorative architectural elements. CAD/CAM and visualization.")]),
         tl("Universidad Iberoamericana", [("2015 – 2020", "B.A. Industrial Design", "")]),
         tl("Mosaicos Venecianos", [("2015", "Early industrial experience", "Industrial equipment maintenance and conventional machining on lathes and mills.")]),
@@ -420,7 +422,7 @@ ES = dict(
                    ("2 roles", "Ingeniería de diseño y gestión de laboratorio, en paralelo"), ("CAD → CNC", "Del modelo a la máquina")]),
     a_story_eyebrow="Trayectoria profesional", a_story_h2="Del diseño a cómo se fabrican las cosas",
     a_story="<p>Estudié Diseño Industrial en la Universidad Iberoamericana, pero mi curiosidad siempre fue más allá de cómo se ve un producto. Siempre he querido entender cómo funcionan las cosas, cómo se construyen y cómo pueden hacerse mejor.</p>"
-            "<p>Mi camino profesional empezó en 2015 en Mosaicos Venecianos, donde trabajé por primera vez junto a tornos, fresadoras y equipo industrial. Después, en IKTA, exploré la relación entre diseño y manufactura a través del CAD, el CAM y la fabricación en metal.</p>"
+            "<p>Mi camino profesional empezó en 2015 en Mosaicos Venecianos, donde trabajé por primera vez junto a tornos, fresadoras y equipo industrial. Después, en IKTA, exploré la relación entre diseño y manufactura a través del CAD, el CAM y la fabricación en metal. En Nova Pack, diseñando empaques plásticos y envases farmacéuticos, aprendí a programar maquinado CNC y a hablar el idioma de los dibujos mecánicos, mientras trabajaba directamente con moldes de inyección y de soplado.</p>"
             "<p>Desde 2020 trabajo en el desarrollo de dispositivos médicos en Bioana, donde la ingeniería, la calidad y la precisión son esenciales. Estar a cargo del laboratorio de prototipos me ha dado la oportunidad de trabajar en los dos lados del desarrollo de producto: diseñar componentes y operar el equipo que les da vida.</p>"
             "<p>OcoteWorks reúne esas experiencias con mis intereses personales: las motos, los sistemas mecánicos y la vida al aire libre.</p>"
             "<p>Es mi taller independiente. Un lugar para explorar ideas, resolver problemas y convertir la curiosidad en cosas que de verdad se pueden construir, usar y llevar más lejos.</p>",
@@ -433,6 +435,8 @@ ES = dict(
                        "Desarrollo de dispositivos médicos: requisitos convertidos en soluciones de ingeniería, componentes mecánicos, ensambles, fixtures y herramentales, modelos CAD, planos de producción y BOMs, prototipos funcionales, DFM/DFA y apoyo a pruebas de verificación. También empaque, etiquetado y procesos internos de desarrollo."),
                       ("2022 – hoy", "Responsable de Laboratorio",
                        "Operación técnica del laboratorio de prototipos: documentación e instructivos de equipo, mantenimiento preventivo y calibración, instalación y solución de fallas, nuevas capacidades de fabricación y apoyo directo a I+D.")], True),
+        tl("Nova Pack", [("2021 – 2022", "Desarrollador de producto",
+                          "Empaques plásticos y envases farmacéuticos: dibujos mecánicos, programación de maquinado CNC, renders y modificaciones a moldes de inyección. Experiencia directa con moldeo por inyección y por soplado.")]),
         tl("IKTA", [("2019 – 2020", "Diseño industrial", "Estructuras de acero y elementos arquitectónicos decorativos. CAD/CAM y visualización.")]),
         tl("Universidad Iberoamericana", [("2015 – 2020", "Licenciatura en Diseño Industrial", "")]),
         tl("Mosaicos Venecianos", [("2015", "Primera experiencia industrial", "Mantenimiento de equipo industrial y maquinado convencional en torno y fresadora.")]),
