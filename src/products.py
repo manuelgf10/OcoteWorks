@@ -627,7 +627,7 @@ def _kit_item(code, lang):
     raise KeyError(code)
 
 
-def kit_map(lang):
+def kit_map(lang, extra=""):
     u = KIT_UI[lang]
     vx, vy, vw, vh = KIT_VIEW
     pts, cards = "", ""
@@ -646,4 +646,4 @@ def kit_map(lang):
     return (f'<section class="cat-kit" id="{"equipa-tu-t7" if lang == "es" else "kit-out-your-t7"}" aria-labelledby="km-h"><div class="wrap">'
             f'<div class="km-head"><p class="eyebrow">{u["k"]} · Yamaha Ténéré 700</p><h2 id="km-h"><span>{u["h1"]}</span> {u["h2"]}</h2><p class="lead">{u["lead"]}</p></div>'
             f'<div class="km-grid"><div class="km-fig"><div class="km-draw">{draw}{pts}</div>{off}</div><div class="km-cards" aria-live="polite">{cards}</div></div>'
-            f'</div></section>')
+            f'{extra}</div></section>')

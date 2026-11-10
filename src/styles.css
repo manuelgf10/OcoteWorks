@@ -1201,3 +1201,27 @@ footer{position:relative}
 @media (max-width:900px){.km-grid{grid-template-columns:1fr}.km-pt{width:28px;height:28px;font-size:13px}}
 @media (max-width:480px){.km-pt{width:24px;height:24px;font-size:11px;border-width:2px}.km-pt::after{inset:-5px}}
 @media (prefers-reduced-motion:reduce){.km-pt::after{display:none}}
+
+/* Equipa tu T7 · ¿Tu moto no está? */
+.moto-form{margin-top:clamp(40px,6vw,72px);padding-top:clamp(28px,4vw,40px);border-top:2px dashed rgba(23,23,26,.3);display:grid;gap:18px}
+.mf-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.mf-head h3{font-size:clamp(32px,3.4vw,46px);line-height:.95}
+.mf-head p{color:var(--grafito);max-width:56ch}
+.mf-chips{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.mf-chip{position:relative;cursor:pointer}
+.mf-chip input{position:absolute;opacity:0;width:1px;height:1px}
+.mf-chip span{display:inline-block;padding:10px 16px 9px;border:2px solid var(--carbon);border-radius:999px;background:var(--marfil);font:700 13px/1 var(--mono);letter-spacing:.04em;transition:background .15s,transform .15s}
+.mf-chip:hover span{transform:translateY(-1px)}
+.mf-chip input:checked + span{background:var(--carbon);color:var(--cempasuchil)}
+.mf-chip input:focus-visible + span{outline:3px solid var(--talavera);outline-offset:2px}
+.mf-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.mf-f{display:grid;gap:6px;font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--grafito)}
+.mf-f[hidden]{display:none}
+.mf-f input{font:400 16px/1.3 var(--sans);color:var(--carbon);background:var(--marfil);border:2px solid var(--carbon);border-radius:var(--r-sm);padding:11px 13px;min-width:0;text-transform:none;letter-spacing:0}
+.mf-f input:focus-visible{outline:3px solid var(--talavera);outline-offset:1px}
+.mf-other{flex:1 1 220px}.mf-year{flex:0 0 140px}.mf-mail{flex:1 1 260px}
+.moto-form .btn{white-space:nowrap}
+.moto-form button[disabled]{opacity:.6;cursor:wait}
+.mf-note{font-size:14px;color:var(--grafito)}
+.moto-form.done .mf-chips,.moto-form.done .mf-row,.moto-form.done .mf-note{opacity:.45;pointer-events:none}
+@media (max-width:600px){.mf-year{flex:1 1 100%}.moto-form .btn{width:100%}}

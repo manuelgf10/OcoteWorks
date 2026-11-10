@@ -883,6 +883,40 @@ GC_CODE = "manuelgf10"
 FORMSPREE = "https://formspree.io/f/mwllgewa"
 
 
+# "¿Tu moto no está?": votación por moto para decidir cuál sigue (Formspree + GoatCounter). Motos en estudio: editar aquí.
+MOTO_LIST = ["Honda NX190", "CFMOTO 450MT", "Triumph Scrambler 400", "KTM 390 Adventure", "Honda Transalp", "Italika"]
+MOTO_UI = {
+    "es": dict(h="¿Tu moto no está?", lead="Dinos cuál tienes. Con tus respuestas decidimos qué moto sigue en el banco.",
+               other="Otra", which="¿Cuál? Marca y modelo", year="Año (opcional)", email="Tu correo (opcional)",
+               email_note="Si lo dejas, te avisamos cuando haya piezas para tu moto. Nada más.", btn="Votar por mi moto",
+               ok="Gracias. Tu moto quedó anotada en el banco.", err="No se pudo enviar. Intenta de nuevo o escríbenos a hola@ocoteworks.com.",
+               pick="Elige una moto.", priv='Responsable: Manuel García Flores (OcoteWorks), Monterrey, N.L. Usamos tu correo solo para avisarte de piezas para tu moto. <a href="/es/privacidad/">Aviso de privacidad</a>.'),
+    "en": dict(h="Your bike isn’t here?", lead="Tell us what you ride. Your answers decide which bike goes on the bench next.",
+               other="Other", which="Which one? Make and model", year="Year (optional)", email="Your email (optional)",
+               email_note="Leave it and we’ll let you know when there are parts for your bike. That’s all.", btn="Vote for my bike",
+               ok="Thanks. Your bike is on the bench list.", err="Couldn’t send it. Try again or write to hola@ocoteworks.com.",
+               pick="Pick a bike.", priv='Controller: Manuel García Flores (OcoteWorks), Monterrey, Mexico. We only use your email to tell you about parts for your bike. <a href="/privacy/">Privacy notice</a>.'),
+}
+
+
+def moto_form(lang):
+    u = MOTO_UI[lang]
+    chips = "".join(f'<label class="mf-chip"><input type="radio" name="moto" value="{m}"><span>{m}</span></label>' for m in MOTO_LIST)
+    chips += f'<label class="mf-chip"><input type="radio" name="moto" value="other"><span>{u["other"]}</span></label>'
+    return (f'<form class="moto-form" action="{FORMSPREE}" method="POST" data-ok="{u["ok"]}" data-err="{u["err"]}" data-pick="{u["pick"]}" novalidate>'
+            f'<div class="mf-head"><h3>{u["h"]}</h3><p>{u["lead"]}</p></div>'
+            f'<fieldset class="mf-chips"><legend class="sr">{u["h"]}</legend>{chips}</fieldset>'
+            f'<div class="mf-row"><label class="mf-f mf-other" hidden><span>{u["which"]}</span><input type="text" name="moto_otra" maxlength="60" autocomplete="off"></label>'
+            f'<label class="mf-f mf-year"><span>{u["year"]}</span><input type="text" name="anio" inputmode="numeric" maxlength="9" autocomplete="off"></label>'
+            f'<label class="mf-f mf-mail"><span>{u["email"]}</span><input type="email" name="email" autocomplete="email"></label>'
+            f'<button class="btn" type="submit">{u["btn"]}</button></div>'
+            f'<p class="mf-note">{u["email_note"]}</p><p class="w-msg" role="status" aria-live="polite"></p>'
+            f'<input type="hidden" name="pieza_vista" value=""><input type="hidden" name="source" value="Moto · {lang.upper()}">'
+            f'<input type="hidden" name="_subject" value="Moto">'
+            f'<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">'
+            f'<p class="f-privacy">{u["priv"]}</p></form>')
+
+
 def waitlist_form(d):
     return (f'<form class="w-form" action="{FORMSPREE}" method="POST" data-ok="{d["pr_form_ok"]}" data-err="{d["pr_form_err"]}">'
             f'<label class="sr" for="w-email">{d["pr_form_label"]}</label>'
@@ -998,7 +1032,7 @@ def main():
         write(PAGES["products"][i], render(T["catalog"], ctx("products", p_title=U["cat_title"], p_description=U["cat_description"], p_url=data["pr_url"],
                                                              cat_eyebrow=U["cat_eyebrow"], cat_h1=U["cat_h1"], cat_lead=U["cat_lead"],
                                                              cat_cards="".join(PR.card(p, lang) for p in PR.PRODUCTS) + PR.card_ow01(lang, moto_svg()),
-                                                             cat_status_dev=U["status_dev"], cat_ow01_name=U["ow01_name"], cat_kit=PR.kit_map(lang), cat_bench=PR.bench(lang), cat_roadlog=PR.roadlog(lang),
+                                                             cat_status_dev=U["status_dev"], cat_ow01_name=U["ow01_name"], cat_kit=PR.kit_map(lang, moto_form(lang)), cat_bench=PR.bench(lang), cat_roadlog=PR.roadlog(lang),
                                                              so_form=waitlist_form(data), moto_svg=moto_svg())))
         for p in PR.PRODUCTS:
             key = p["code"].lower().replace("-", "")

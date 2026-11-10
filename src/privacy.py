@@ -4,7 +4,7 @@ El texto en español es el que rige; el inglés es una traducción de cortesía.
 Si cambia algo (otro proveedor, otra finalidad), actualizar el texto y LG_UPDATED. Analítica GoatCounter agregada el 9 nov 2026.
 """
 
-LG_UPDATED = {"es": "9 de noviembre de 2026", "en": "November 9, 2026"}
+LG_UPDATED = {"es": "10 de noviembre de 2026", "en": "November 10, 2026"}
 
 MAIL = '<a href="mailto:hola@ocoteworks.com">hola@ocoteworks.com</a>'
 
@@ -18,6 +18,7 @@ SECTIONS = {
 <ul>
 <li><b>Cotizador:</b> nombre, correo electrónico, nombre del proyecto o marca, la información que escribas en las notas y la configuración del proyecto que elegiste.</li>
 <li><b>Listas de espera de productos:</b> correo electrónico y, en su caso, el acabado y el número de piezas que te interesan.</li>
+<li><b>¿Tu moto no está?:</b> la moto que tienes, su año y, si lo dejas, tu correo electrónico.</li>
 <li><b>Correo directo:</b> la información que incluyas en tu mensaje.</li>
 </ul>
 <p>No recabamos datos personales sensibles. Te pedimos no incluirlos en tus mensajes.</p>"""),
@@ -26,7 +27,7 @@ SECTIONS = {
 <ul>
 <li>Responder tu solicitud, hacerte preguntas sobre el proyecto y enviarte una propuesta y cotización.</li>
 <li>Dar seguimiento al proyecto si decides contratarlo.</li>
-<li>Avisarte cuando un producto de la lista de espera esté disponible y conocer cuánto interés hay en los productos en preparación, para decidir qué fabricar.</li>
+<li>Avisarte cuando un producto de la lista de espera esté disponible, o cuando haya piezas para tu moto, y conocer cuánto interés hay en los productos en preparación y en cada moto, para decidir qué fabricar.</li>
 </ul>
 <p>No usamos tus datos para publicidad, no los vendemos y no los compartimos con terceros para sus propios fines. Si en el futuro quisiéramos usarlos para algo distinto, te pediríamos antes tu consentimiento.</p>"""),
         ("Cómo limitar su uso", f"""
@@ -64,6 +65,7 @@ SECTIONS = {
 <ul>
 <li><b>Quote builder:</b> name, email, project or brand name, anything you write in the notes and the project configuration you chose.</li>
 <li><b>Product waitlists:</b> email and, where applicable, the finish and number of pieces you’re interested in.</li>
+<li><b>“Your bike isn’t here?”:</b> the bike you ride, its year and, if you leave it, your email.</li>
 <li><b>Direct email:</b> whatever you include in your message.</li>
 </ul>
 <p>We do not collect sensitive personal data. Please don’t include it in your messages.</p>"""),
@@ -72,7 +74,7 @@ SECTIONS = {
 <ul>
 <li>Reply to your request, ask questions about the project and send you a proposal and quote.</li>
 <li>Follow up on the project if you decide to go ahead.</li>
-<li>Let you know when a waitlisted product is available and gauge interest in products in pre-production, to decide what to make.</li>
+<li>Let you know when a waitlisted product is available, or when there are parts for your bike, and gauge interest in products in pre-production and in each bike, to decide what to make.</li>
 </ul>
 <p>We don’t use your data for advertising, we don’t sell it and we don’t share it with third parties for their own purposes. If we ever wanted to use it for something else, we would ask for your consent first.</p>"""),
         ("How to limit its use", f"""
