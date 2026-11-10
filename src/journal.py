@@ -184,7 +184,7 @@ def facts(e, lang):
 
 def card(e, lang):
     u = UI[lang]
-    return (f'<a class="j-card" href="{url(e, lang)}"><div class="j-card-img">{picture(e, e["cover"], lang, "(max-width:900px) 100vw, 640px")}</div>'
+    return (f'<a class="j-card" href="{url(e, lang)}"><div class="j-card-img" style="view-transition-name:j-{e["slug"]}">{picture(e, e["cover"], lang, "(max-width:900px) 100vw, 640px")}</div>'
             f'<div class="j-card-body"><p class="j-meta"><span class="j-cat">{e["category"][lang]}</span>'
             f'<time datetime="{e["date"]}">{date_txt(e, lang)}</time><span>{minutes(e, lang)} {u["read"]}</span></p>'
             f'<h2>{e[lang]["title"]}</h2><p>{e[lang]["dek"]}</p><span class="pc-go">{u["read_more"]} →</span></div></a>')

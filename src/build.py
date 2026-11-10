@@ -943,7 +943,7 @@ def main():
                                                                 j_jsonld='<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>",
                                                                 j_back=JU["back"], j_cat=e["category"][lang], j_date_iso=e["date"], j_date=JO.date_txt(e, lang),
                                                                 j_min=f'{JO.minutes(e, lang)} {JU["read"]}', j_title=E["title"], j_dek=E["dek"], j_by=JU["by"],
-                                                                j_cover=JO.picture(e, e["cover"], lang, "(max-width:1200px) 100vw, 1140px", eager=True),
+                                                                j_cover=JO.picture(e, e["cover"], lang, "(max-width:1200px) 100vw, 1140px", eager=True), j_vt=f"view-transition-name:j-{e['slug']}",
                                                                 j_body=JO.body(e, lang, prod, purl), j_facts_k=JU["facts"], j_facts=JO.facts(e, lang),
                                                                 j_product_url=purl, j_cta_product=JU["cta_product"], j_cta_ig=JU["cta_ig"])))
 

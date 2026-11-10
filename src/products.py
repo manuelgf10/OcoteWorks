@@ -218,6 +218,8 @@ def gallery(p, lang):
     for vi, (v, _) in enumerate(p["variants"]):
         imgs, alts = image_set(p, lang, v)
         tall = ' class="pd-main tall"' if imgs[0][2][1] > imgs[0][2][0] else ' class="pd-main"'
+        if vi == 0:
+            tall += f' style="{vt(p)}"'
         main = picture(p, 0, lang, "(max-width:900px) 100vw, 640px", tall, eager=vi == 0, v=v)
         thumbs = "".join(
             f'<button type="button" class="pd-thumb" data-i="{i}" aria-label="{alts[i]}"{" aria-current=\"true\"" if i == 0 else ""}>'
@@ -344,9 +346,14 @@ def buy_dialog(p, lang):
             f'<p class="f-privacy">{u["dlg_privacy"]}</p></form></dialog>')
 
 
+def vt(p):
+    """Nombre de view-transition de la imagen principal de un producto (morph entre páginas)."""
+    return f'view-transition-name:{p["code"].lower()}-img'
+
+
 def card(p, lang):
     u = UI[lang]
-    return (f'<a class="pc" href="{url(p, lang)}"><div class="pc-img">{picture(p, 0, lang, "(max-width:860px) 100vw, 560px")}'
+    return (f'<a class="pc" href="{url(p, lang)}"><div class="pc-img" style="{vt(p)}">{picture(p, 0, lang, "(max-width:860px) 100vw, 560px")}'
             f'<span class="pc-code">{p["code"]}</span></div><div class="pc-body">'
             f'<p class="pc-fit">{p[lang]["fit"]}</p><h2>{p[lang]["name"]}</h2><p>{p[lang]["card"]}</p>'
             f'<div class="pc-foot"><span class="pc-price">{price(p)}</span><span class="pc-st">{u["status_batch"]}</span></div>'
@@ -365,7 +372,7 @@ def home_feature(p, lang, products_url):
     """Bloque de la tienda en la página de inicio: el producto destacado del catálogo."""
     u, P = UI[lang], p[lang]
     return (f'<section class="h-shop on-dark" aria-labelledby="h-shop-h"><div class="wrap h-shop-grid">'
-            f'<a class="h-shop-img" href="{url(p, lang)}" tabindex="-1" aria-hidden="true">{picture(p, 0, lang, "(max-width:900px) 100vw, 660px")}'
+            f'<a class="h-shop-img" href="{url(p, lang)}" tabindex="-1" aria-hidden="true" style="{vt(p)}">{picture(p, 0, lang, "(max-width:900px) 100vw, 660px")}'
             f'<span class="pc-code">{p["code"]}</span></a>'
             f'<div class="h-shop-info"><p class="eyebrow">{u["home_eyebrow"]}</p><h2 id="h-shop-h">{P["name"]}</h2>'
             f'<p class="h-shop-fit">{P["fit"]}</p><p class="h-shop-tag">{P["tagline"]}</p>'
