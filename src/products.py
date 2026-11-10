@@ -597,17 +597,32 @@ def roadlog(lang):
 KIT_VIEW = (20, 115, 985, 700)
 KIT_POINTS = [("OW-02", 168, 366), ("OW-07", 276, 440), ("OW-01", 345, 401), ("OW-08", 404, 578),
               ("OW-04", 586, 263), ("OW-09", 690, 300), ("OW-05", 744, 233), ("OW-06", 714, 371)]
+# Motos del mapa. "scale" = largo real relativo a la T7 (los dibujos se muestran a escala entre sí).
+KIT_BIKES = [
+    {"key": "t7", "name": "Yamaha Ténéré 700", "tab": "Ténéré 700", "short": "T7", "img": "/assets/brand/tenere-700.svg",
+     "view": KIT_VIEW, "w": 985, "h": 700, "scale": 1.0, "points": KIT_POINTS},
+    {"key": "himalayan", "name": "Royal Enfield Himalayan 411", "tab": "Himalayan 411", "short": "Himalayan", "img": "/assets/brand/himalayan-411.svg",
+     "view": (114, 81, 1308, 862), "w": 1308, "h": 862, "scale": 0.93, "points": []},
+]
 KIT_UI = {
-    "es": {"k": "Por moto", "h1": "Equipa", "h2": "tu T7",
-           "lead": "Toca un punto para ver la pieza que va ahí. Todo lo diseñamos y probamos sobre una Yamaha Ténéré 700.",
-           "title": "Ilustración de una Yamaha Ténéré 700 dibujada por OcoteWorks, con los puntos donde se montan sus piezas",
+    "es": {"k": "Por moto", "h1": "Equipa", "your": "tu",
+           "lead": "Elige tu moto y toca un punto para ver la pieza que va ahí.",
+           "tested": {"t7": "Todo lo diseñamos y probamos sobre una Ténéré 700.", "himalayan": "Tenemos una Himalayan 411 en el taller. Sus primeras piezas ya están en el banco."},
+           "title": "Ilustración de una {name} dibujada por OcoteWorks, con los puntos donde se montan sus piezas",
+           "tabs": "Elige tu moto", "scale": "Dibujos a escala entre sí",
            "off": "Y para ti, fuera de la moto:", "see": "Ver ficha", "soon_go": "Ver en el banco", "ow01_go": "Lista de espera",
-           "batch": "Primer lote en preparación", "dev": "En desarrollo", "pick": "Pieza"},
-    "en": {"k": "By bike", "h1": "Kit out", "h2": "your T7",
-           "lead": "Tap a point to see the part that goes there. Everything is designed and tested on a Yamaha Ténéré 700.",
-           "title": "Yamaha Ténéré 700 illustration drawn by OcoteWorks, with the points where its parts mount",
+           "batch": "Primer lote en preparación", "dev": "En desarrollo", "pick": "Pieza",
+           "bench_h": "En el banco", "bench_p": "Ya tenemos una en el taller. Estamos midiendo y diseñando sus primeras piezas. ¿Qué te gustaría ver primero?",
+           "bench_go": "Cuéntanos qué moto tienes"},
+    "en": {"k": "By bike", "h1": "Kit out", "your": "your",
+           "lead": "Pick your bike and tap a point to see the part that goes there.",
+           "tested": {"t7": "Everything is designed and tested on a Ténéré 700.", "himalayan": "There’s a Himalayan 411 in the workshop. Its first parts are already on the bench."},
+           "title": "{name} illustration drawn by OcoteWorks, with the points where its parts mount",
+           "tabs": "Pick your bike", "scale": "Drawings to scale with each other",
            "off": "And for you, off the bike:", "see": "View product", "soon_go": "See it on the bench", "ow01_go": "Waitlist",
-           "batch": "First batch in preparation", "dev": "In development", "pick": "Part"},
+           "batch": "First batch in preparation", "dev": "In development", "pick": "Part",
+           "bench_h": "On the bench", "bench_p": "There’s one in the workshop. We’re measuring it and designing its first parts. What would you like to see first?",
+           "bench_go": "Tell us what you ride"},
 }
 
 
@@ -627,23 +642,45 @@ def _kit_item(code, lang):
     raise KeyError(code)
 
 
-def kit_map(lang, extra=""):
+def _kit_panel(bike, lang, first):
     u = KIT_UI[lang]
-    vx, vy, vw, vh = KIT_VIEW
+    vx, vy, vw, vh = bike["view"]
     pts, cards = "", ""
-    for i, (code, x, y) in enumerate(KIT_POINTS, 1):
+    for i, (code, x, y) in enumerate(bike["points"], 1):
         nick, name, line, st, href, go, kind = _kit_item(code, lang)
         on = " is-on" if i == 1 else ""
+        cid = f'km-{bike["key"]}-{i}'
         pts += (f'<button type="button" class="km-pt km-{kind}{on}" style="left:{(x - vx) / vw * 100:.2f}%;top:{(y - vy) / vh * 100:.2f}%" '
-                f'data-k="{i}" aria-controls="km-c{i}" aria-pressed="{"true" if i == 1 else "false"}" aria-label="{code} · {nick}"><span>{i}</span></button>')
+                f'data-k="{i}" aria-controls="{cid}" aria-pressed="{"true" if i == 1 else "false"}" aria-label="{code} · {nick}"><span>{i}</span></button>')
         stc = '<span class="bn-sign km-sign" lang="en">Coming soon!</span>' if kind == "soon" else f'<span class="pc-st{" pc-st-dev" if kind == "dev" else ""}">{st}</span>'
-        cards += (f'<article class="km-card km-{kind}{on}" id="km-c{i}" data-k="{i}"{"" if i == 1 else " hidden"}>'
+        cards += (f'<article class="km-card km-{kind}{on}" id="{cid}" data-k="{i}"{"" if i == 1 else " hidden"}>'
                   f'<p class="km-code"><b>{i:02d}</b> {code} · {u["pick"]}</p><h3>{nick}</h3><p class="pc-fit">{name}</p><p class="km-line">{line}</p>'
                   f'<div class="km-foot">{stc}<a href="{href}" class="km-go">{go} →</a></div></article>')
+    if not bike["points"]:
+        cards = (f'<article class="km-card km-soon is-on"><p class="km-code">{bike["name"]}</p><h3>{u["bench_h"]}</h3>'
+                 f'<p class="km-line">{u["bench_p"]}</p><div class="km-foot"><span class="bn-sign km-sign" lang="en">Coming soon!</span>'
+                 f'<a href="#moto-form" class="km-go">{u["bench_go"]} →</a></div></article>')
+    alt = u["title"].format(name=bike["name"])
+    img = (f'<img class="km-bike" src="{bike["img"]}" alt="{alt}" width="{bike["w"]}" height="{bike["h"]}" '
+           f'{"" if first else "loading=" + chr(34) + "lazy" + chr(34) + " "}decoding="async">')
+    return (f'<div class="km-panel" id="km-p-{bike["key"]}" role="tabpanel" aria-labelledby="km-t-{bike["key"]}" data-bike="{bike["key"]}" '
+            f'data-short="{bike["short"]}" data-name="{bike["name"]}" data-tested="{u["tested"][bike["key"]]}"{"" if first else " hidden"}>'
+            f'<div class="km-grid"><div class="km-fig"><div class="km-draw" style="width:{bike["scale"] * 100:.0f}%">{img}{pts}</div></div>'
+            f'<div class="km-cards" aria-live="polite">{cards}</div></div></div>')
+
+
+def kit_map(lang, extra=""):
+    u = KIT_UI[lang]
+    b0 = KIT_BIKES[0]
+    tabs = "".join(f'<button type="button" role="tab" class="km-tab{" is-on" if i == 0 else ""}" id="km-t-{b["key"]}" aria-controls="km-p-{b["key"]}" '
+                   f'aria-selected="{"true" if i == 0 else "false"}" data-bike="{b["key"]}"><small>{b["name"].rsplit(" ", 2)[0] if b["key"] == "himalayan" else "Yamaha"}</small>{b["tab"]}</button>'
+                   for i, b in enumerate(KIT_BIKES))
+    panels = "".join(_kit_panel(b, lang, i == 0) for i, b in enumerate(KIT_BIKES))
     b03 = next(b for b in BENCH if b["code"] == "OW-03")
-    off = f'<p class="km-off">{u["off"]} <a href="#{b03["slug"]}"><b>{b03["nick"]}</b> · {b03[lang]["name"]}</a></p>'
-    draw = f'<img class="km-bike" src="/assets/brand/tenere-700.svg" alt="{u["title"]}" width="985" height="700" loading="lazy" decoding="async">'
-    return (f'<section class="cat-kit" id="{"equipa-tu-t7" if lang == "es" else "kit-out-your-t7"}" aria-labelledby="km-h"><div class="wrap">'
-            f'<div class="km-head"><p class="eyebrow">{u["k"]} · Yamaha Ténéré 700</p><h2 id="km-h"><span>{u["h1"]}</span> {u["h2"]}</h2><p class="lead">{u["lead"]}</p></div>'
-            f'<div class="km-grid"><div class="km-fig"><div class="km-draw">{draw}{pts}</div>{off}</div><div class="km-cards" aria-live="polite">{cards}</div></div>'
-            f'{extra}</div></section>')
+    off = f'<p class="km-off">{u["off"]} <a href="#{b03["slug"]}"><b>{b03["nick"]}</b> · {b03[lang]["name"]}</a> · <span>{u["scale"]}</span></p>'
+    return (f'<section class="cat-kit" id="{"equipa-tu-moto" if lang == "es" else "kit-out-your-bike"}" aria-labelledby="km-h"><div class="wrap">'
+            f'<div class="km-head"><p class="eyebrow">{u["k"]} · <span class="km-ey">{b0["name"]}</span></p>'
+            f'<h2 id="km-h"><span>{u["h1"]}</span> {u["your"]} <b class="km-short">{b0["short"]}</b></h2>'
+            f'<p class="lead">{u["lead"]} <span class="km-tested">{u["tested"][b0["key"]]}</span></p>'
+            f'<div class="km-tabs" role="tablist" aria-label="{u["tabs"]}">{tabs}</div></div>'
+            f'{panels}{off}{extra}</div></section>')

@@ -1175,7 +1175,7 @@ footer{position:relative}
 .km-head h2 span{color:var(--grafito);opacity:.55}
 .km-head .lead{margin:18px auto 0;max-width:52ch}
 .km-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr);gap:clamp(24px,4vw,56px);align-items:center}
-.km-draw{position:relative}
+.km-draw{position:relative;margin:0 auto}
 .km-bike{display:block;width:100%;height:auto}
 .km-pt{position:absolute;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;border:2.5px solid var(--carbon);background:var(--cempasuchil);color:var(--carbon);font:700 15px/1 var(--mono);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:0 0 0 3px var(--marfil);transition:transform .2s cubic-bezier(.3,1.6,.5,1),background .2s}
 .km-pt::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:2px solid var(--ocote);opacity:0;animation:km-pulse 2.4s ease-out infinite}
@@ -1225,3 +1225,16 @@ footer{position:relative}
 .mf-note{font-size:14px;color:var(--grafito)}
 .moto-form.done .mf-chips,.moto-form.done .mf-row,.moto-form.done .mf-note{opacity:.45;pointer-events:none}
 @media (max-width:600px){.mf-year{flex:1 1 100%}.moto-form .btn{width:100%}}
+
+/* Equipa tu moto · pestañas */
+.km-head h2 b{font-weight:inherit}
+.km-tabs{display:inline-flex;gap:6px;margin-top:24px;padding:5px;border:2px solid var(--carbon);border-radius:999px;background:var(--marfil)}
+.km-tab{display:grid;gap:3px;text-align:center;padding:9px 20px 8px;border:0;border-radius:999px;background:none;color:var(--carbon);font:700 clamp(18px,1.6vw,22px)/1 var(--display);letter-spacing:.03em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.km-tab small{font:400 9px/1 var(--mono);letter-spacing:.12em;opacity:.7}
+.km-tab:hover{background:rgba(23,23,26,.07)}
+.km-tab.is-on{background:var(--carbon);color:var(--cempasuchil)}
+.km-tab:focus-visible{outline:3px solid var(--talavera);outline-offset:2px}
+.km-panel[hidden]{display:none}
+.km-panel{animation:km-in .35s ease-out}
+.km-off span{opacity:.6}
+@media (max-width:480px){.km-tab{padding:8px 14px 7px}}

@@ -155,16 +155,29 @@
     });
   }
 
-  // Equipa tu T7: cada punto muestra la tarjeta de su pieza.
+  // Equipa tu moto: pestañas por moto; cada punto muestra la tarjeta de su pieza.
   document.querySelectorAll(".cat-kit").forEach(function (kit) {
-    var pts = kit.querySelectorAll(".km-pt"), cards = kit.querySelectorAll(".km-card");
-    pts.forEach(function (b) {
-      b.addEventListener("click", function () {
-        var k = b.dataset.k;
-        pts.forEach(function (x) { var on = x.dataset.k === k; x.classList.toggle("is-on", on); x.setAttribute("aria-pressed", on ? "true" : "false"); });
-        cards.forEach(function (c) { var on = c.dataset.k === k; c.hidden = !on; c.classList.toggle("is-on", on); });
-        if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: "kit-t7-" + (b.getAttribute("aria-label") || "").split(" ")[0].toLowerCase(), title: "Equipa tu T7", event: true });
-        if (window.matchMedia("(max-width:900px)").matches) { var c = kit.querySelector(".km-card.is-on"); if (c && c.getBoundingClientRect().top > innerHeight - 120) c.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" }); }
+    var tabs = kit.querySelectorAll(".km-tab"), panels = kit.querySelectorAll(".km-panel");
+    var ey = kit.querySelector(".km-ey"), sh = kit.querySelector(".km-short"), te = kit.querySelector(".km-tested");
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        var k = t.dataset.bike, p;
+        tabs.forEach(function (x) { var on = x === t; x.classList.toggle("is-on", on); x.setAttribute("aria-selected", on ? "true" : "false"); });
+        panels.forEach(function (x) { x.hidden = x.dataset.bike !== k; if (!x.hidden) p = x; });
+        if (p) { ey.textContent = p.dataset.name; sh.textContent = p.dataset.short; te.textContent = p.dataset.tested; }
+        if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: "kit-moto-" + k, title: "Equipa tu moto", event: true });
+      });
+    });
+    panels.forEach(function (panel) {
+      var pts = panel.querySelectorAll(".km-pt"), cards = panel.querySelectorAll(".km-card[data-k]");
+      pts.forEach(function (b) {
+        b.addEventListener("click", function () {
+          var k = b.dataset.k;
+          pts.forEach(function (x) { var on = x.dataset.k === k; x.classList.toggle("is-on", on); x.setAttribute("aria-pressed", on ? "true" : "false"); });
+          cards.forEach(function (c) { var on = c.dataset.k === k; c.hidden = !on; c.classList.toggle("is-on", on); });
+          if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: "kit-" + panel.dataset.bike + "-" + (b.getAttribute("aria-label") || "").split(" ")[0].toLowerCase(), title: "Equipa tu moto", event: true });
+          if (window.matchMedia("(max-width:900px)").matches) { var c = panel.querySelector(".km-card.is-on"); if (c && c.getBoundingClientRect().top > innerHeight - 120) c.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "nearest" }); }
+        });
       });
     });
   });

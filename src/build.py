@@ -903,7 +903,7 @@ def moto_form(lang):
     u = MOTO_UI[lang]
     chips = "".join(f'<label class="mf-chip"><input type="radio" name="moto" value="{m}"><span>{m}</span></label>' for m in MOTO_LIST)
     chips += f'<label class="mf-chip"><input type="radio" name="moto" value="other"><span>{u["other"]}</span></label>'
-    return (f'<form class="moto-form" action="{FORMSPREE}" method="POST" data-ok="{u["ok"]}" data-err="{u["err"]}" data-pick="{u["pick"]}" novalidate>'
+    return (f'<form class="moto-form" id="moto-form" action="{FORMSPREE}" method="POST" data-ok="{u["ok"]}" data-err="{u["err"]}" data-pick="{u["pick"]}" novalidate>'
             f'<div class="mf-head"><h3>{u["h"]}</h3><p>{u["lead"]}</p></div>'
             f'<fieldset class="mf-chips"><legend class="sr">{u["h"]}</legend>{chips}</fieldset>'
             f'<div class="mf-row"><label class="mf-f mf-other" hidden><span>{u["which"]}</span><input type="text" name="moto_otra" maxlength="60" autocomplete="off"></label>'
