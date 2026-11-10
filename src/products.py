@@ -502,3 +502,62 @@ def home_feature(p, lang, products_url):
             f'<div class="h-shop-price"><span>{price(p)}</span><span class="pc-st">{u["status_batch"]}</span></div>'
             f'<div class="ctas"><a class="btn" href="{url(p, lang)}" data-goatcounter-click="inicio-tienda-{p["code"].lower()}">{u["cat_view"]}</a>'
             f'<a class="btn ghost" href="{products_url}">{u["home_all"]}</a></div></div></div></section>')
+
+
+# ---------- En el banco: productos en camino ----------
+# Espacios reservados en el catálogo. Cuando un producto tenga ficha, se mueve a PRODUCTS
+# (o se le pone "img" a su espacio para mostrar render/boceto antes de tener página).
+BENCH = [
+    {"code": "OW-03", "nick": "Lucero", "slug": "inreach-holder",
+     "es": {"name": "Porta inReach", "fit": "Correa de mochila", "line": "El comunicador satelital a la mano, sin quitarte la mochila."},
+     "en": {"name": "inReach holder", "fit": "Backpack strap", "line": "Your satellite messenger within reach, without taking the pack off."}},
+    {"code": "OW-04", "nick": "Cuate", "slug": "handlebar-clamp",
+     "es": {"name": "Abrazadera de manubrio", "fit": "Manubrio · control DJI + GoPro", "line": "Una sola abrazadera para el control del dron y la cámara."},
+     "en": {"name": "Handlebar clamp", "fit": "Handlebar · DJI controller + GoPro", "line": "One clamp for the drone controller and the camera."}},
+    {"code": "OW-05", "nick": "Mirador", "slug": "nav-tower-mount",
+     "es": {"name": "Montura para torre", "fit": "Torre de navegación · GoPro", "line": "La cámara y el GPS en la barra de navegación, donde los ves."},
+     "en": {"name": "Nav tower mount", "fit": "Navigation tower · GoPro", "line": "Camera and GPS on the nav bar, right where you look."}},
+    {"code": "OW-06", "nick": "Coyote", "slug": "t7-rally-tower",
+     "es": {"name": "Torre rally T7", "fit": "Yamaha Ténéré 700", "line": "Sustituye la pantalla y el faro: cabina tipo rally."},
+     "en": {"name": "T7 rally tower", "fit": "Yamaha Ténéré 700", "line": "Replaces the screen and headlight for a rally-style cockpit."}},
+    {"code": "OW-07", "nick": "Mula", "slug": "luggage-adapter",
+     "es": {"name": "Adaptador de equipaje", "fit": "Equipaje suave", "line": "La base para anclar bolsas de equipaje suave a la moto."},
+     "en": {"name": "Luggage adapter", "fit": "Soft luggage", "line": "The base that anchors soft luggage to the bike."}},
+    {"code": "OW-08", "nick": "Mecate", "slug": "footpeg-tie-downs",
+     "es": {"name": "Amarres en estribos", "fit": "Estribos", "line": "Puntos de amarre firmes para llevar la moto en el remolque."},
+     "en": {"name": "Footpeg tie-downs", "fit": "Footpegs", "line": "Solid tie-down points for hauling the bike on a trailer."}},
+    {"code": "OW-09", "nick": "Brújula", "slug": "dash-mount",
+     "es": {"name": "Montura de tablero", "fit": "Sobre el velocímetro · GPS o celular", "line": "El GPS o el celular sobre el tablero, sin tapar nada."},
+     "en": {"name": "Dash mount", "fit": "Over the speedo · GPS or phone", "line": "GPS or phone over the dash, without covering a thing."}},
+]
+
+BENCH_UI = {
+    "es": {"eyebrow": "Próximamente", "h2": "En el banco", "status": "En el banco", "fig": "Todavía en el cuaderno",
+           "lead": "Piezas en las que estamos trabajando. Cada una tendrá su ficha cuando salga del papel.",
+           "also": "El equipaje rackless (OW-01) también sigue en el banco.",
+           "tm": "Garmin, inReach, DJI, GoPro y Yamaha son marcas de sus respectivos dueños. OcoteWorks no está afiliado a ellas."},
+    "en": {"eyebrow": "Coming up", "h2": "On the bench", "status": "On the bench", "fig": "Still in the notebook",
+           "lead": "Parts we're working on. Each one gets its own page once it leaves the paper.",
+           "also": "The rackless luggage (OW-01) is on the bench too.",
+           "tm": "Garmin, inReach, DJI, GoPro and Yamaha are trademarks of their respective owners. OcoteWorks is not affiliated with them."},
+}
+
+
+def bench_slot(b, lang):
+    u, B = BENCH_UI[lang], b[lang]
+    if b.get("img"):
+        vis = f'<img src="{b["img"]}" alt="{b["nick"]} · {B["name"]}" loading="lazy" decoding="async">'
+    else:
+        vis = '<span class="bn-fig" aria-hidden="true"><i></i></span>'
+    return (f'<article class="bn" id="{b["slug"]}"><div class="bn-img">{vis}<span class="pc-code">{b["code"]}</span>'
+            f'<span class="bn-sign" lang="en">Coming soon!</span></div>'
+            f'<div class="bn-body"><p class="pc-fit">{B["name"]}</p><h3>{b["nick"]}</h3><p>{B["line"]}</p></div></article>')
+
+
+def bench(lang):
+    u = BENCH_UI[lang]
+    return (f'<section class="cat-bench" id="{"en-el-banco" if lang == "es" else "on-the-bench"}" aria-labelledby="bench-h"><div class="wrap">'
+            f'<div class="sec-head"><p class="eyebrow">{u["eyebrow"]} · {len(BENCH)}</p><h2 id="bench-h">{u["h2"]}</h2>'
+            f'<p class="lead">{u["lead"]} <a href="#ow-01">{u["also"]}</a></p></div>'
+            f'<div class="bn-grid">{"".join(bench_slot(b, lang) for b in BENCH)}</div>'
+            f'<p class="bn-tm">{u["tm"]}</p></div></section>')
