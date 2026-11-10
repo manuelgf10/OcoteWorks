@@ -836,11 +836,18 @@ def microtype(html, lang):
     return "".join(parts)
 
 
+# Navegación instantánea: Chrome/Edge precargan (solo HTML, sin ejecutar) al pasar el cursor o tocar un enlace interno.
+SPECULATION = ('<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":['
+               '{"href_matches":"/*"},{"not":{"href_matches":"/*.pdf"}},{"not":{"href_matches":"/assets/*"}},'
+               '{"not":{"selector_matches":"[download],[target=_blank],[href^=\'#\']"}}]},"eagerness":"moderate"}]}</script>')
+
+
 def write(path, html):
     lang = "es" if '<html lang="es"' in html else "en"
     html = microtype(html, lang)
     html = add_loader(html, lang)
     html = html.replace("</body>", f'<script src="/assets/motion.js?v={MOTION_V}" defer></script>\n</body>', 1)
+    html = html.replace("</head>", SPECULATION + "\n</head>", 1)
     if GC_CODE:
         html = html.replace("</body>", f'<script data-goatcounter="https://{GC_CODE}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>\n</body>', 1)
     full = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
@@ -951,7 +958,7 @@ def main():
                                                                 j_product_url=purl, j_cta_product=JU["cta_product"], j_cta_ig=JU["cta_ig"])))
 
     # Página 404 (bilingüe, una sola)
-    p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version)
+    p404 = open(os.path.join(SRC, "404.html"), encoding="utf-8").read().replace("{{version}}", version).replace("{{speculation}}", SPECULATION)
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(p404)
 
     def alt(en, es):

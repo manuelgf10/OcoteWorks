@@ -3,6 +3,23 @@
    2. Las secciones aparecen al entrar en pantalla (solo lo que está debajo del primer pantallazo).
    Respeta "reducir movimiento" y no toca el cotizador. */
 (function () {
+  // Navegación instantánea en navegadores sin Speculation Rules (Safari, Firefox):
+  // al pasar el cursor ~80 ms o tocar un enlace interno, se pide la página para que quede en caché.
+  var hasSpec = window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules");
+  var conn = navigator.connection;
+  if (!hasSpec && window.fetch && !(conn && conn.saveData)) {
+    var done = {}, timer;
+    var target = function (e) {
+      var a = e.target.closest && e.target.closest("a[href]");
+      if (!a || a.target === "_blank" || a.hasAttribute("download") || a.origin !== location.origin) return null;
+      if (/\.pdf$|^\/assets\//.test(a.pathname) || (a.pathname === location.pathname && a.hash)) return null;
+      return a.pathname;
+    };
+    var warm = function (u) { if (done[u]) return; done[u] = 1; fetch(u, { credentials: "same-origin", priority: "low" }).catch(function () {}); };
+    document.addEventListener("mouseover", function (e) { var u = target(e); if (!u) return; clearTimeout(timer); timer = setTimeout(function () { warm(u); }, 80); }, { passive: true });
+    document.addEventListener("mouseout", function () { clearTimeout(timer); }, { passive: true });
+    document.addEventListener("touchstart", function (e) { var u = target(e); if (u) warm(u); }, { passive: true });
+  }
   // Reloj de la franja del taller (hora de Monterrey)
   var clock = document.querySelector(".st-clock");
   if (clock && window.Intl) {
