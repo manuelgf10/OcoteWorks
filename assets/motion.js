@@ -186,7 +186,12 @@
     var startHero = function () {
       hv.src = window.matchMedia("(max-width:700px)").matches ? hv.dataset.sm : hv.dataset.lg;
       hv.addEventListener("playing", function () { hv.classList.add("on"); }, { once: true });
-      var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {});
+      // Si el teléfono bloquea la reproducción automática (p. ej. iPhone en modo de bajo consumo), arranca con el primer toque.
+      var retry = function () { var q = hv.play(); if (q && q.catch) q.catch(function () {}); };
+      var pr = hv.play();
+      if (pr && pr.catch) pr.catch(function () {
+        ["touchend", "click", "keydown"].forEach(function (t) { document.addEventListener(t, retry, { once: true, passive: true }); });
+      });
       if ("IntersectionObserver" in window) {
         new IntersectionObserver(function (en) {
           en.forEach(function (e) { if (e.isIntersecting) { var q = hv.play(); if (q && q.catch) q.catch(function () {}); } else hv.pause(); });
