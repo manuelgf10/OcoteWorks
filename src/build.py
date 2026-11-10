@@ -116,6 +116,32 @@ BACK_NOTE = {"es": ("El taller, de noche. Aquí pasan las cosas que no caben en 
              "en": ("The workshop, at night. Where the things that don’t fit in the day get done.", "Monterrey, Mexico · after 11 p.m.")}
 
 
+NAME_BLOCK = {
+    "es": dict(k="El nombre", h="¿Por qué Ocote?",
+               defs=[("ocote", "o·có·te", "Del náhuatl <i>ocotl</i>. Nombre que se le da a los pinos de México y a su madera resinosa, la que prende el fuego."),
+                     ("Ocotepec", "o·co·te·pec", "Del náhuatl: <i>en el cerro de los ocotes</i>. El pueblo de donde soy y donde crecí.")],
+               body=["Crecí en Ocotepec, entre pinos. Desde niño me encantaba explorar su bosque. Ahí me fascinó la naturaleza y ahí nacieron las ganas de explorar, de salir a la aventura y de llegar siempre un poco más lejos.",
+                     "Esas son las raíces de OcoteWorks."],
+               quote="Trabajos con raíces fuertes, como el ocote. Y que <em>arden</em> por dentro, como el ocote."),
+    "en": dict(k="The name", h="Why Ocote?",
+               defs=[("ocote", "o·KO·teh", "From Nahuatl <i>ocotl</i>. The name for Mexico’s pines and their resin-rich wood, the kind that starts a fire."),
+                     ("Ocotepec", "o·ko·teh·PEK", "Nahuatl for <i>on the hill of the ocotes</i>. The town I’m from, where I grew up.")],
+               body=["I grew up in Ocotepec, among the pines. As a kid I loved exploring its forest. That’s where nature got hold of me, and where the urge to explore, to go looking for adventure and to always get a little further was born.",
+                     "Those are the roots of OcoteWorks."],
+               quote="Work with strong roots, like ocote. And a fire <em>burning</em> inside, like ocote."),
+}
+
+
+def about_name(d):
+    n = NAME_BLOCK[d["lang"]]
+    defs = "".join(f'<div class="an-def"><dt lang="es">{w}<span class="an-ph" aria-hidden="true">/{ph}/</span></dt><dd>{t}</dd></div>' for w, ph, t in n["defs"])
+    body = "".join(f"<p>{t}</p>" for t in n["body"])
+    return (f'<section class="a-name on-dark" id="{"el-nombre" if d["lang"] == "es" else "the-name"}"><div class="wrap a-name-grid">'
+            f'<div><p class="eyebrow">02 · {n["k"]}</p><h2>{n["h"]}</h2><dl class="an-dict">{defs}</dl></div>'
+            f'<div class="an-body">{body}<blockquote class="an-quote"><p>{n["quote"]}</p></blockquote>'
+            f'<p class="an-sign" lang="en">Rooted in Mexico. Made to go further.</p></div></div></section>')
+
+
 def about_hero(d):
     back = BACK_NOTE[d["lang"]]
     # Secreto: 5 toques → chispas del esmeril (origen en % de la foto); 5 más → la foto se voltea y trae una nota al reverso.
@@ -234,8 +260,7 @@ EN = dict(
     a_story="<p>I trained as an industrial designer at the Universidad Iberoamericana. Over time my work kept moving toward the same question: not only what a product should be, but how it gets made.</p>"
             "<p>My first industrial job, in 2015 at Mosaicos Venecianos, put me next to lathes, milling machines and equipment maintenance. At IKTA, from 2019 to 2020, I worked on steel structures and decorative architectural elements, moving between CAD, CAM and visualization.</p>"
             "<p>Since 2020 I’ve developed medical devices at Bioana, in an ISO 13485 environment where decisions are documented and parts have to be made reliably. Since 2022 I also manage the prototyping lab. Designing the parts and running the equipment that makes them has taught me more about manufacturability than either role would alone.</p>"
-            "<p>OcoteWorks is my independent workshop, where that background meets motorcycles, mechanical systems and the outdoors. It is not an extension of Bioana, and it isn’t a medical device company.</p>"
-            "<p>The name comes from <i>ocote</i>, the resin-rich pine splinter used to start a fire in the mountains: small, resourceful and reliable when it counts. And from Ocotepec, the town where I’m from.</p>",
+            "<p>OcoteWorks is my independent workshop, where that background meets motorcycles, mechanical systems and the outdoors. It is not an extension of Bioana, and it isn’t a medical device company.</p>",
     a_cv_eyebrow="Experience", a_cv_h2="Experience",
     a_cv_p="A compact timeline. Client work at Bioana is confidential, so it’s described by type of work, not by project.",
     a_timeline="".join([
@@ -392,8 +417,7 @@ ES = dict(
     a_story="<p>Me formé como diseñador industrial en la Universidad Iberoamericana. Con el tiempo, mi trabajo se fue moviendo hacia la misma pregunta: no solo qué debe ser un producto, sino cómo se fabrica.</p>"
             "<p>Mi primer trabajo industrial, en 2015 en Mosaicos Venecianos, me puso junto a tornos, fresadoras y mantenimiento de equipo. En IKTA, de 2019 a 2020, trabajé en estructuras de acero y elementos arquitectónicos decorativos, entre CAD, CAM y visualización.</p>"
             "<p>Desde 2020 desarrollo dispositivos médicos en Bioana, en un entorno ISO 13485 donde las decisiones se documentan y las piezas tienen que fabricarse de forma confiable. Desde 2022 además soy responsable del laboratorio de prototipos. Diseñar las piezas y operar el equipo que las fabrica me ha enseñado más sobre manufacturabilidad que cualquiera de los dos roles por separado.</p>"
-            "<p>OcoteWorks es mi taller independiente, donde esa experiencia se junta con las motos, los sistemas mecánicos y el campo. No es una extensión de Bioana ni una empresa de dispositivos médicos.</p>"
-            "<p>El nombre viene del <i>ocote</i>, la astilla de pino resinoso con la que se prende el fuego en el monte: pequeña, ingeniosa y confiable cuando hace falta. Y de Ocotepec, el pueblo de donde soy.</p>",
+            "<p>OcoteWorks es mi taller independiente, donde esa experiencia se junta con las motos, los sistemas mecánicos y el campo. No es una extensión de Bioana ni una empresa de dispositivos médicos.</p>",
     a_cv_eyebrow="Experiencia", a_cv_h2="Experiencia",
     a_cv_p="Una línea de tiempo breve. El trabajo para clientes en Bioana es confidencial, así que lo describo por tipo de trabajo, no por proyecto.",
     a_timeline="".join([
@@ -942,7 +966,7 @@ def main():
                                                          lg_note=f'<p class="lg-note">{lt["lg_lang_note"]}</p>' if lt["lg_lang_note"] else "",
                                                          lg_toc=LG.toc(data["lang"]), lg_sections=LG.body(data["lang"]))))
         write(PAGES["about"][i], render(T["about"], ctx("about", a_jsonld=person_jsonld(data), a_photos=about_photos(data["lang"]),
-                                                          a_hero_visual=about_hero(data), a_plate_block=about_plate(data))))
+                                                          a_hero_visual=about_hero(data), a_plate_block=about_plate(data), a_name=about_name(data))))
         ig = "https://www.instagram.com/ocote.works/"
         subj = data["pr_mail_subject"].replace(" ", "%20").replace(":", "%3A")
         lang = data["lang"]
