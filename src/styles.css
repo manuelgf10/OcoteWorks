@@ -1140,3 +1140,27 @@ footer{position:relative}
 .f-sun{fill:var(--ocote)}
 .f-moon{fill:var(--grafito);display:none}
 .f-silla.night .f-sun{display:none}.f-silla.night .f-moon{display:block}
+
+/* Productos · Bitácora de ruta (stickers) */
+.cat-roadlog{padding:clamp(56px,8vw,104px) 0;background:var(--cempasuchil);border-top:2px solid var(--carbon)}
+.rl-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.cat-roadlog h2{font-size:clamp(52px,6vw,88px)}
+.cat-roadlog .lead{margin-top:20px;max-width:42ch}
+.rl-use{margin-top:14px;font:400 12px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.rl-sheet{position:relative;background:var(--marfil);border:3px solid var(--carbon);border-radius:var(--r-md);padding:clamp(20px,3vw,32px);box-shadow:7px 7px 0 var(--carbon)}
+.rl-sheet ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,22px);align-items:center}
+.rl-st{display:grid;place-items:center}
+.rl-st:nth-child(2){transform:rotate(4deg)}.rl-st:nth-child(3){transform:rotate(-3deg)}.rl-st:nth-child(4){transform:rotate(-5deg)}.rl-st:nth-child(5){transform:rotate(3deg)}
+.rl-cut{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:100%;aspect-ratio:1;background:var(--papel);outline:2px dashed rgba(23,23,26,.45);outline-offset:5px;text-align:center;background-image:linear-gradient(rgba(23,23,26,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(23,23,26,.06) 1px,transparent 1px);background-size:12px 12px}
+.rl-c .rl-cut{border-radius:50%}
+.rl-a .rl-cut{border-radius:999px 999px 10px 10px;aspect-ratio:4/5}
+.rl-s .rl-cut{border-radius:14px}
+.rl-cut b{font:700 clamp(16px,1.6vw,22px)/1 var(--display);text-transform:uppercase;letter-spacing:.04em}
+.rl-cut i{font:400 11px/1 var(--mono);font-style:normal;letter-spacing:.1em}
+.rl-cut em{font:400 9px/1 var(--mono);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--grafito)}
+.rl-sheet .bn-sign{right:-10px;bottom:-14px;font-size:18px;background:var(--carbon);color:var(--cempasuchil);border-color:var(--carbon);box-shadow:3px 3px 0 var(--ocote)}
+.rl-sheet .bn-sign::before,.rl-sheet .bn-sign::after{background:var(--cempasuchil)}
+.cat-roadlog .eyebrow{color:var(--carbon)}.cat-roadlog .eyebrow::before{background:var(--carbon)}
+.rl-st:nth-child(6){transform:rotate(-2deg)}
+@media (max-width:860px){.rl-grid{grid-template-columns:1fr}}
+@media (max-width:480px){.rl-sheet ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.rl-st:nth-child(n+5){display:none}}

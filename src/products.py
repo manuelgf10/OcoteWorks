@@ -561,3 +561,31 @@ def bench(lang):
             f'<p class="lead">{u["lead"]} <a href="#ow-01">{u["also"]}</a></p></div>'
             f'<div class="bn-grid">{"".join(bench_slot(b, lang) for b in BENCH)}</div>'
             f'<p class="bn-tm">{u["tm"]}</p></div></section>')
+
+
+# ---------- Fuera del taller: Bitácora de ruta (stickers) ----------
+# Idea en exploración (10 nov 2026): lista pero oculta. Cambiar a True para mostrarla en Productos.
+ROADLOG_ON = False
+
+ROADLOG_UI = {
+    "es": {"eyebrow": "Fuera del taller · OW-S01", "h2": "Bitácora de ruta",
+           "lead": "Una serie de stickers de pueblos mágicos de México. Uno por cada pueblo al que llegamos en moto, dibujados con el mismo trazo y numerados como piezas del taller.",
+           "use": "Para la maleta, el casco o la caja de herramientas.",
+           "slot": "Pueblo", "pending": "Por rodar"},
+    "en": {"eyebrow": "Off the bench · OW-S01", "h2": "Road log",
+           "lead": "A sticker series of Mexico’s pueblos mágicos. One for every town we ride to, drawn with the same line and numbered like workshop parts.",
+           "use": "For the panniers, the helmet or the toolbox.",
+           "slot": "Town", "pending": "Not ridden yet"},
+}
+ROADLOG_SHAPES = ["c", "a", "c", "s", "a", "c"]
+
+
+def roadlog(lang):
+    if not ROADLOG_ON:
+        return ""
+    u = ROADLOG_UI[lang]
+    st = "".join(f'<li class="rl-st rl-{sh}"><span class="rl-cut"><b>{u["slot"]}</b><i>PM·{n:02d}</i><em>{u["pending"]}</em></span></li>'
+                 for n, sh in enumerate(ROADLOG_SHAPES, 1))
+    return (f'<section class="cat-roadlog" id="{"bitacora-de-ruta" if lang == "es" else "road-log"}" aria-labelledby="rl-h"><div class="wrap rl-grid">'
+            f'<div><p class="eyebrow">{u["eyebrow"]}</p><h2 id="rl-h">{u["h2"]}</h2><p class="lead">{u["lead"]}</p><p class="rl-use">{u["use"]}</p></div>'
+            f'<div class="rl-sheet"><ul>{st}</ul><span class="bn-sign" lang="en">Coming soon!</span></div></div></section>')
