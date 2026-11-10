@@ -42,7 +42,7 @@ PRODUCTS = [
             "tagline": "Una sola pieza de aluminio doblado. Discreta, respeta la silueta de la T7 y lleva lo justo: una bolsa pequeña o un par de straps.",
             "card": "Parrilla trasera de una sola pieza para la Ténéré 700.",
             "intent": "La idea: una parrilla que casi no se note en la moto, pero que esté ahí cuando necesitas amarrar algo.",
-            "variants": {"black": "Negro mate", "white": "Blanco mate"},
+            "variants": {"black": "Obsidiana · negro mate", "white": "Cantera · blanco mate"},
             "alts": ["Tail rack OW-02 en negro mate, vista en tres cuartos",
                      "Tail rack OW-02 visto desde un costado, con las ranuras de amarre",
                      "Tail rack OW-02 visto de frente",
@@ -73,7 +73,7 @@ PRODUCTS = [
                 ("Compatibilidad", "Yamaha Ténéré 700, 2019–2023"),
                 ("Material", "Aluminio 6061, espesor aprox. 4.8 mm (3/16″)"),
                 ("Proceso", "Corte láser · doblado · cantos redondeados en CNC"),
-                ("Acabado", "Pintura electrostática en polvo, negro o blanco mate"),
+                ("Acabado", "Pintura electrostática en polvo: Obsidiana (negro mate) o Cantera (blanco mate)"),
                 ("Medidas aprox.", "489 × 243 × 128 mm (largo × ancho × alto)"),
                 ("Peso aprox.", "0.5 kg sin tornillería"),
                 ("Incluye", "Tornillería de montaje"),
@@ -86,7 +86,7 @@ PRODUCTS = [
             "tagline": "One piece of folded aluminum. Low-profile, keeps the T7’s lines and carries just enough: a small bag or a couple of straps.",
             "card": "One-piece rear rack for the Ténéré 700.",
             "intent": "The idea: a rack you barely notice on the bike, but that’s there when you need to strap something down.",
-            "variants": {"black": "Matte black", "white": "Matte white"},
+            "variants": {"black": "Obsidian · matte black", "white": "Cantera · matte white"},
             "alts": ["OW-02 tail rack in matte black, three-quarter view",
                      "OW-02 tail rack seen from the side, showing the strap slots",
                      "OW-02 tail rack seen from the front",
@@ -117,7 +117,7 @@ PRODUCTS = [
                 ("Fitment", "Yamaha Ténéré 700, 2019–2023"),
                 ("Material", "6061 aluminum, approx. 4.8 mm (3/16″) thick"),
                 ("Process", "Laser cut · folded · CNC-rounded edges"),
-                ("Finish", "Powder coat, matte black or matte white"),
+                ("Finish", "Powder coat: Obsidian (matte black) or Cantera (matte white)"),
                 ("Approx. size", "489 × 243 × 128 mm (length × width × height)"),
                 ("Approx. weight", "0.5 kg without hardware"),
                 ("Includes", "Mounting hardware"),
@@ -411,11 +411,17 @@ def sheet_card(p, lang):
             f'<span class="pd-sheet-t"><b>{u["sheet_k"]}</b><small>{u["sheet_meta"]}</small><em>{u["sheet_cta"]} ↓</em></span></a>')
 
 
+def _sw_label(name):
+    """'Obsidiana · negro mate' → nombre en grande + acabado técnico en chico."""
+    a, _, b = name.partition(" · ")
+    return f"<b>{a}</b><small>{b}</small>" if b else name
+
+
 def variants(p, lang):
     names = p[lang]["variants"]
     return "".join(
         f'<label class="pd-sw"><input type="radio" name="variant" value="{names[k]}" data-key="{k}" data-color="{c}"{" checked" if i == 0 else ""}>'
-        f'<i style="--sw:{c}"></i><span>{names[k]}</span></label>'
+        f'<i style="--sw:{c}"></i><span>{_sw_label(names[k])}</span></label>'
         for i, (k, c) in enumerate(p["variants"]))
 
 

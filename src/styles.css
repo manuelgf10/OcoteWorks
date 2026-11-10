@@ -802,6 +802,9 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .pd-var legend{width:100%;margin-bottom:10px;padding:0;font:400 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--grafito)}
 .pd-sw{display:inline-flex;align-items:center;gap:10px;padding:9px 14px 9px 10px;border:2px solid var(--piedra);border-radius:999px;cursor:pointer;font-size:15px;transition:border-color .15s}
 .pd-sw input{position:absolute;opacity:0;pointer-events:none}
+.pd-sw span{display:flex;flex-direction:column;line-height:1.1}
+.pd-sw span b{font-weight:700}
+.pd-sw span small{font:400 11px/1.2 var(--mono);letter-spacing:.06em;color:var(--grafito);margin-top:2px}
 .pd-sw i{width:22px;height:22px;border-radius:50%;background:var(--sw);border:2px solid var(--carbon)}
 .pd-sw:has(input:checked){border-color:var(--carbon);background:var(--papel)}
 .pd-sw:has(input:focus-visible){outline:3px solid var(--talavera);outline-offset:2px}
