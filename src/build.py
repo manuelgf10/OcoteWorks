@@ -261,10 +261,11 @@ EN = dict(
     a_stats=stats([("2020", "In professional product development since"), ("ISO 13485", "Quality-governed development environment"),
                    ("2 roles", "Design engineering and lab management, in parallel"), ("CAD → CNC", "From the model to the machine")]),
     a_story_eyebrow="Professional background", a_story_h2="From design to how things are made",
-    a_story="<p>I trained as an industrial designer at the Universidad Iberoamericana. Over time my work kept moving toward the same question: not only what a product should be, but how it gets made.</p>"
-            "<p>My first industrial job, in 2015 at Mosaicos Venecianos, put me next to lathes, milling machines and equipment maintenance. At IKTA, from 2019 to 2020, I worked on steel structures and decorative architectural elements, moving between CAD, CAM and visualization.</p>"
-            "<p>Since 2020 I’ve developed medical devices at Bioana, in an ISO 13485 environment where decisions are documented and parts have to be made reliably. Since 2022 I also manage the prototyping lab. Designing the parts and running the equipment that makes them has taught me more about manufacturability than either role would alone.</p>"
-            "<p>OcoteWorks is my independent workshop, where that background meets motorcycles, mechanical systems and the outdoors. It is not an extension of Bioana, and it isn’t a medical device company.</p>",
+    a_story="<p>I studied Industrial Design at Universidad Iberoamericana, but my curiosity has always gone beyond what a product looks like. I’ve always wanted to understand how things work, how they’re built, and how they can be made better.</p>"
+            "<p>My professional journey began in 2015 at Mosaicos Venecianos, where I first worked alongside lathes, milling machines, and industrial equipment. Later, at IKTA, I explored the relationship between design and manufacturing through CAD, CAM, and metal fabrication.</p>"
+            "<p>Since 2020, I’ve worked in medical device development at Bioana, where engineering, quality, and precision are essential. Managing the prototyping lab has given me the opportunity to work on both sides of product development: designing components and operating the equipment that brings them to life.</p>"
+            "<p>OcoteWorks brings those experiences together with my personal interests in motorcycles, mechanical systems, and the outdoors.</p>"
+            "<p>It’s my independent workshop. A place to explore ideas, solve problems, and turn curiosity into things you can actually build, use, and take further.</p>",
     a_cv_eyebrow="Experience", a_cv_h2="Experience",
     a_cv_p="A compact timeline. Client work at Bioana is confidential, so it’s described by type of work, not by project.",
     a_timeline="".join([
@@ -418,10 +419,11 @@ ES = dict(
     a_stats=stats([("2020", "En desarrollo de producto profesional desde"), ("ISO 13485", "Entorno de desarrollo con sistema de calidad"),
                    ("2 roles", "Ingeniería de diseño y gestión de laboratorio, en paralelo"), ("CAD → CNC", "Del modelo a la máquina")]),
     a_story_eyebrow="Trayectoria profesional", a_story_h2="Del diseño a cómo se fabrican las cosas",
-    a_story="<p>Me formé como diseñador industrial en la Universidad Iberoamericana. Con el tiempo, mi trabajo se fue moviendo hacia la misma pregunta: no solo qué debe ser un producto, sino cómo se fabrica.</p>"
-            "<p>Mi primer trabajo industrial, en 2015 en Mosaicos Venecianos, me puso junto a tornos, fresadoras y mantenimiento de equipo. En IKTA, de 2019 a 2020, trabajé en estructuras de acero y elementos arquitectónicos decorativos, entre CAD, CAM y visualización.</p>"
-            "<p>Desde 2020 desarrollo dispositivos médicos en Bioana, en un entorno ISO 13485 donde las decisiones se documentan y las piezas tienen que fabricarse de forma confiable. Desde 2022 además soy responsable del laboratorio de prototipos. Diseñar las piezas y operar el equipo que las fabrica me ha enseñado más sobre manufacturabilidad que cualquiera de los dos roles por separado.</p>"
-            "<p>OcoteWorks es mi taller independiente, donde esa experiencia se junta con las motos, los sistemas mecánicos y el campo. No es una extensión de Bioana ni una empresa de dispositivos médicos.</p>",
+    a_story="<p>Estudié Diseño Industrial en la Universidad Iberoamericana, pero mi curiosidad siempre fue más allá de cómo se ve un producto. Siempre he querido entender cómo funcionan las cosas, cómo se construyen y cómo pueden hacerse mejor.</p>"
+            "<p>Mi camino profesional empezó en 2015 en Mosaicos Venecianos, donde trabajé por primera vez junto a tornos, fresadoras y equipo industrial. Después, en IKTA, exploré la relación entre diseño y manufactura a través del CAD, el CAM y la fabricación en metal.</p>"
+            "<p>Desde 2020 trabajo en el desarrollo de dispositivos médicos en Bioana, donde la ingeniería, la calidad y la precisión son esenciales. Estar a cargo del laboratorio de prototipos me ha dado la oportunidad de trabajar en los dos lados del desarrollo de producto: diseñar componentes y operar el equipo que les da vida.</p>"
+            "<p>OcoteWorks reúne esas experiencias con mis intereses personales: las motos, los sistemas mecánicos y la vida al aire libre.</p>"
+            "<p>Es mi taller independiente. Un lugar para explorar ideas, resolver problemas y convertir la curiosidad en cosas que de verdad se pueden construir, usar y llevar más lejos.</p>",
     a_cv_eyebrow="Experiencia", a_cv_h2="Experiencia",
     a_cv_p="Una línea de tiempo breve. El trabajo para clientes en Bioana es confidencial, así que lo describo por tipo de trabajo, no por proyecto.",
     a_timeline="".join([
