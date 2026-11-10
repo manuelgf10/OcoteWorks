@@ -55,7 +55,7 @@ PAGES = {
    "es": ("Servicios de ingeniería","Diseñar. Prototipar. <span>Fabricar.</span>","De la idea a una pieza que puedes tocar, probar y vender.")},
  "about": {"vis": lambda l: photo("about/workshop-night-1400.jpg","OW · ID-001"), "size": 64,
    "en": ("About · Manuel García","Designer by training. <span>Engineer by habit.</span>","Industrial designer and product development engineer in Monterrey."),
-   "es": ("Sobre mí · Manuel García","Diseñador de formación. <span>Ingeniero por costumbre.</span>","Diseñador industrial e ingeniero de producto en Monterrey.")},
+   "es": ("Sobre mí · Manuel García","Diseñador de formación. <span>Ingeniero por convicción.</span>","Diseñador industrial e ingeniero de producto en Monterrey.")},
  "products": {"vis": lambda l: paper(moto, "OW-01 · REV 0"),
    "en": ("Products · OW-01","Building <span>in progress</span>","Rackless luggage for adventure motorcycles: machined hardware, leather and textile."),
    "es": ("Productos · OW-01","Building <span>in progress</span>","Equipaje rackless para motos de aventura: herrajes maquinados, cuero y textil.")},

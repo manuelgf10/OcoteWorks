@@ -369,7 +369,7 @@ ES = dict(
     a_hero_cap="El taller de noche",
     a_off_alt="Manuel cruzando un río en su Yamaha Ténéré 700, con cerros verdes al fondo",
     a_off_cap="Bitácora · Cruce de río en la Ténéré 700",
-    a_h1="Diseñador de formación.<br><em>Ingeniero por costumbre.</em>",
+    a_h1="Diseñador de formación.<br><em>Ingeniero por convicción.</em>",
     a_lead="<p>Soy Manuel García Flores, diseñador industrial e ingeniero de desarrollo de producto en Monterrey, y fundador de OcoteWorks.</p>"
            "<p>Me importa la vida completa de un producto: cómo se diseña, se fabrica, se ensambla, se prueba y, al final, se usa. Paso casi toda la semana entre el CAD y las máquinas que lo convierten en piezas.</p>",
     a_cta="Ver experiencia", a_cta2="Contacto",
