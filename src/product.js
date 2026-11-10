@@ -85,6 +85,42 @@
     paint();
   };
 
+  // Banda de plano: al entrar en pantalla se traza el dibujo, las cotas y los números cuentan.
+  var bp = document.querySelector(".pd-bp");
+  if (bp) {
+    var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var count = function (el, delay) {
+      var to = parseFloat(el.dataset.to), dec = (el.dataset.to.split(".")[1] || "").length, t0 = null, dur = 900;
+      el.textContent = (0).toFixed(dec);
+      setTimeout(function () {
+        var step = function (t) {
+          if (t0 === null) t0 = t;
+          var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+          el.textContent = (to * e).toFixed(dec);
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }, delay);
+    };
+    var go = function () {
+      bp.classList.add("on");
+      if (still) return;
+      bp.querySelectorAll(".bp-fig").forEach(function (f) {
+        var d = parseFloat(getComputedStyle(f).getPropertyValue("--d")) * 1000 || 0;
+        f.querySelectorAll(".bp-n").forEach(function (n) { count(n, d + 1600); });
+      });
+      bp.querySelectorAll(".bp-c").forEach(function (n, i) { count(n, 400 + i * 120); });
+    };
+    if (still || !("IntersectionObserver" in window)) bp.classList.add("on");
+    else {
+      bp.querySelectorAll(".bp-n,.bp-c").forEach(function (n) { n.textContent = (0).toFixed((n.dataset.to.split(".")[1] || "").length); });
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); go(); } });
+      }, { threshold: .3 });
+      io.observe(bp);
+    }
+  }
+
   // Acabado elegido → se refleja en el panel y en el formulario.
   var dlg = document.getElementById("pd-dlg"), form = dlg && dlg.querySelector("form");
   var setVariant = function (v, i) {

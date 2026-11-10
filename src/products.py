@@ -18,6 +18,9 @@ PRODUCTS = [
         "model": "/assets/products/ow-02/ow-02.glb",
         # Ficha técnica tipo blueprint (src/spec_sheet.py): PDF A3 + vista previa por idioma.
         "sheet": True,
+        # Cotas generales del CAD (largo, ancho, alto) en mm y datos para la banda de plano animada.
+        "dims": (489, 243, 128),
+        "bp_stats": [("4.8", "mm"), ("0.5", "kg"), ("1", ""), ("0", "")],
         # (archivo base, anchos disponibles, ancho x alto del original)
         "images": [("hero", (600, 1000, 1600), (2576, 1449)), ("top", (600, 1000, 1600), (2576, 1449)),
                    ("front", (600, 1000, 1600), (2576, 1449)), ("detail", (500, 900), (1308, 2326))],
@@ -116,7 +119,10 @@ UI = {
         variant="Acabado",
         hl_eyebrow="01 · Diseño",
         hl_h2="Lo justo, <em>nada más</em>",
-        specs_eyebrow="02 · Especificaciones",
+        specs_eyebrow="03 · Especificaciones",
+        bp_eyebrow="02 · Medidas", bp_h2="Sacado del CAD", bp_p="Vista lateral y posterior a escala, con las cotas generales tomadas del modelo en SolidWorks.",
+        bp_side="Vista lateral", bp_rear="Vista posterior", bp_stats=["Espesor", "Peso aprox.", "Pieza", "Soldaduras"],
+        bp_alt_side="Vista lateral del OW-02 en línea, estilo plano", bp_alt_rear="Vista posterior del OW-02 en línea, estilo plano",
         specs_h2="Ficha técnica",
         specs_note="Especificaciones preliminares; pueden cambiar en producción.",
         fine=("Imágenes y modelo 3D: tomados del modelo CAD. Ténéré 700 es una marca registrada de Yamaha Motor Co., Ltd. "
@@ -157,7 +163,10 @@ UI = {
         variant="Finish",
         hl_eyebrow="01 · Design",
         hl_h2="Just enough, <em>nothing more</em>",
-        specs_eyebrow="02 · Specifications",
+        specs_eyebrow="03 · Specifications",
+        bp_eyebrow="02 · Dimensions", bp_h2="Straight from CAD", bp_p="Side and rear views to scale, with overall dimensions taken from the SolidWorks model.",
+        bp_side="Side view", bp_rear="Rear view", bp_stats=["Thickness", "Approx. weight", "Piece", "Welds"],
+        bp_alt_side="Line drawing of the OW-02, side view, blueprint style", bp_alt_rear="Line drawing of the OW-02, rear view, blueprint style",
         specs_h2="Spec sheet",
         specs_note="Preliminary specifications; may change in production.",
         fine=("Images and 3D model: from the CAD model. Ténéré 700 is a registered trademark of Yamaha Motor Co., Ltd. "
@@ -228,6 +237,60 @@ def gallery(p, lang):
         out.append(f'<div class="pd-gallery{" has-3d" if p.get("model") else ""}" data-variant="{vi}" data-srcs="{data}"{" hidden" if vi else ""}>'
                    f'<div class="pd-stage">{main}</div><div class="pd-thumbs">{thumbs}</div></div>')
     return "".join(out)
+
+
+def _bp_fig(p, lang, key, label, alt, vb_w, vb_h, img_box, dims, delay):
+    """Una vista del plano: imagen en línea + cotas SVG (en mm del modelo) + etiquetas HTML posicionadas en %."""
+    x0, y0, w, h = img_box
+    pct = lambda x, y: f"left:{x / vb_w * 100:.3f}%;top:{y / vb_h * 100:.3f}%"
+    base = f'{p["img_dir"]}/bp-{key}'
+    widths = (900, 1600) if key == "side" else (500, 900)
+    svg, labels = [], []
+    for kind, a, b, at, value in dims:
+        if kind == "h":   # cota horizontal de x=a a x=b en y=at; extensiones desde la vista
+            for x in (a, b):
+                svg.append(f'<path class="bp-ext" pathLength="1" d="M{x} {y0 + h - 1} V{at + 5}"/>')
+            svg.append(f'<path class="bp-dim" pathLength="1" d="M{a} {at} H{b}"/>')
+            svg.append(f'<path class="bp-ah" d="M{a} {at} l7 -2.6 v5.2z M{b} {at} l-7 -2.6 v5.2z"/>')
+            labels.append(f'<span class="bp-n" style="{pct((a + b) / 2, at)}" data-to="{value}">{value}</span>')
+        else:             # cota vertical de y=a a y=b en x=at
+            for y in (a, b):
+                start, end = (x0 - 2, at - 5) if at < x0 else (x0 + w + 2, at + 5)
+                svg.append(f'<path class="bp-ext" pathLength="1" d="M{start} {y} H{end}"/>')
+            svg.append(f'<path class="bp-dim" pathLength="1" d="M{at} {a} V{b}"/>')
+            svg.append(f'<path class="bp-ah" d="M{at} {a} l-2.6 7 h5.2z M{at} {b} l-2.6 -7 h5.2z"/>')
+            labels.append(f'<span class="bp-n bp-nv" style="{pct(at, (a + b) / 2)}" data-to="{value}">{value}</span>')
+    return (f'<figure class="bp-fig bp-{key}" style="--vbw:{vb_w:.2f};--vbh:{vb_h:.2f};--d:{delay}s">'
+            f'<div class="bp-draw" style="aspect-ratio:{vb_w:.2f}/{vb_h:.2f}">'
+            f'<div class="bp-img" style="{pct(x0, y0)};width:{w / vb_w * 100:.3f}%;height:{h / vb_h * 100:.3f}%">'
+            f'<picture><source srcset="{base}-{widths[0]}.webp {widths[0]}w, {base}-{widths[1]}.webp {widths[1]}w" sizes="(max-width:860px) 100vw, 760px" type="image/webp">'
+            f'<img src="{base}-{widths[0]}.png" srcset="{base}-{widths[0]}.png {widths[0]}w, {base}-{widths[1]}.png {widths[1]}w" sizes="(max-width:860px) 100vw, 760px" '
+            f'alt="{alt}" loading="lazy" decoding="async"></picture><i class="bp-scan" aria-hidden="true"></i></div>'
+            f'<svg viewBox="0 0 {vb_w:.2f} {vb_h:.2f}" aria-hidden="true">{"".join(svg)}</svg>{"".join(labels)}</div>'
+            f'<figcaption>{label} · mm</figcaption></figure>')
+
+
+def blueprint(p, lang):
+    """Banda tipo plano con cotas que se dibujan al hacer scroll (punto 5)."""
+    if not p.get("dims"):
+        return ""
+    import json, os
+    u, d = UI[lang], p[lang]
+    meta = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sheet", p["code"].lower(), "views.json")))
+    L, W, H = p["dims"]
+    M = 3  # margen (mm) dentro de las imágenes
+    sw, sh = meta["side"]["wmm"], meta["side"]["hmm"]
+    rw, rh = meta["right"]["wmm"], meta["right"]["hmm"]
+    vbh = sh + 42
+    side = _bp_fig(p, lang, "side", u["bp_side"], u["bp_alt_side"], 28 + sw + 6, vbh, (28, 0, sw, sh),
+                   [("h", 28 + M, 28 + sw - M, sh + 26, L), ("v", M, sh - M, 11, H)], 0)
+    rear = _bp_fig(p, lang, "right", u["bp_rear"], u["bp_alt_rear"], rw + 34, vbh, (0, 0, rw, rh),
+                   [("h", M, rw - M, rh + 26, W), ("v", M, rh - M, rw + 21, H)], .55)
+    stats = "".join(f'<div><b><span class="bp-c" data-to="{v}">{v}</span>{" " + unit if unit else ""}</b><small>{lbl}</small></div>'
+                    for (v, unit), lbl in zip(p["bp_stats"], u["bp_stats"]))
+    return (f'<section class="pd-bp" aria-labelledby="bp-h"><div class="wrap">'
+            f'<div class="sec-head"><div><p class="eyebrow">{u["bp_eyebrow"]}</p><h2 id="bp-h">{u["bp_h2"]}</h2></div><p>{u["bp_p"]}</p></div>'
+            f'<div class="bp-views">{side}{rear}</div><div class="bp-stats">{stats}</div></div></section>')
 
 
 def sheet_card(p, lang):
