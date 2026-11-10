@@ -1008,3 +1008,6 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .h-j .j-card h2{font-size:clamp(40px,4.4vw,64px)}
 .h-maker img{aspect-ratio:3/4;object-position:center 20%}
 @media (max-width:860px){.h-j .j-card{grid-template-columns:minmax(0,1fr)}.h-j .j-card-img{border-right:0;border-bottom:3px solid var(--carbon);min-height:0;aspect-ratio:16/10}}
+
+/* Titulares de sección: nunca partir palabras con guion */
+.sec-head h2,h1,h2{-webkit-hyphens:manual;hyphens:manual;overflow-wrap:normal}
