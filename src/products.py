@@ -508,6 +508,9 @@ def home_feature(p, lang, products_url):
 # Espacios reservados en el catálogo. Cuando un producto tenga ficha, se mueve a PRODUCTS
 # (o se le pone "img" a su espacio para mostrar render/boceto antes de tener página).
 BENCH = [
+    {"code": "OW-01", "nick": "Alforja", "slug": "rackless-luggage", "href": "#ow-01", "go": {"es": "Lista de espera", "en": "Waitlist"},
+     "es": {"name": "Equipaje rackless", "fit": "Motos de aventura", "line": "Maletas laterales de cuero con herrajes maquinados. Sin parrilla."},
+     "en": {"name": "Rackless luggage", "fit": "Adventure motorcycles", "line": "Leather side bags with machined hardware. No racks."}},
     {"code": "OW-03", "nick": "Lucero", "slug": "inreach-holder",
      "es": {"name": "Porta inReach", "fit": "Correa de mochila", "line": "El comunicador satelital a la mano, sin quitarte la mochila."},
      "en": {"name": "inReach holder", "fit": "Backpack strap", "line": "Your satellite messenger within reach, without taking the pack off."}},
@@ -551,14 +554,15 @@ def bench_slot(b, lang):
         vis = '<span class="bn-fig" aria-hidden="true"><i></i></span>'
     return (f'<article class="bn" id="{b["slug"]}"><div class="bn-img">{vis}<span class="pc-code">{b["code"]}</span>'
             f'<span class="bn-sign" lang="en">Coming soon!</span></div>'
-            f'<div class="bn-body"><p class="pc-fit">{B["name"]}</p><h3>{b["nick"]}</h3><p>{B["line"]}</p></div></article>')
+            f'<div class="bn-body"><p class="pc-fit">{B["name"]}</p><h3>{b["nick"]}</h3><p>{B["line"]}</p>'
+            + (f'<a class="km-go bn-go" href="{b["href"]}">{b["go"][lang]} →</a>' if b.get("href") else "") + '</div></article>')
 
 
 def bench(lang):
     u = BENCH_UI[lang]
     return (f'<section class="cat-bench" id="{"en-el-banco" if lang == "es" else "on-the-bench"}" aria-labelledby="bench-h"><div class="wrap">'
             f'<div class="sec-head"><p class="eyebrow">{u["eyebrow"]} · {len(BENCH)}</p><h2 id="bench-h">{u["h2"]}</h2>'
-            f'<p class="lead">{u["lead"]} <a href="#ow-01">{u["also"]}</a></p></div>'
+            f'<p class="lead">{u["lead"]}</p></div>'
             f'<div class="bn-grid">{"".join(bench_slot(b, lang) for b in BENCH)}</div>'
             f'<p class="bn-tm">{u["tm"]}</p></div></section>')
 
@@ -644,12 +648,11 @@ def _kit_item(code, lang):
     for p in PRODUCTS:
         if p["code"] == code:
             return (p[lang]["name"], p[lang]["fit"], p[lang]["card"], u["batch"] + " · " + price(p), url(p, lang), u["see"], "live")
-    if code == "OW-01":
-        U = UI[lang]
-        return (U["ow01_name"], "Rackless", U["ow01_card"], u["dev"], "#ow-01", u["ow01_go"], "dev")
     for b in BENCH:
         if b["code"] == code:
             B = b[lang]
+            if b.get("href"):
+                return (b["nick"], B["name"], B["line"], "Coming soon!", b["href"], b["go"][lang], "soon")
             return (b["nick"], B["name"], B["line"], "Coming soon!", "#" + b["slug"], u["soon_go"], "soon")
     raise KeyError(code)
 

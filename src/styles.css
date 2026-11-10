@@ -747,6 +747,9 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .pc-go{font:700 20px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
 @media (hover:hover){.pc:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--carbon)}.pc:hover .pc-img img{transform:scale(1.04)}.pc:hover .pc-go{color:var(--ocote-osc)}}
 @media (max-width:860px){.cat-grid{grid-template-columns:minmax(0,1fr)}}
+/* Un solo producto: tarjeta horizontal a todo lo ancho */
+@media (min-width:861px){.cat-grid:has(> .pc:only-child){grid-template-columns:minmax(0,1fr)}.cat-grid > .pc:only-child{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}.cat-grid > .pc:only-child .pc-img{aspect-ratio:auto;min-height:100%;border-bottom:0;border-right:3px solid var(--carbon)}.cat-grid > .pc:only-child .pc-body{padding:36px 38px}}
+.bn-go{margin-top:6px}
 /* En el banco: espacios para productos en camino */
 .cat-bench{padding:clamp(48px,7vw,88px) 0;border-top:2px solid var(--carbon)}
 .cat-bench .sec-head{margin-bottom:clamp(28px,4vw,44px)}
