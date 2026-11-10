@@ -483,7 +483,7 @@ def home_card(p, lang):
     return (f'<a class="h-path h-path-prod" href="{url(p, lang)}" data-goatcounter-click="inicio-tienda-{p["code"].lower()}">'
             f'<div class="h-path-img" style="{vt(p)}">{picture(p, 0, lang, "(max-width:1000px) 100vw, 560px")}<span class="pc-code">{p["code"]}</span></div>'
             f'<div><span class="h-code">02 · {u["cat_k"] if "cat_k" in u else ("Productos" if lang == "es" else "Products")}</span>'
-            f'<h3>{P["name"]}</h3><p>{P["card"]}</p>'
+            f'<h3 lang="en">Built with heart, ridden hard.</h3><p><b class="h-path-name">{P["name"]}</b> · {P["card"]}</p>'
             f'<p class="h-path-price"><b>{price(p)}</b><span class="pc-st">{u["status_batch"]}</span></p>'
             f'<span class="h-more">{u["cat_view"]} →</span></div></a>')
 

@@ -1058,3 +1058,4 @@ footer .wrap.f-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;
 @media (max-width:900px){footer .wrap.f-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.f-brand{grid-column:1/-1}}
 @media (max-width:560px){footer .wrap.f-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.f-col:last-child{grid-column:1/-1}}
 footer .wrap.f-bottom::before{content:"";position:absolute;left:var(--pad);right:var(--pad);top:0;border-top:1px solid var(--linea-osc)}
+.h-path-name{color:var(--carbon);font-weight:700}
