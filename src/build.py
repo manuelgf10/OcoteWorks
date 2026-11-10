@@ -112,10 +112,18 @@ def about_plate(d):
             '<div class="a-plate-foot"><span>REV 2026</span><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></div></aside>')
 
 
+BACK_NOTE = {"es": ("El taller, de noche. Aquí pasan las cosas que no caben en el día.", "Monterrey, N.L. · después de las 11"),
+             "en": ("The workshop, at night. Where the things that don’t fit in the day get done.", "Monterrey, Mexico · after 11 p.m.")}
+
+
 def about_hero(d):
-    return ('<figure class="a-hero-photo"><picture>'
+    back = BACK_NOTE[d["lang"]]
+    # Secreto: 5 toques → chispas del esmeril (origen en % de la foto); 5 más → la foto se voltea y trae una nota al reverso.
+    return ('<figure class="a-hero-photo" data-sparks="26 55.5"><div class="ah-card"><div class="ah-in"><picture>'
             '<source srcset="/assets/photos/about/workshop-night-800.webp 800w, /assets/photos/about/workshop-night-1400.webp 1400w" sizes="(max-width:900px) 100vw, 480px" type="image/webp">'
             f'<img src="/assets/photos/about/workshop-night-800.jpg" alt="{d["a_hero_alt"]}" width="800" height="1000" fetchpriority="high" decoding="async"></picture>'
+            f'<div class="ah-back" aria-hidden="true"><i class="ah-tape"></i><p class="ah-note">{back[0]}</p><p class="ah-sign">— M.</p>'
+            f'<p class="ah-meta">{back[1]}</p><span class="ah-stamp">OW<br><small>FIELD LOG<br>002</small></span></div></div></div>'
             f'<figcaption><span>{d["a_hero_cap"]}</span><span>OW · Field log 002</span></figcaption></figure>')
 
 

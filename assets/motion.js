@@ -102,6 +102,48 @@
     });
   }
 
+  // Sobre mí: 5 toques a la foto del taller → chispas del esmeril; 5 más → la foto se voltea con una nota atrás.
+  var ws = document.querySelector("[data-sparks]");
+  if (ws) {
+    var sc = 0, sl = 0, rounds = 0;
+    var sparks = function () {
+      if (still) return;
+      var img = ws.querySelector("img"), r = img.getBoundingClientRect(), o = ws.dataset.sparks.split(" ");
+      var ox = r.left + r.width * o[0] / 100, oy = r.top + r.height * o[1] / 100;
+      var cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1);
+      cv.className = "ow-sparks"; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+      document.body.appendChild(cv);
+      var cx = cv.getContext("2d"); cx.scale(dpr, dpr); cx.lineCap = "round";
+      var ps = [], t0 = performance.now();
+      for (var i = 0; i < 140; i++) {
+        var ang = Math.PI * (0.78 + Math.random() * 0.62), sp = 3 + Math.random() * 9;   // sale hacia la izquierda y abajo, como en la foto
+        ps.push({ x: ox, y: oy, vx: Math.cos(ang) * sp, vy: -Math.sin(ang) * sp * .55 + (Math.random() - .3) * 3, life: 40 + Math.random() * 70, age: -Math.random() * 18, w: .8 + Math.random() * 1.6 });
+      }
+      var frame = function () {
+        cx.clearRect(0, 0, innerWidth, innerHeight);
+        var alive = 0;
+        ps.forEach(function (p) {
+          p.age++; if (p.age < 0 || p.age > p.life) return; alive++;
+          var px = p.x, py = p.y;
+          p.vy += .32; p.vx *= .985; p.x += p.vx; p.y += p.vy;
+          if (p.y > innerHeight - 4 && p.vy > 0) { p.vy *= -.35; p.vx *= .6; }
+          var k = 1 - p.age / p.life;
+          cx.strokeStyle = "rgba(255," + (170 + 80 * k | 0) + "," + (60 + 120 * k * k | 0) + "," + k + ")";
+          cx.lineWidth = p.w; cx.beginPath(); cx.moveTo(px, py); cx.lineTo(p.x, p.y); cx.stroke();
+        });
+        if (alive && performance.now() - t0 < 4000) requestAnimationFrame(frame); else cv.remove();
+      };
+      requestAnimationFrame(frame);
+    };
+    ws.addEventListener("click", function () {
+      if (ws.classList.contains("flipped")) { ws.classList.remove("flipped"); return; }   // un toque la regresa
+      var now = Date.now(); sc = now - sl < 1200 ? sc + 1 : 1; sl = now;
+      if (sc < 5) return; sc = 0; rounds++;
+      if (rounds % 2 === 1) { sparks(); secretEv("chispas"); }
+      else { ws.classList.add("flipped"); secretEv("nota-taller"); }
+    });
+  }
+
   // Código Konami: vuelve a encender el tubo con un programa secreto.
   var seq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65], pos = 0;
   document.addEventListener("keydown", function (e) {
