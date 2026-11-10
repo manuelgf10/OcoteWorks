@@ -599,29 +599,35 @@ KIT_POINTS = [("OW-02", 168, 366), ("OW-07", 276, 440), ("OW-01", 345, 401), ("O
               ("OW-04", 586, 263), ("OW-09", 690, 300), ("OW-05", 744, 233), ("OW-06", 714, 371)]
 # Motos del mapa. "scale" = largo real relativo a la T7 (los dibujos se muestran a escala entre sí).
 KIT_BIKES = [
-    {"key": "t7", "name": "Yamaha Ténéré 700", "tab": "Ténéré 700", "short": "T7", "img": "/assets/brand/tenere-700.svg",
+    {"key": "t7", "brand": "Yamaha", "name": "Yamaha Ténéré 700", "tab": "Ténéré 700", "short": "T7", "img": "/assets/brand/tenere-700.svg",
      "view": KIT_VIEW, "w": 985, "h": 700, "scale": 1.0, "points": KIT_POINTS},
-    {"key": "himalayan", "name": "Royal Enfield Himalayan 411", "tab": "Himalayan 411", "short": "Himalayan", "img": "/assets/brand/himalayan-411.svg",
+    {"key": "himalayan", "brand": "Royal Enfield", "name": "Royal Enfield Himalayan 411", "tab": "Himalayan 411", "short": "Himalayan", "img": "/assets/brand/himalayan-411.svg",
      "view": (114, 81, 1308, 862), "w": 1308, "h": 862, "scale": 0.93, "points": []},
+    {"key": "450mt", "brand": "CFMOTO", "name": "CFMOTO 450MT", "tab": "450MT", "short": "450MT", "img": "/assets/brand/cfmoto-450mt.svg",
+     "view": (33, 217, 1208, 866), "w": 1208, "h": 866, "scale": 0.92, "points": []},
 ]
 KIT_UI = {
     "es": {"k": "Por moto", "h1": "Equipa", "your": "tu",
            "lead": "Elige tu moto y toca un punto para ver la pieza que va ahí.",
-           "tested": {"t7": "Todo lo diseñamos y probamos sobre una Ténéré 700.", "himalayan": "Tenemos una Himalayan 411 en el taller. Sus primeras piezas ya están en el banco."},
+           "tested": {"t7": "Todo lo diseñamos y probamos sobre una Ténéré 700.", "himalayan": "Tenemos una Himalayan 411 en el taller. Sus primeras piezas ya están en el banco.",
+                      "450mt": "Todavía no tenemos una en el taller. Si la tienes, cuéntanos: así decidimos si va al banco."},
            "title": "Ilustración de una {name} dibujada por OcoteWorks, con los puntos donde se montan sus piezas",
            "tabs": "Elige tu moto", "scale": "Dibujos a escala entre sí",
            "off": "Y para ti, fuera de la moto:", "see": "Ver ficha", "soon_go": "Ver en el banco", "ow01_go": "Lista de espera",
            "batch": "Primer lote en preparación", "dev": "En desarrollo", "pick": "Pieza",
-           "bench_h": "En el banco", "bench_p": "Ya tenemos una en el taller. Estamos midiendo y diseñando sus primeras piezas. ¿Qué te gustaría ver primero?",
+           "bench_h": {"himalayan": "En el banco", "450mt": "En la lista"}, "bench_p": {"himalayan": "Ya tenemos una en el taller. Estamos midiendo y diseñando sus primeras piezas. ¿Qué te gustaría ver primero?",
+                       "450mt": "Es una de las motos de aventura de media cilindrada más populares. Para diseñarle piezas necesitamos medirla y probarlas en una de verdad. ¿Tienes una?"},
            "bench_go": "Cuéntanos qué moto tienes"},
     "en": {"k": "By bike", "h1": "Kit out", "your": "your",
            "lead": "Pick your bike and tap a point to see the part that goes there.",
-           "tested": {"t7": "Everything is designed and tested on a Ténéré 700.", "himalayan": "There’s a Himalayan 411 in the workshop. Its first parts are already on the bench."},
+           "tested": {"t7": "Everything is designed and tested on a Ténéré 700.", "himalayan": "There’s a Himalayan 411 in the workshop. Its first parts are already on the bench.",
+                      "450mt": "We don’t have one in the workshop yet. If you ride one, tell us: that’s how we decide if it goes on the bench."},
            "title": "{name} illustration drawn by OcoteWorks, with the points where its parts mount",
            "tabs": "Pick your bike", "scale": "Drawings to scale with each other",
            "off": "And for you, off the bike:", "see": "View product", "soon_go": "See it on the bench", "ow01_go": "Waitlist",
            "batch": "First batch in preparation", "dev": "In development", "pick": "Part",
-           "bench_h": "On the bench", "bench_p": "There’s one in the workshop. We’re measuring it and designing its first parts. What would you like to see first?",
+           "bench_h": {"himalayan": "On the bench", "450mt": "On the list"}, "bench_p": {"himalayan": "There’s one in the workshop. We’re measuring it and designing its first parts. What would you like to see first?",
+                       "450mt": "One of the most popular mid-size adventure bikes. To design parts for it we need to measure one and test them on a real bike. Do you ride one?"},
            "bench_go": "Tell us what you ride"},
 }
 
@@ -657,8 +663,8 @@ def _kit_panel(bike, lang, first):
                   f'<p class="km-code"><b>{i:02d}</b> {code} · {u["pick"]}</p><h3>{nick}</h3><p class="pc-fit">{name}</p><p class="km-line">{line}</p>'
                   f'<div class="km-foot">{stc}<a href="{href}" class="km-go">{go} →</a></div></article>')
     if not bike["points"]:
-        cards = (f'<article class="km-card km-soon is-on"><p class="km-code">{bike["name"]}</p><h3>{u["bench_h"]}</h3>'
-                 f'<p class="km-line">{u["bench_p"]}</p><div class="km-foot"><span class="bn-sign km-sign" lang="en">Coming soon!</span>'
+        cards = (f'<article class="km-card km-soon is-on"><p class="km-code">{bike["name"]}</p><h3>{u["bench_h"][bike["key"]]}</h3>'
+                 f'<p class="km-line">{u["bench_p"][bike["key"]]}</p><div class="km-foot">{'<span class="bn-sign km-sign" lang="en">Coming soon!</span>' if bike["key"] == "himalayan" else ""}'
                  f'<a href="#moto-form" class="km-go">{u["bench_go"]} →</a></div></article>')
     alt = u["title"].format(name=bike["name"])
     img = (f'<img class="km-bike" src="{bike["img"]}" alt="{alt}" width="{bike["w"]}" height="{bike["h"]}" '
@@ -673,7 +679,7 @@ def kit_map(lang, extra=""):
     u = KIT_UI[lang]
     b0 = KIT_BIKES[0]
     tabs = "".join(f'<button type="button" role="tab" class="km-tab{" is-on" if i == 0 else ""}" id="km-t-{b["key"]}" aria-controls="km-p-{b["key"]}" '
-                   f'aria-selected="{"true" if i == 0 else "false"}" data-bike="{b["key"]}"><small>{b["name"].rsplit(" ", 2)[0] if b["key"] == "himalayan" else "Yamaha"}</small>{b["tab"]}</button>'
+                   f'aria-selected="{"true" if i == 0 else "false"}" data-bike="{b["key"]}"><small>{b["brand"]}</small>{b["tab"]}</button>'
                    for i, b in enumerate(KIT_BIKES))
     panels = "".join(_kit_panel(b, lang, i == 0) for i, b in enumerate(KIT_BIKES))
     b03 = next(b for b in BENCH if b["code"] == "OW-03")
