@@ -144,6 +144,21 @@
     });
   }
 
+  // Cerro de la Silla en el pie: el sol cruza sobre la Silla con la hora de Monterrey; de noche, luna.
+  var silla = document.querySelector(".f-silla");
+  if (silla) {
+    var sky = silla.querySelector(".f-sky");
+    var placeSky = function () {
+      var hm = new Intl.DateTimeFormat("en-GB", {timeZone: "America/Monterrey", hour: "2-digit", minute: "2-digit", hour12: false}).format(new Date()).split(":");
+      var h = (+hm[0]) + (+hm[1]) / 60, day = h >= 6.75 && h < 18.75;
+      var t = day ? (h - 6.75) / 12 : ((h + 24 - 18.75) % 24) / 12;
+      var x = 90 + 265 * t, y = 205 - 56 * Math.sin(Math.PI * t);
+      silla.classList.toggle("night", !day);
+      sky.setAttribute("transform", "translate(" + x.toFixed(1) + " " + y.toFixed(1) + ")");
+    };
+    placeSky(); setInterval(placeSky, 300000);
+  }
+
   // Código Konami: vuelve a encender el tubo con un programa secreto.
   var seq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65], pos = 0;
   document.addEventListener("keydown", function (e) {

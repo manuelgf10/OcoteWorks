@@ -1132,3 +1132,11 @@ footer .wrap.f-bottom::before{content:"";position:absolute;left:var(--pad);right
 .an-quote em{font-style:normal;color:var(--ocote)}
 .an-sign{max-width:none !important;margin-top:26px;font:400 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(244,234,215,.6)}
 @media (max-width:860px){.a-name-grid{grid-template-columns:1fr}}
+
+/* Cerro de la Silla sobre el pie */
+footer{position:relative}
+.f-silla-wrap{position:relative;height:0}
+.f-silla{position:absolute;right:0;bottom:calc(64px - 1px);width:clamp(200px,26vw,360px);height:auto;color:var(--carbon);fill:currentColor;overflow:visible;pointer-events:none}
+.f-sun{fill:var(--ocote)}
+.f-moon{fill:var(--grafito);display:none}
+.f-silla.night .f-sun{display:none}.f-silla.night .f-moon{display:block}
