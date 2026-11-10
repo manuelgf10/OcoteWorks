@@ -115,23 +115,34 @@
       document.body.appendChild(cv);
       var cx = cv.getContext("2d"); cx.scale(dpr, dpr); cx.lineCap = "round";
       var ps = [], t0 = performance.now();
-      for (var i = 0; i < 140; i++) {
-        var ang = Math.PI * (0.78 + Math.random() * 0.62), sp = 3 + Math.random() * 9;   // sale hacia la izquierda y abajo, como en la foto
-        ps.push({ x: ox, y: oy, vx: Math.cos(ang) * sp, vy: -Math.sin(ang) * sp * .55 + (Math.random() - .3) * 3, life: 40 + Math.random() * 70, age: -Math.random() * 18, w: .8 + Math.random() * 1.6 });
+      for (var i = 0; i < 230; i++) {
+        var ang = Math.PI * (0.72 + Math.random() * 0.7), sp = 4 + Math.random() * 11;   // sale hacia la izquierda y abajo, como en la foto
+        ps.push({ x: ox, y: oy, vx: Math.cos(ang) * sp, vy: -Math.sin(ang) * sp * .6 + (Math.random() - .35) * 3.5, life: 55 + Math.random() * 85, age: -Math.random() * 26, w: 1.2 + Math.random() * 2 });
       }
       var frame = function () {
         cx.clearRect(0, 0, innerWidth, innerHeight);
+        var el = performance.now() - t0;
+        if (el < 700) {   // destello en el punto del esmeril
+          var gr = 10 + 26 * Math.random(), ga = (1 - el / 700) * .9;
+          var g = cx.createRadialGradient(ox, oy, 0, ox, oy, gr * 2.2);
+          g.addColorStop(0, "rgba(255,250,220," + ga + ")"); g.addColorStop(.35, "rgba(255,190,80," + ga * .7 + ")"); g.addColorStop(1, "rgba(255,120,30,0)");
+          cx.fillStyle = g; cx.beginPath(); cx.arc(ox, oy, gr * 2.2, 0, 7); cx.fill();
+        }
         var alive = 0;
         ps.forEach(function (p) {
           p.age++; if (p.age < 0 || p.age > p.life) return; alive++;
           var px = p.x, py = p.y;
-          p.vy += .32; p.vx *= .985; p.x += p.vx; p.y += p.vy;
+          p.vy += .3; p.vx *= .986; p.x += p.vx; p.y += p.vy;
           if (p.y > innerHeight - 4 && p.vy > 0) { p.vy *= -.35; p.vx *= .6; }
           var k = 1 - p.age / p.life;
-          cx.strokeStyle = "rgba(255," + (170 + 80 * k | 0) + "," + (60 + 120 * k * k | 0) + "," + k + ")";
-          cx.lineWidth = p.w; cx.beginPath(); cx.moveTo(px, py); cx.lineTo(p.x, p.y); cx.stroke();
+          var a = Math.min(1, k * 1.4), x0 = px - p.vx * .9, y0 = py - p.vy * .9;
+          // cuerpo naranja ocote (se ve sobre el fondo claro) y centro caliente
+          cx.strokeStyle = "rgba(" + (205 + 30 * k | 0) + "," + (78 + 70 * k | 0) + "," + (22 + 20 * k | 0) + "," + a + ")";
+          cx.lineWidth = p.w + .8; cx.beginPath(); cx.moveTo(x0, y0); cx.lineTo(p.x, p.y); cx.stroke();
+          cx.strokeStyle = "rgba(255," + (205 + 45 * k | 0) + "," + (110 + 120 * k | 0) + "," + a * k + ")";
+          cx.lineWidth = Math.max(.6, p.w * .45); cx.beginPath(); cx.moveTo(x0, y0); cx.lineTo(p.x, p.y); cx.stroke();
         });
-        if (alive && performance.now() - t0 < 4000) requestAnimationFrame(frame); else cv.remove();
+        if ((alive || el < 700) && el < 5000) requestAnimationFrame(frame); else cv.remove();
       };
       requestAnimationFrame(frame);
     };
