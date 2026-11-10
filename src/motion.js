@@ -64,7 +64,7 @@
   var clicks = 0, last = 0;
   var onLogo = function (el) {
     var now = Date.now(); clicks = now - last < 1200 ? clicks + 1 : 1; last = now;
-    if (clicks >= 5) { clicks = 0; ignite(el); }
+    if (clicks >= 2) { clicks = 0; ignite(el); }
   };
   var fLogo = document.querySelector(".f-brand picture");
   if (fLogo) { fLogo.style.cursor = "pointer"; fLogo.addEventListener("click", function () { onLogo(fLogo); }); }
@@ -79,7 +79,7 @@
     var kc = 0, kl = 0;
     face.addEventListener("click", function () {
       var now = Date.now(); kc = now - kl < 1200 ? kc + 1 : 1; kl = now;
-      if (kc < 5) return; kc = 0;
+      if (kc < 2) return; kc = 0;
       var vid = face.querySelector("video[data-kiss-video]");
       if (vid) {  // cuando exista el video: la foto cobra vida y vuelve a la foto
         face.classList.add("kissing"); vid.currentTime = 0;
@@ -138,7 +138,7 @@
     ws.addEventListener("click", function () {
       if (ws.classList.contains("flipped")) { ws.classList.remove("flipped"); return; }   // un toque la regresa
       var now = Date.now(); sc = now - sl < 1200 ? sc + 1 : 1; sl = now;
-      if (sc < 5) return; sc = 0; rounds++;
+      if (sc < 2) return; sc = 0; rounds++;
       if (rounds % 2 === 1) { sparks(); secretEv("chispas"); }
       else { ws.classList.add("flipped"); secretEv("nota-taller"); }
     });

@@ -1164,3 +1164,5 @@ footer{position:relative}
 .rl-st:nth-child(6){transform:rotate(-2deg)}
 @media (max-width:860px){.rl-grid{grid-template-columns:1fr}}
 @media (max-width:480px){.rl-sheet ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.rl-st:nth-child(n+5){display:none}}
+/* Secretos de doble toque: sin selección de texto ni zoom por doble toque */
+[data-kiss],[data-sparks],.f-brand picture,.top .brand{-webkit-user-select:none;user-select:none;touch-action:manipulation}
