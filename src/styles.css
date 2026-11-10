@@ -1166,3 +1166,44 @@ footer{position:relative}
 @media (max-width:480px){.rl-sheet ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.rl-st:nth-child(n+5){display:none}}
 /* Secretos de doble toque: sin selección de texto ni zoom por doble toque */
 [data-kiss],[data-sparks],.f-brand picture,.top .brand{-webkit-user-select:none;user-select:none;touch-action:manipulation}
+
+/* Productos · Equipa tu T7 (ilustración propia con puntos de piezas) */
+.t7-l{fill:none;stroke:var(--carbon);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.t7-fill{fill:var(--marfil)}.t7-seat{fill:var(--carbon)}.t7-skid{fill:var(--piedra,#d9d0bd)}.t7-led{fill:var(--cempasuchil)}.t7-tl{fill:var(--ocote)}
+.t7-screen{fill:rgba(39,80,162,.12)}.t7-tire{fill:none;stroke:var(--carbon)}
+.t7-thin{fill:none;stroke:var(--carbon);stroke-width:1.5}.t7-spoke{stroke:var(--carbon);stroke-width:1.2}.t7-knob{stroke:var(--marfil);stroke-width:3}
+.t7-spring{fill:none;stroke:var(--ocote);stroke-width:7;stroke-dasharray:3 3}
+.t7-disc{stroke-dasharray:4 4}.t7-ground{stroke:var(--carbon);stroke-width:2;stroke-dasharray:2 6}
+.cat-kit{padding:clamp(56px,8vw,104px) 0;border-top:2px solid var(--carbon);background:var(--papel)}
+.km-head{text-align:center;max-width:720px;margin:0 auto clamp(28px,4vw,48px)}
+.km-head .eyebrow{justify-content:center}
+.km-head h2{font-size:clamp(56px,7vw,104px);line-height:.9}
+.km-head h2 span{color:var(--grafito);opacity:.55}
+.km-head .lead{margin:18px auto 0;max-width:52ch}
+.km-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr);gap:clamp(24px,4vw,56px);align-items:center}
+.km-draw{position:relative}
+.t7-svg{display:block;width:100%;height:auto}
+.km-pt{position:absolute;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;border:2.5px solid var(--carbon);background:var(--cempasuchil);color:var(--carbon);font:700 15px/1 var(--mono);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:2px 2px 0 var(--carbon);transition:transform .2s cubic-bezier(.3,1.6,.5,1),background .2s}
+.km-pt::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:2px solid var(--ocote);opacity:0;animation:km-pulse 2.4s ease-out infinite}
+.km-pt:nth-child(odd)::after{animation-delay:1.2s}
+.km-pt.km-soon,.km-pt.km-dev{background:var(--marfil)}
+.km-pt:hover,.km-pt:focus-visible{transform:translate(-50%,-50%) scale(1.15)}
+.km-pt.is-on{background:var(--carbon);color:var(--cempasuchil);transform:translate(-50%,-50%) scale(1.15)}
+.km-pt.is-on::after{opacity:0;animation:none}
+@keyframes km-pulse{0%{transform:scale(.8);opacity:.9}70%,100%{transform:scale(1.6);opacity:0}}
+.km-off{margin-top:14px;font:400 12px/1.5 var(--mono);letter-spacing:.06em;text-align:center}
+.km-off a{color:inherit;text-underline-offset:3px}
+.km-cards{position:relative}
+.km-card{background:var(--marfil);border:2px solid var(--carbon);border-radius:var(--r-md);padding:22px 22px 20px;box-shadow:6px 6px 0 var(--carbon);display:flex;flex-direction:column;gap:8px;animation:km-in .35s ease-out}
+.km-card[hidden]{display:none}
+@keyframes km-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.km-code{font:400 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--grafito)}
+.km-code b{color:var(--carbon);margin-right:6px}
+.km-card h3{font-size:clamp(40px,4vw,56px);line-height:.9}
+.km-line{color:var(--grafito)}
+.km-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;flex-wrap:wrap}
+.km-sign.bn-sign{position:static;font-size:14px;transform:rotate(-3deg)}
+.km-go{font:700 13px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--carbon);text-underline-offset:4px}
+@media (max-width:900px){.km-grid{grid-template-columns:1fr}.km-pt{width:28px;height:28px;font-size:13px}}
+@media (max-width:480px){.km-pt{width:24px;height:24px;font-size:11px;border-width:2px}.km-pt::after{inset:-5px}}
+@media (prefers-reduced-motion:reduce){.km-pt::after{display:none}}

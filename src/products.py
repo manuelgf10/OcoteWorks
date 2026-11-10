@@ -589,3 +589,61 @@ def roadlog(lang):
     return (f'<section class="cat-roadlog" id="{"bitacora-de-ruta" if lang == "es" else "road-log"}" aria-labelledby="rl-h"><div class="wrap rl-grid">'
             f'<div><p class="eyebrow">{u["eyebrow"]}</p><h2 id="rl-h">{u["h2"]}</h2><p class="lead">{u["lead"]}</p><p class="rl-use">{u["use"]}</p></div>'
             f'<div class="rl-sheet"><ul>{st}</ul><span class="bn-sign" lang="en">Coming soon!</span></div></div></section>')
+
+
+# ---------- Equipa tu T7: mapa de piezas sobre la ilustración de la moto ----------
+import t7_drawing as T7
+
+# (código, x, y en coordenadas del dibujo). OW-03 (Lucero) no va en la moto: aparece aparte.
+KIT_POINTS = [("OW-02", 214, 186), ("OW-07", 262, 214), ("OW-01", 412, 258), ("OW-08", 468, 386),
+              ("OW-04", 664, 104), ("OW-09", 726, 128), ("OW-05", 760, 70), ("OW-06", 792, 236)]
+KIT_UI = {
+    "es": {"k": "Por moto", "h1": "Equipa", "h2": "tu T7",
+           "lead": "Toca un punto para ver la pieza que va ahí. Todo lo diseñamos y probamos sobre una Yamaha Ténéré 700.",
+           "title": "Ilustración de una Yamaha Ténéré 700 con los puntos donde se montan las piezas de OcoteWorks",
+           "off": "Y para ti, fuera de la moto:", "see": "Ver ficha", "soon_go": "Ver en el banco", "ow01_go": "Lista de espera",
+           "batch": "Primer lote en preparación", "dev": "En desarrollo", "pick": "Pieza"},
+    "en": {"k": "By bike", "h1": "Kit out", "h2": "your T7",
+           "lead": "Tap a point to see the part that goes there. Everything is designed and tested on a Yamaha Ténéré 700.",
+           "title": "Illustration of a Yamaha Ténéré 700 with the points where OcoteWorks parts mount",
+           "off": "And for you, off the bike:", "see": "View product", "soon_go": "See it on the bench", "ow01_go": "Waitlist",
+           "batch": "First batch in preparation", "dev": "In development", "pick": "Part"},
+}
+
+
+def _kit_item(code, lang):
+    """Datos de la tarjeta de una pieza: (apodo o nombre, nombre, línea, estado, enlace, texto del enlace, clase)."""
+    u = KIT_UI[lang]
+    for p in PRODUCTS:
+        if p["code"] == code:
+            return (p[lang]["name"], p[lang]["fit"], p[lang]["card"], u["batch"] + " · " + price(p), url(p, lang), u["see"], "live")
+    if code == "OW-01":
+        U = UI[lang]
+        return (U["ow01_name"], "Rackless", U["ow01_card"], u["dev"], "#ow-01", u["ow01_go"], "dev")
+    for b in BENCH:
+        if b["code"] == code:
+            B = b[lang]
+            return (b["nick"], B["name"], B["line"], "Coming soon!", "#" + b["slug"], u["soon_go"], "soon")
+    raise KeyError(code)
+
+
+def kit_map(lang):
+    u = KIT_UI[lang]
+    vx, vy, vw, vh = 40, 10, 1000, 580
+    pts, cards = "", ""
+    for i, (code, x, y) in enumerate(KIT_POINTS, 1):
+        nick, name, line, st, href, go, kind = _kit_item(code, lang)
+        on = " is-on" if i == 1 else ""
+        pts += (f'<button type="button" class="km-pt km-{kind}{on}" style="left:{(x - vx) / vw * 100:.2f}%;top:{(y - vy) / vh * 100:.2f}%" '
+                f'data-k="{i}" aria-controls="km-c{i}" aria-pressed="{"true" if i == 1 else "false"}" aria-label="{code} · {nick}"><span>{i}</span></button>')
+        stc = '<span class="bn-sign km-sign" lang="en">Coming soon!</span>' if kind == "soon" else f'<span class="pc-st{" pc-st-dev" if kind == "dev" else ""}">{st}</span>'
+        cards += (f'<article class="km-card km-{kind}{on}" id="km-c{i}" data-k="{i}"{"" if i == 1 else " hidden"}>'
+                  f'<p class="km-code"><b>{i:02d}</b> {code} · {u["pick"]}</p><h3>{nick}</h3><p class="pc-fit">{name}</p><p class="km-line">{line}</p>'
+                  f'<div class="km-foot">{stc}<a href="{href}" class="km-go">{go} →</a></div></article>')
+    b03 = next(b for b in BENCH if b["code"] == "OW-03")
+    off = f'<p class="km-off">{u["off"]} <a href="#{b03["slug"]}"><b>{b03["nick"]}</b> · {b03[lang]["name"]}</a></p>'
+    draw = T7.svg().replace("{title}", u["title"]).replace("{hotspots}", "")
+    return (f'<section class="cat-kit" id="{"equipa-tu-t7" if lang == "es" else "kit-out-your-t7"}" aria-labelledby="km-h"><div class="wrap">'
+            f'<div class="km-head"><p class="eyebrow">{u["k"]} · Yamaha Ténéré 700</p><h2 id="km-h"><span>{u["h1"]}</span> {u["h2"]}</h2><p class="lead">{u["lead"]}</p></div>'
+            f'<div class="km-grid"><div class="km-fig"><div class="km-draw">{draw}{pts}</div>{off}</div><div class="km-cards" aria-live="polite">{cards}</div></div>'
+            f'</div></section>')

@@ -998,7 +998,7 @@ def main():
         write(PAGES["products"][i], render(T["catalog"], ctx("products", p_title=U["cat_title"], p_description=U["cat_description"], p_url=data["pr_url"],
                                                              cat_eyebrow=U["cat_eyebrow"], cat_h1=U["cat_h1"], cat_lead=U["cat_lead"],
                                                              cat_cards="".join(PR.card(p, lang) for p in PR.PRODUCTS) + PR.card_ow01(lang, moto_svg()),
-                                                             cat_status_dev=U["status_dev"], cat_ow01_name=U["ow01_name"], cat_bench=PR.bench(lang), cat_roadlog=PR.roadlog(lang),
+                                                             cat_status_dev=U["status_dev"], cat_ow01_name=U["ow01_name"], cat_kit=PR.kit_map(lang), cat_bench=PR.bench(lang), cat_roadlog=PR.roadlog(lang),
                                                              so_form=waitlist_form(data), moto_svg=moto_svg())))
         for p in PR.PRODUCTS:
             key = p["code"].lower().replace("-", "")
