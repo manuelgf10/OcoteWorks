@@ -16,6 +16,8 @@ PRODUCTS = [
         "img_dir": "/assets/products/ow-02",
         # Modelo 3D (GLB en metros, desde el STEP de SolidWorks; material 0 = "rack", se pinta según el acabado).
         "model": "/assets/products/ow-02/ow-02.glb",
+        # Ficha técnica tipo blueprint (src/spec_sheet.py): PDF A3 + vista previa por idioma.
+        "sheet": True,
         # (archivo base, anchos disponibles, ancho x alto del original)
         "images": [("hero", (600, 1000, 1600), (2576, 1449)), ("top", (600, 1000, 1600), (2576, 1449)),
                    ("front", (600, 1000, 1600), (2576, 1449)), ("detail", (500, 900), (1308, 2326))],
@@ -98,6 +100,8 @@ UI = {
         cat_h1="Diseñado <em>en el taller</em>",
         cat_lead="Piezas propias para motos de aventura. Algunas están en preparación: si te interesan, únete a la lista y ayúdanos a decidir qué fabricar primero.",
         cat_view="Ver producto",
+        sheet_k="Ficha técnica", sheet_cta="Descargar PDF", sheet_meta="A3 · vistas, cotas generales y especificaciones",
+        sheet_alt="Vista previa de la ficha técnica del OW-02 en estilo plano: vistas superior, lateral, posterior e isométrica con cotas",
         v3d="Ver en 3D", v3d_hint="Arrastra para girar · pellizca o usa la rueda para acercar", v3d_ar="Ver en tu espacio",
         v3d_load="Cargando modelo 3D…", v3d_err="No se pudo cargar el modelo 3D.",
         v3d_alt="Modelo 3D del tail rack OW-02",
@@ -137,6 +141,8 @@ UI = {
         cat_h1="Designed <em>in the workshop</em>",
         cat_lead="Original parts for adventure motorcycles. Some are in pre-production: if one interests you, join the list and help us decide what to make first.",
         cat_view="View product",
+        sheet_k="Spec sheet", sheet_cta="Download PDF", sheet_meta="A3 · views, overall dimensions and specifications",
+        sheet_alt="Preview of the OW-02 spec sheet in blueprint style: top, side, rear and isometric views with dimensions",
         v3d="View in 3D", v3d_hint="Drag to rotate · pinch or scroll to zoom", v3d_ar="View in your space",
         v3d_load="Loading 3D model…", v3d_err="The 3D model couldn’t load.",
         v3d_alt="3D model of the OW-02 tail rack",
@@ -222,6 +228,19 @@ def gallery(p, lang):
         out.append(f'<div class="pd-gallery{" has-3d" if p.get("model") else ""}" data-variant="{vi}" data-srcs="{data}"{" hidden" if vi else ""}>'
                    f'<div class="pd-stage">{main}</div><div class="pd-thumbs">{thumbs}</div></div>')
     return "".join(out)
+
+
+def sheet_card(p, lang):
+    """Tarjeta con la vista previa del plano y descarga del PDF."""
+    if not p.get("sheet"):
+        return ""
+    u, slug = UI[lang], p["code"].lower()
+    base = f'{p["img_dir"]}/{slug}-ficha-{lang}'
+    return (f'<a class="pd-sheet" href="{base}.pdf" download data-goatcounter-click="ficha-{slug}-{lang}">'
+            f'<picture><source srcset="{base}-700.webp 700w, {base}-1200.webp 1200w" sizes="(max-width:860px) 100vw, 440px" type="image/webp">'
+            f'<img src="{base}-700.jpg" srcset="{base}-700.jpg 700w, {base}-1200.jpg 1200w" sizes="(max-width:860px) 100vw, 440px" '
+            f'alt="{u["sheet_alt"]}" width="1200" height="849" loading="lazy" decoding="async"></picture>'
+            f'<span class="pd-sheet-t"><b>{u["sheet_k"]}</b><small>{u["sheet_meta"]}</small><em>{u["sheet_cta"]} ↓</em></span></a>')
 
 
 def variants(p, lang):
