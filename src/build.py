@@ -181,7 +181,7 @@ def tags(items):
 EN = dict(
     lang="en", og_locale="en_US", url="https://ocoteworks.com/", home="/",
     cur_en=' aria-current="page"', cur_es="",
-    title="OcoteWorks · Dual Sport Design & Development · Monterrey",
+    title="OcoteWorks · Adventure & Dual Sport Design",
     description="Parts and gear for dual sport and adventure motorcycles, designed, engineered and built in Monterrey, Mexico. OcoteWorks is an independent design and fabrication workshop.",
     og_alt="OcoteWorks logo and the tagline Rooted in Mexico. Made to go further.",
     home_label="OcoteWorks, home", nav_label="Main",
@@ -334,7 +334,7 @@ EN = dict(
 ES = dict(
     lang="es", og_locale="es_MX", url="https://ocoteworks.com/es/", home="/es/",
     cur_en="", cur_es=' aria-current="page"',
-    title="OcoteWorks · Diseño y desarrollo dual sport · Monterrey",
+    title="OcoteWorks · Diseño para motos de aventura y doble propósito",
     description="Piezas y accesorios para motos dual sport y de aventura, diseñados, desarrollados y fabricados en Monterrey. OcoteWorks es un taller independiente de diseño y fabricación.",
     og_alt="Logo de OcoteWorks y el lema Rooted in Mexico. Made to go further.",
     home_label="OcoteWorks, inicio", nav_label="Principal",
