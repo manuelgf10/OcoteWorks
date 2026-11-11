@@ -16,6 +16,9 @@ PRODUCTS = [
         "img_dir": "/assets/products/ow-02",
         # Modelo 3D (GLB en metros, desde el STEP de SolidWorks; material 0 = "rack", se pinta según el acabado).
         "model": "/assets/products/ow-02/ow-02.glb",
+        # PRUEBA (10 nov 2026): el rack montado en la moto (clay), botón "En la moto" dentro del visor 3D.
+        # Para retirarlo: borrar esta línea (y el archivo ow-02-moto.glb) y regenerar.
+        "model_moto": "/assets/products/ow-02/ow-02-moto.glb",
         # Ficha técnica tipo blueprint (src/spec_sheet.py): PDF A3 + vista previa por idioma.
         "sheet": True,
         # Cotas generales del CAD (largo, ancho, alto) en mm y datos para la banda de plano animada.
@@ -149,6 +152,7 @@ UI = {
         sheet_alt="Vista previa de la ficha técnica del OW-02 en estilo plano: vistas superior, lateral, posterior e isométrica con cotas",
         v3d="Ver en 3D", v3d_hint="Arrastra para girar · pellizca o usa la rueda para acercar", v3d_ar="Ver en tu espacio",
         v3d_load="Cargando modelo 3D…", v3d_err="No se pudo cargar el modelo 3D.",
+        v3d_moto="En la moto", v3d_part="Solo la pieza", v3d_moto_load="Montando el rack en la moto…",
         v3d_alt="Modelo 3D del tail rack OW-02",
         status_batch="Primer lote en preparación",
         status_dev="En desarrollo",
@@ -198,6 +202,7 @@ UI = {
         sheet_alt="Preview of the OW-02 spec sheet in blueprint style: top, side, rear and isometric views with dimensions",
         v3d="View in 3D", v3d_hint="Drag to rotate · pinch or scroll to zoom", v3d_ar="View in your space",
         v3d_load="Loading 3D model…", v3d_err="The 3D model couldn’t load.",
+        v3d_moto="On the bike", v3d_part="Just the part", v3d_moto_load="Mounting the rack on the bike…",
         v3d_alt="3D model of the OW-02 tail rack",
         status_batch="First batch in pre-production",
         status_dev="In development",
@@ -286,6 +291,8 @@ def gallery(p, lang):
             thumbs += (f'<button type="button" class="pd-thumb pd-thumb-3d" data-3d="{p["model"]}" data-lib="/assets/vendor/model-viewer-4.4.0.min.js" '
                        f'data-alt="{u["v3d_alt"]}" data-hint="{u["v3d_hint"]}" data-ar="{u["v3d_ar"]}" data-load="{u["v3d_load"]}" data-err="{u["v3d_err"]}" '
                        f"data-hs='{hotspots_json(p, lang)}' "
+                       + (f'data-moto="{p["model_moto"]}" data-moto-on="{u["v3d_moto"]}" data-moto-off="{u["v3d_part"]}" data-moto-load="{u["v3d_moto_load"]}" '
+                          if p.get("model_moto") else "") +
                        f'aria-label="{u["v3d"]}">'
                        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7z M3.5 7 12 11.5 20.5 7 M12 11.5v10"/></svg>'
                        '<span>3D</span></button>')

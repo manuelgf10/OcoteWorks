@@ -26,7 +26,7 @@
   var paint = function () {
     if (!viewer || !viewer.model) return;
     var c = color(); if (!c) return;
-    viewer.model.materials[0].pbrMetallicRoughness.setBaseColorFactor(c);
+    (viewer.model.getMaterialByName("rack") || viewer.model.materials[0]).pbrMetallicRoughness.setBaseColorFactor(c);
     viewer.exposure = c.toLowerCase() === "#17171a" ? 1.1 : 0.85;  // el blanco se quema con la misma luz
   };
   var buildViewer = function (t) {
@@ -64,6 +64,34 @@
       bar.hidden = false;
     };
     mv.addEventListener("load", function () { mv.querySelector(".pd-3d-load").hidden = true; paint(); });
+    // Vista "En la moto" (prueba): cambia el modelo por el rack montado en la moto en clay; sin puntos ni AR.
+    if (d.moto) {
+      var base = { src: d["3d"], target: "auto auto auto", orbit: attrs["camera-orbit"], min: attrs["min-camera-orbit"], max: attrs["max-camera-orbit"] };
+      var moto = { src: d.moto, target: "0.45m 0.80m 0m", orbit: "58deg 66deg 3m", min: "auto 0deg 0.5m", max: "auto 172deg 6m" };
+      var tb = document.createElement("button");
+      tb.type = "button"; tb.className = "pd-moto-btn";
+      tb.setAttribute("aria-pressed", "false"); tb.textContent = d.motoOn;
+      var setMode = function (on) {
+        var m = on ? moto : base, load = mv.querySelector(".pd-3d-load");
+        mv.classList.toggle("pd-on-moto", on);
+        tb.setAttribute("aria-pressed", on ? "true" : "false"); tb.textContent = on ? d.motoOff : d.motoOn;
+        if (on) mv.removeAttribute("ar"); else mv.setAttribute("ar", "");
+        active = -1; mv.querySelectorAll(".pd-hs").forEach(function (b) { b.classList.remove("on"); });
+        var bar = mv.parentNode && mv.parentNode.querySelector(".pd-3d-info"); if (bar) bar.hidden = true;
+        load.textContent = on ? d.motoLoad : d.load; load.hidden = false;
+        mv.setAttribute("min-camera-orbit", m.min); mv.setAttribute("max-camera-orbit", m.max);
+        mv.setAttribute("camera-target", m.target); mv.setAttribute("camera-orbit", m.orbit);
+        mv.src = m.src;
+      };
+      tb.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var on = tb.getAttribute("aria-pressed") !== "true";
+        if (on) ev("3d-moto-" + slug, "Ve el rack en la moto · " + code);
+        setMode(on);
+      });
+      mv.addEventListener("load", function () { mv.jumpCameraToGoal && mv.jumpCameraToGoal(); });
+      mv.appendChild(tb);
+    }
     mv.addEventListener("error", function () { mv.querySelector(".pd-3d-load").textContent = d.err; });
     return mv;
   };

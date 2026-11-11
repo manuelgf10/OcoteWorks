@@ -816,6 +816,11 @@ a{text-underline-offset:.18em;text-decoration-thickness:from-font}
 .pd-3d-info:not([hidden])~.pd-3d-hint,.pd-3d-hint:has(~.pd-3d-info:not([hidden])){visibility:hidden}
 @media (max-width:600px){.pd-3d-info{left:6px;right:6px;bottom:6px;padding:7px 10px;font-size:12px;gap:8px}.pd-hs{width:24px;height:24px;font-size:11px}}
 @media (prefers-reduced-motion:reduce){.pd-hs{animation:none}}
+/* Prueba: rack en la moto (botón dentro del visor 3D) */
+.pd-moto-btn{position:absolute;top:10px;left:10px;z-index:2;padding:8px 12px;border:2px solid var(--carbon);border-radius:var(--r-sm);background:var(--marfil);color:var(--carbon);font:700 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s,color .15s,transform .1s}
+.pd-moto-btn:active{transform:translateY(1px)}
+.pd-moto-btn[aria-pressed="true"]{background:var(--carbon);color:var(--marfil)}
+model-viewer.pd-on-moto .pd-hs{display:none}
 .pd-ar{position:absolute;top:10px;right:10px;padding:8px 12px;border:2px solid var(--carbon);border-radius:var(--r-sm);background:var(--cempasuchil);color:var(--carbon);font:700 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 @media (max-width:600px){.pd-3d-hint{font-size:10px;right:12px}.has-3d .pd-thumbs{gap:6px}.pd-thumb-3d span{font-size:11px}}
 .pd-code{font:400 13px/1 var(--mono);letter-spacing:.14em;color:var(--grafito)}
